@@ -1,0 +1,28 @@
+!SESSION 2014-08-01 14:15:02.888 -----------------------------------------------
+eclipse.buildId=4.4.0.I20140606-1215
+java.version=1.8.0
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product -product org.eclipse.epp.package.standard.product -keyring /Users/rt/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.standard.product -data /Users/rt/Workspace/aalborg/FriendFinderProject/Code -product org.eclipse.epp.package.standard.product -keyring /Users/rt/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2014-08-01 14:15:17.582
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2014-08-01 14:15:51.923
+!MESSAGE No repository found at file:/Applications/sdk/.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2014-08-01 14:15:53.675
+!MESSAGE Unable to acquire PluginConverter service during generation for: /Applications/eclipse/features/net.sourceforge.metrics_1.3.8.20100730-001.jar.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2014-08-01 14:15:53.743
+!MESSAGE Unable to acquire PluginConverter service during generation for: /Applications/eclipse/features/net.sourceforge.metrics_1.3.8.20100730-001.jar.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2014-08-01 14:15:57.170
+!MESSAGE No repository found at file:/Applications/eclipse/plugins/com.android.ide.eclipse.adt.package_23.0.2.1259578/.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2014-08-01 14:15:57.207
+!MESSAGE No repository found at file:/Applications/eclipse/plugins/.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-08-01 14:17:33.624
+!MESSAGE Failed to load properties file for project 'FriendFinderApplication'
