@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,10 +18,12 @@ import android.widget.TextView;
 
 import com.parse.FindCallback;
 import com.parse.Parse;
+import com.parse.ParseACL;
 import com.parse.ParseAnalytics;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 
 public class MainActivity extends Activity implements OnItemClickListener {
@@ -29,9 +32,9 @@ public class MainActivity extends Activity implements OnItemClickListener {
 	private static final String PARSE_APPLICATION_ID = "rU3OkVyuuIgA17MsCPBgspurzhM00QOSxIaXvzsI";
 	private static final String PARSE_CLIENT_KEY = "Vw4U1lSXshwY9Nia14KV1MpGxJht8S3Q9H1N7TVP";
 		
-	EditText mTaskInput;
-	ListView mListView;
-	TaskAdapter mAdapter;
+	protected EditText mTaskInput;
+	protected ListView mListView;
+	protected TaskAdapter mAdapter;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,13 @@ public class MainActivity extends Activity implements OnItemClickListener {
         ParseAnalytics.trackAppOpened(getIntent());
         
         ParseObject.registerSubclass(Task.class);
+        
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if(currentUser == null){
+          Intent intent = new Intent(this, LoginActivity.class);
+          startActivity(intent);
+          finish();
+        }
         
         mTaskInput = (EditText) findViewById(R.id.task_input);
         mListView = (ListView) findViewById(R.id.task_list);
@@ -58,6 +68,8 @@ public class MainActivity extends Activity implements OnItemClickListener {
     	if (mTaskInput.getText().length() > 0) {
     		Task t = new Task();
     		t.setDescription(mTaskInput.getText().toString());
+    		t.setACL(new ParseACL(ParseUser.getCurrentUser()));
+    		t.setUser(ParseUser.getCurrentUser());
     		t.setCompleted(false);
     		t.saveEventually();
     		// delete textfield
@@ -69,6 +81,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
     
     public void updateData() {
     	ParseQuery<Task> query = ParseQuery.getQuery(Task.class);
+    	query.whereEqualTo("user", ParseUser.getCurrentUser());
     	  query.findInBackground(new FindCallback<Task>() {
     	          
     	      @Override
@@ -80,8 +93,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
     	      }
     	  });
     }
-
-
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -91,14 +103,15 @@ public class MainActivity extends Activity implements OnItemClickListener {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    	switch (item.getItemId()) {
+    	  case R.id.action_logout:
+    	      ParseUser.logOut();
+    	      Intent intent = new Intent(this, LoginActivity.class);
+    	      startActivity(intent);
+    	      finish();
+    	      return true;
+    	  }
+    	  return false;
     }
 
     @Override
