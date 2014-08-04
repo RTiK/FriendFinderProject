@@ -1,22 +1,29 @@
 package com.summerschool.friendfinderapplication;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.parse.FindCallback;
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
 import com.parse.ParseException;
 import com.parse.ParseObject;
-import com.parse.ParseUser;
+import com.parse.ParseQuery;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements OnItemClickListener {
 
 	// Parse application keys
 	private static final String PARSE_APPLICATION_ID = "rU3OkVyuuIgA17MsCPBgspurzhM00QOSxIaXvzsI";
@@ -24,6 +31,7 @@ public class MainActivity extends Activity {
 		
 	EditText mTaskInput;
 	ListView mListView;
+	TaskAdapter mAdapter;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,17 +46,39 @@ public class MainActivity extends Activity {
         mTaskInput = (EditText) findViewById(R.id.task_input);
         mListView = (ListView) findViewById(R.id.task_list);
         
+        mListView.setOnItemClickListener(this);
+        
+        mAdapter = new TaskAdapter(this, new ArrayList<Task>());
+        mListView.setAdapter(mAdapter);
+        
+        updateData();
     }
     
     public void createTask(View v) {
     	if (mTaskInput.getText().length() > 0) {
     		Task t = new Task();
     		t.setDescription(mTaskInput.getText().toString());
-    		t.setComleted(false);
+    		t.setCompleted(false);
     		t.saveEventually();
     		// delete textfield
     		mTaskInput.setText("");
+    		mAdapter.insert(t, 0);
     	}
+    	updateData();
+    }
+    
+    public void updateData() {
+    	ParseQuery<Task> query = ParseQuery.getQuery(Task.class);
+    	  query.findInBackground(new FindCallback<Task>() {
+    	          
+    	      @Override
+    	      public void done(List<Task> tasks, ParseException error) {
+    	          if(tasks != null){
+    	              mAdapter.clear();
+    	              mAdapter.addAll(tasks);
+    	          }
+    	      }
+    	  });
     }
 
 
@@ -70,4 +100,38 @@ public class MainActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+      Task task = mAdapter.getItem(position);
+      TextView taskDescription = (TextView) view.findViewById(R.id.task_description);
+
+      task.setCompleted(!task.isCompleted());
+
+      if(task.isCompleted()){
+          taskDescription.setPaintFlags(taskDescription.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+      }else{
+          taskDescription.setPaintFlags(taskDescription.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+      }
+
+      task.saveEventually();
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

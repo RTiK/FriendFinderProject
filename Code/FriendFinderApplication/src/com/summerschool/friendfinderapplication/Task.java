@@ -14,15 +14,15 @@ public class Task extends ParseObject {
 		return getBoolean("completed");
 	}
 	
-	public void setComleted(boolean complete) {
+	public void setCompleted(boolean complete) {
 		put("completed", complete);
 	}
 	
 	public String getDescription() {
-		return getString("textDescription");
+		return getString("description");
 	}
 	
 	public void setDescription(String description) {
-		put("desciption", description);
+		put("description", description);
 	}
 }
