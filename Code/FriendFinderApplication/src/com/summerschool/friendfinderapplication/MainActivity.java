@@ -5,6 +5,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.parse.Parse;
+import com.parse.ParseAnalytics;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
+
 
 public class MainActivity extends Activity {
 
@@ -14,6 +20,11 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        // Parse ID and client key. (Database identification)
+        Parse.initialize(this, "rU3OkVyuuIgA17MsCPBgspurzhM00QOSxIaXvzsI", "Vw4U1lSXshwY9Nia14KV1MpGxJht8S3Q9H1N7TVP");
+        
+        
     }
 
 
