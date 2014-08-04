@@ -14,15 +14,19 @@ import com.parse.ParseUser;
 
 public class MainActivity extends Activity {
 
-	
+	// Parse application keys
+	private static final String PARSE_APPLICATION_ID = "rU3OkVyuuIgA17MsCPBgspurzhM00QOSxIaXvzsI";
+	private static final String PARSE_CLIENT_KEY = "Vw4U1lSXshwY9Nia14KV1MpGxJht8S3Q9H1N7TVP";
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        // Parse ID and client key. (Database identification)
-        Parse.initialize(this, "rU3OkVyuuIgA17MsCPBgspurzhM00QOSxIaXvzsI", "Vw4U1lSXshwY9Nia14KV1MpGxJht8S3Q9H1N7TVP");
+        Parse.initialize(this, PARSE_APPLICATION_ID, PARSE_CLIENT_KEY);
+        ParseAnalytics.trackAppOpened(getIntent());
+        
+        ParseObject.registerSubclass(Task.class);
         
         
     }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Friend Finder</string>
+    <string name="hello_friend">Hello friend!</string>
+    <string name="action_settings">Settings</string>
+    <string name="parseApplicationID">rU3OkVyuuIgA17MsCPBgspurzhM00QOSxIaXvzsI</string>
+    <string name="parseClientKey">Vw4U1lSXshwY9Nia14KV1MpGxJht8S3Q9H1N7TVP</string>
+
+</resources>

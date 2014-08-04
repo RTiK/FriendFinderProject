@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.parse.ParseAnalytics"/>
-<fullyQualifiedTypeName name="com.parse.ParseObject"/>
 <fullyQualifiedTypeName name="com.parse.ParseUser"/>
+<fullyQualifiedTypeName name="com.summerschool.friendfinderapplication.R.id"/>
+<fullyQualifiedTypeName name="com.summerschool.friendfinderapplication.R.string"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="com.parse.ParseAnalytics"/>
+<fullyQualifiedTypeName name="com.summerschool.friendfinderapplication.Task"/>
+<fullyQualifiedTypeName name="com.parse.ParseObject"/>
 </qualifiedTypeNameHistroy>
