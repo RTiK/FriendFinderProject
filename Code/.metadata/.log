@@ -1473,3 +1473,28 @@ org.xml.sax.SAXParseException; lineNumber: 28; columnNumber: 72; The prefix "par
 	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:143)
 	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:241)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SESSION 2014-08-04 12:02:49.462 -----------------------------------------------
+eclipse.buildId=4.4.0.I20140606-1215
+java.version=1.8.0
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.standard.product -keyring /Users/rt/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.standard.product -keyring /Users/rt/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2014-08-04 12:06:39.746
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2014-08-04 12:07:11.977
+!MESSAGE No repository found at file:/Applications/sdk/.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2014-08-04 12:07:12.886
+!MESSAGE Unable to acquire PluginConverter service during generation for: /Applications/eclipse/features/net.sourceforge.metrics_1.3.8.20100730-001.jar.
+
+!ENTRY org.eclipse.equinox.p2.publisher.eclipse 4 0 2014-08-04 12:07:13.432
+!MESSAGE Unable to acquire PluginConverter service during generation for: /Applications/eclipse/features/net.sourceforge.metrics_1.3.8.20100730-001.jar.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2014-08-04 12:07:15.663
+!MESSAGE No repository found at file:/Applications/eclipse/plugins/com.android.ide.eclipse.adt.package_23.0.2.1259578/.
+
+!ENTRY org.eclipse.equinox.p2.metadata.repository 4 1000 2014-08-04 12:07:15.700
+!MESSAGE No repository found at file:/Applications/eclipse/plugins/.
