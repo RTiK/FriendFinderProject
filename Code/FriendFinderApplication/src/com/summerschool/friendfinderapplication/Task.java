@@ -1,7 +1,9 @@
 package com.summerschool.friendfinderapplication;
 
+import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
+@ParseClassName("Task")
 public class Task extends ParseObject {
 	
 	public Task() {

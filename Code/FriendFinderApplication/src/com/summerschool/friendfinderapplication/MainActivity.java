@@ -21,7 +21,7 @@ public class MainActivity extends Activity {
 	// Parse application keys
 	private static final String PARSE_APPLICATION_ID = "rU3OkVyuuIgA17MsCPBgspurzhM00QOSxIaXvzsI";
 	private static final String PARSE_CLIENT_KEY = "Vw4U1lSXshwY9Nia14KV1MpGxJht8S3Q9H1N7TVP";
-	
+		
 	EditText mTaskInput;
 	ListView mListView;
 	
