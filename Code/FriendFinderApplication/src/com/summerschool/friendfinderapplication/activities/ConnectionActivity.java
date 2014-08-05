@@ -6,7 +6,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.parse.LogInCallback;
@@ -22,8 +23,8 @@ public class ConnectionActivity extends Activity {
 	private static final String PARSE_APPLICATION_ID = "rU3OkVyuuIgA17MsCPBgspurzhM00QOSxIaXvzsI";
 	private static final String PARSE_CLIENT_KEY = "Vw4U1lSXshwY9Nia14KV1MpGxJht8S3Q9H1N7TVP";
 	
-	protected Button mConnButton;
-	protected TextView mConnInput;	
+	protected ImageButton mConnButton;
+	protected EditText mConnInput;	
 	protected TextView mErrorField;
 	
 	/**
@@ -73,8 +74,8 @@ public class ConnectionActivity extends Activity {
 		ParseAnalytics.trackAppOpened(getIntent());
 		
 		//Init fields
-		//mConnButton = (Button) findViewById(R.id.connButton);
-		//mConnInput = (Button) findViewById(R.id.connInput);
+		mConnButton = (ImageButton) findViewById(R.id.connButton);
+		mConnInput = (EditText) findViewById(R.id.connInput);
 		//mErrorField = (TextView) findViewById(R.id.errorField);
 				
 	}
