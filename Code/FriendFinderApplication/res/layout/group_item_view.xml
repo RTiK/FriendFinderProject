@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <Switch
+        android:id="@+id/item_group_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/item_group_name"
+        android:paddingTop="15dp"
+        android:width="100dp" />
+
+    <TextView
+        android:id="@+id/item_group_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:ems="8"
+        android:paddingTop="10dp"
+        android:text="Group" >
+
+        <requestFocus />
+    </TextView>
+
+    <ImageButton
+        android:id="@+id/item_group_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/item_group_switch"
+        android:baselineAlignBottom="false"
+        android:cropToPadding="false"
+        android:fitsSystemWindows="false"
+        android:maxHeight="40dp"
+        android:maxWidth="40dp"
+        android:src="@android:drawable/ic_dialog_info" />
+
+</RelativeLayout>

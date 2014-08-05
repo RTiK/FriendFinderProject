@@ -5,14 +5,16 @@ import java.util.List;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.summerschool.friendfinderapplication.R;
 import com.summerschool.friendfinderapplication.models.Group;
@@ -54,25 +56,6 @@ public class GroupListActivity extends Activity {
 		ListView list = (ListView) findViewById(R.id.groupListView);
 		list.setAdapter(adapter);
 	}	
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.group_list, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
 	
 	private class MyGroupAdapter extends ArrayAdapter<Group> {
 
@@ -89,15 +72,37 @@ public class GroupListActivity extends Activity {
 			}
 			
 			//find the group to work with
-			Group currentGroup = myGroups.get(position);
+			final Group currentGroup = myGroups.get(position);
 			
-			//Set the text of the TextField to the right name
+			//Set the text of the TextField to the right name and its onclicklistener
 			TextView textView = (TextView) itemView.findViewById(R.id.item_group_name);
 			textView.setText(currentGroup.getName());
+			textView.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Toast.makeText(GroupListActivity.this, "This is " + currentGroup.getName(), Toast.LENGTH_SHORT).show();
+				}
+			});
 			
+			//Set onclicklistener for ImageButton
+			ImageButton infButton = (ImageButton) itemView.findViewById(R.id.item_group_info);
+			infButton.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Toast.makeText(GroupListActivity.this, "This is " + currentGroup.getName(), Toast.LENGTH_SHORT).show();
+				}
+			});
+			
+			//Set onclicklistener for ImageButton
+			Switch gpsSwitch = (Switch) itemView.findViewById(R.id.item_group_switch);
+			gpsSwitch.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Toast.makeText(GroupListActivity.this, "This is " + currentGroup.getName(), Toast.LENGTH_SHORT).show();
+				}
+			});
+						
 			return itemView;
 		}
-
-		
 	}
 }
