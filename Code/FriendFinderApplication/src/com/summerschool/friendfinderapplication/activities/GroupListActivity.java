@@ -40,7 +40,7 @@ public class GroupListActivity extends Activity {
 	}
 	
 	private void populateGroupList() {
-		//Testing data
+		//Testing data -> needs to be extracted from parse DB with relation to the specific user
 		myGroups.add(new Group("Group 1", "This is group number one", true));
 		myGroups.add(new Group("Group 2", "This is group number two", true));
 		myGroups.add(new Group("Group 3", "This is group number tree", true));

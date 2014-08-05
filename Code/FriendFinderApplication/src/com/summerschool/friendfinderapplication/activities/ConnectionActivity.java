@@ -46,7 +46,7 @@ public class ConnectionActivity extends Activity {
 					@Override
 					public void done(ParseUser user, ParseException e) {
 						if(user != null) {
-							Intent intent = new Intent(ConnectionActivity.this, MainActivity.class);
+							Intent intent = new Intent(ConnectionActivity.this, GroupListActivity.class);
 							startActivity(intent);
 							finish();
 						} else {
