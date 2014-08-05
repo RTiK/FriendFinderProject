@@ -5,6 +5,7 @@ public class Group {
 	private String ID_Group;
 	private String name;
 	private String description;
+	private boolean gps;
 
 	public String getName() {
 		return this.name;
@@ -30,4 +31,17 @@ public class Group {
 		this.description = description;
 	}
 
+	public boolean getGPS(){
+		return this.gps; 
+	}
+	
+	/**
+	 * 
+	 * @param gps
+	 */
+	public void setGPS(boolean gps){
+		this.gps = gps;
+	}
+	
+	
 }
