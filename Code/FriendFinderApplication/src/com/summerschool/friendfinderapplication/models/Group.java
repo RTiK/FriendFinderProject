@@ -6,7 +6,11 @@ public class Group {
 	private String name;
 	private String description;
 	private boolean gps;
-
+	
+	public Group(){
+		
+	}
+	
 	public String getName() {
 		return this.name;
 	}

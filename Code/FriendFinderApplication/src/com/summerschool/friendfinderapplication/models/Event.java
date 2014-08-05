@@ -9,6 +9,10 @@ public class Event {
 	private String time;
 	private String date;
 
+	public Event(){
+		
+	}
+	
 	public String getTitle() {
 		return this.title;
 	}

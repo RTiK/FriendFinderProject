@@ -8,6 +8,10 @@ public class POI {
 	private String description;
 	private byte rating;
 
+	public POI(){
+		
+	}
+	
 	public String getTitle() {
 		return this.title;
 	}

@@ -7,6 +7,10 @@ public class User {
 	private double cLocation;
 	private boolean GPSActivated;
 
+	public User(){
+		
+	}
+	
 	public String getName() {
 		return this.name;
 	}
