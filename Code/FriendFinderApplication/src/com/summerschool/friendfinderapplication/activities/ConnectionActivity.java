@@ -34,32 +34,36 @@ public class ConnectionActivity extends Activity {
 	public void onClickConnButton(final View v) {
 		v.setEnabled(false);
 		
-		ParseUser.logInInBackground(mConnInput.getText().toString(), "asdf", 
-				new LogInCallback() {
-					
-					@Override
-					public void done(ParseUser user, ParseException e) {
-						if(user != null) {
-							Intent intent = new Intent(ConnectionActivity.this, MainActivity.class);
-							startActivity(intent);
-							finish();
-						} else {
-							//Login failed
-							switch(e.getCode()){
-							case ParseException.USERNAME_TAKEN:
-								mErrorField.setText("Sorry, this username has already been taken.");
-								break;
-							case ParseException.USERNAME_MISSING:
-								mErrorField.setText("Sorry, you must supply a username to register.");
-								break;
-							default:
-								mErrorField.setText(e.getLocalizedMessage());
-								break;
-							}	
-							v.setEnabled(true);
-						}
-					}
-				});
+		Intent intent = new Intent(ConnectionActivity.this, GroupListActivity.class);
+		startActivity(intent);
+		finish();
+		
+//		ParseUser.logInInBackground(mConnInput.getText().toString(), "asdf", 
+//				new LogInCallback() {
+//					
+//					@Override
+//					public void done(ParseUser user, ParseException e) {
+//						if(user != null) {
+//							Intent intent = new Intent(ConnectionActivity.this, MainActivity.class);
+//							startActivity(intent);
+//							finish();
+//						} else {
+//							//Login failed
+//							switch(e.getCode()){
+//							case ParseException.USERNAME_TAKEN:
+//								mErrorField.setText("Sorry, this username has already been taken.");
+//								break;
+//							case ParseException.USERNAME_MISSING:
+//								mErrorField.setText("Sorry, you must supply a username to login.");
+//								break;
+//							default:
+//								mErrorField.setText(e.getLocalizedMessage());
+//								break;
+//							}	
+//							v.setEnabled(true);
+//						}
+//					}
+//				});
 		
 		
 	}

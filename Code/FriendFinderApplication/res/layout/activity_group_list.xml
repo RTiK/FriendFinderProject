@@ -9,8 +9,18 @@
     tools:context="com.summerschool.friendfinderapplication.activity.GroupListActivity" >
 
     <TextView
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hello_world" />
+
+    <ListView
+        android:id="@+id/groupListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="14dp" >
+    </ListView>
 
 </RelativeLayout>

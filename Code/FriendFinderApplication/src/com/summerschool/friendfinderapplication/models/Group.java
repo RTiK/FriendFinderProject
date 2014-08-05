@@ -6,9 +6,12 @@ public class Group {
 	private String name;
 	private String description;
 	private boolean gps;
-	
-	public Group(){
-		
+
+	public Group(String name, String description, boolean gps) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.gps = gps;
 	}
 	
 	public String getName() {
