@@ -1,52 +1,35 @@
 package com.summerschool.friendfinderapplication.models;
 
-public class User {
+import com.parse.ParseClassName;
+import com.parse.ParseObject;
 
-	private String ID_User;
-	private String name;
-	private double cLocation;
-	private boolean GPSActivated;
+@ParseClassName("User")
+public class User extends ParseObject {
 
-	public User(){
+	public User() {
 		
 	}
 	
+	//Getters
 	public String getName() {
-		return this.name;
+		return getString("name");
+	}	
+	public boolean getGPSActive() {
+		return this.getBoolean("GPSActive");
+	}	
+	public double getLocation() {
+		return this.getLocation();
 	}
-
-	/**
-	 * 
-	 * @param name
-	 */
+	
+	
+	//Setters
 	public void setName(String name) {
-		this.name = name;
+		put("name",name);
 	}
-
-	public double getCLocation() {
-		return this.cLocation;
+	public void setGPSActive(boolean value) {
+		this.put("GPSActive", value);
 	}
-
-	/**
-	 * 
-	 * @param cLocation
-	 */
-	public void setCLocation(double cLocation) {
-		this.cLocation = cLocation;
+	public void setLocation() {
+		this.setLocation();
 	}
-
-	public boolean getGPSActivated() {
-		// TODO - implement User.getGPSActivated
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param GPSActivated
-	 */
-	public void setGPSActivated(boolean GPSActivated) {
-		// TODO - implement User.setGPSActivated
-		throw new UnsupportedOperationException();
-	}
-
 }
