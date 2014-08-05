@@ -2,5 +2,11 @@
 <resources>
 
     <string name="app_name">FriendFinder</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_connection">ConnectionActivity</string>
+    <string name="title_activity_group_list">GroupListActivity</string>
+    <string name="title_activity_group_description">GroupDescriptionActivity</string>
 
 </resources>
