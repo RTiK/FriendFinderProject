@@ -73,9 +73,9 @@ public class ConnectionActivity extends Activity {
 		ParseAnalytics.trackAppOpened(getIntent());
 		
 		//Init fields
-		mConnButton = (Button) findViewById(R.id.connButton);
-		mConnInput = (Button) findViewById(R.id.connInput);
-		mErrorField = (TextView) findViewById(R.id.errorField);
+		//mConnButton = (Button) findViewById(R.id.connButton);
+		//mConnInput = (Button) findViewById(R.id.connInput);
+		//mErrorField = (TextView) findViewById(R.id.errorField);
 				
 	}
 
