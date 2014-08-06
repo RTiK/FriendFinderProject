@@ -57,15 +57,6 @@
 	        android:onClick="onClickAddGroup"
 	        android:text="+" />
 	
-	    <Button
-	        android:id="@+id/reload_button"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignBaseline="@+id/new_group_button"
-	        android:layout_alignBottom="@+id/new_group_button"
-	        android:layout_toLeftOf="@+id/new_group_button"
-	        android:onClick="onClickReloadButton"
-	        android:text="reload" />
 	</RelativeLayout>
 	<LinearLayout
         android:id="@+id/BottomMenu"
@@ -73,9 +64,10 @@
         android:weightSum="3" >
 
         <Button
-            android:id="@+id/Option_one"
+            android:id="@+id/group_map_button"
             style="@style/button"
-            android:text="@string/button_one" />
+            android:text="@string/group_map"
+            android:onClick="onClickGroupMap" />
 
         <Button
             android:id="@+id/Option_two"
