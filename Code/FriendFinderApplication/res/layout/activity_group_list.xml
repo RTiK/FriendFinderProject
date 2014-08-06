@@ -31,26 +31,41 @@
         android:layout_alignStart="@+id/BottomMenu"
         android:layout_below="@+id/actionBar"
         android:paddingBottom="50dp" >
+
+	    <TextView
+	        android:id="@+id/helloView"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/hello_world" />
 	
 	    <ListView
 	        android:id="@+id/groupListView"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/helloView"
+	        android:layout_below="@+id/helloView"
 	        android:layout_marginTop="14dp" >
-
 	    </ListView>
-
+	
+	    <Button
+	        android:id="@+id/new_group_button"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignRight="@+id/groupListView"
+	        android:layout_alignTop="@+id/helloView"
+	        android:layout_marginRight="20dp"
+	        android:onClick="onClickAddGroup"
+	        android:text="+" />
+	
 	    <Button
 	        android:id="@+id/reload_button"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_alignParentLeft="true"
-	        android:layout_alignParentRight="true"
-	        android:layout_alignParentTop="true"
-	        android:background="#F5F5F5"
+	        android:layout_alignBaseline="@+id/new_group_button"
+	        android:layout_alignBottom="@+id/new_group_button"
+	        android:layout_toLeftOf="@+id/new_group_button"
 	        android:onClick="onClickReloadButton"
 	        android:text="reload" />
-
 	</RelativeLayout>
 	<LinearLayout
         android:id="@+id/BottomMenu"
@@ -70,7 +85,6 @@
         <Button
             android:id="@+id/Option_three"
             style="@style/button"
-            android:onClick="onClickAddGroup"
             android:text="@string/add" />
         
     </LinearLayout>
