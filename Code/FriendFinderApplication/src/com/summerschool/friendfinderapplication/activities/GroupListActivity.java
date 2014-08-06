@@ -56,7 +56,7 @@ public class GroupListActivity extends Activity {
 	}
 	
 	private void updateGroupList() {
-		Log.i("userinfo:",""+ParseUser.getCurrentUser());
+		Log.i("userinfo:",""+ParseUser.getCurrentUser() + " ___ " + ParseUser.getCurrentUser().getObjectId());
 		//Add your own groups
 		ParseQuery<Group> query = ParseQuery.getQuery(Group.class);
 		query.whereEqualTo("user", ParseUser.getCurrentUser());
@@ -69,9 +69,7 @@ public class GroupListActivity extends Activity {
 				} else if(groups != null) {
 					Log.i("created group size", "" + groups.size());
 					adapter.clear();
-					for(Group g : groups) {
-						adapter.add(g);
-					}
+					adapter.addAll(groups);
 				}
 			}
 		});

@@ -32,7 +32,7 @@ public class NewGroupActivity extends Activity {
 		if(newGroupName == null || newGroupName.length() < 1) {
 			Toast.makeText(this, "Group can't be empty", Toast.LENGTH_SHORT).show();
 		} else {
-			Log.i("new group","creat group " + newGroupName);
+			Log.i("new group","create group " + newGroupName);
 			//save new group in parse				
 			ParseUser currentUser = ParseUser.getCurrentUser();
 			if(currentUser == null){
@@ -40,7 +40,6 @@ public class NewGroupActivity extends Activity {
 				startActivity(intent);
 				finish();
 			}		
-			ParseObject.registerSubclass(Group.class);
 			Group g = new Group();
 			g.setACL(new ParseACL(ParseUser.getCurrentUser()));
 			g.setOwner(ParseUser.getCurrentUser());

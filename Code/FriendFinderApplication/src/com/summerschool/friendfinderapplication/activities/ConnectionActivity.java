@@ -18,9 +18,11 @@ import com.parse.LogInCallback;
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 import com.summerschool.friendfinderapplication.R;
+import com.summerschool.friendfinderapplication.models.Group;
 
 public class ConnectionActivity extends Activity {
 
@@ -109,6 +111,8 @@ public class ConnectionActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_connection);
 		
+		ParseObject.registerSubclass(Group.class);
+		
 		//Initialize Parse
 		Parse.initialize(this, PARSE_APPLICATION_ID, PARSE_CLIENT_KEY);
 		ParseAnalytics.trackAppOpened(getIntent());
@@ -122,13 +126,13 @@ public class ConnectionActivity extends Activity {
 	@Override
 	protected void onStart() {
 		super.onStart();		
-//		SharedPreferences sp = 
-//				 getSharedPreferences(PREF_NAME, MODE_PRIVATE);		
-//		Boolean isFirstRun = sp.getBoolean(FIRST_RUN,true);
-//		if(!isFirstRun) {
-//			mConnInput.setText(sp.getString(ACTIVE_USER_ACCOUNT, "")); //set Text into box
-//			this.onClickConnButton(null); //call login method
-//		}
+		SharedPreferences sp = 
+				 getSharedPreferences(PREF_NAME, MODE_PRIVATE);		
+		Boolean isFirstRun = sp.getBoolean(FIRST_RUN,true);
+		if(!isFirstRun) {
+			mConnInput.setText(sp.getString(ACTIVE_USER_ACCOUNT, "")); //set Text into box
+			this.onClickConnButton(null); //call login method
+		}
 	}
 
 }
