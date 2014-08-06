@@ -39,7 +39,8 @@ public class ConnectionActivity extends Activity {
 		TelephonyManager tMgr = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
 		String password = "12345";
 		final String simno = tMgr.getSimSerialNumber(); //password
-		if(simno != null || simno != "") password = simno;
+		if(simno != null && !simno.equals("")) 
+			password = simno;
 		final String mUsername = mConnInput.getText().toString(); //Username
 		ParseUser.logInInBackground(
 				mUsername, 
@@ -54,7 +55,7 @@ public class ConnectionActivity extends Activity {
 							finish();
 						} else {
 							//Login failed
-							switch(e.getCode()){
+							switch(e.getCode()) {
 							case ParseException.USERNAME_TAKEN:
 								//mErrorField.setText("Sorry, this username has already been taken.");
 								Toast.makeText(ConnectionActivity.this, "username taken", Toast.LENGTH_SHORT).show();
