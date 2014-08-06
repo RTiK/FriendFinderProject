@@ -2,15 +2,65 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.summerschool.friendfinderapplication.activity.GroupDescriptionActivity" >
+	
+	<LinearLayout
+        android:id="@+id/actionBar"
+		style="@style/topMenu"
+        android:weightSum="3" >
 
-    <TextView
-        android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/topButton_one"
+            style="@style/button"
+            android:text="@string/button_one" />
+
+        <Button
+            android:id="@+id/topButton_two"
+            style="@style/button"
+            android:text="@string/button_two" />
+
+        <Button
+            android:id="@+id/topButton_three"
+            style="@style/button"
+            android:text="@string/button_three" />
+        
+    </LinearLayout>
+    
+    <RelativeLayout
+        android:id="@+id/Content"
+        style="@android:attr/buttonBarStyle"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_alignStart="@+id/BottomMenu"
+        android:background="#FEFEFE"
+        android:layout_below="@+id/actionBar" >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="test" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/BottomMenu"
+		style="@style/bottomMenu"
+        android:weightSum="3" >
+
+        <Button
+            android:id="@+id/Option_one"
+            style="@style/button"
+            android:text="@string/button_one" />
+
+        <Button
+            android:id="@+id/Option_two"
+            style="@style/button"
+            android:text="@string/button_two" />
+
+        <Button
+            android:id="@+id/Option_three"
+            style="@style/button"
+            android:text="@string/button_three" />
+        
+    </LinearLayout>
 
 </RelativeLayout>

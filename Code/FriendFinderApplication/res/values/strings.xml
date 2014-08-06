@@ -9,8 +9,14 @@
     <string name="title_activity_group_list">GroupListActivity</string>
     <string name="title_activity_group_description">GroupDescriptionActivity</string>
     
+    <!-- Connection layout -->
     <string name="hint_connection_input">Choose your name</string>
     <string name="contentDescription_connButton">Connection Button</string>
     <string name="connection_title">Connection</string>
+    
+    <!-- Text for button at the bottom -->
+    <string name="button_one">Button 1</string>
+    <string name="button_two">Button 2</string>
+    <string name="button_three">Button 3</string>
 
 </resources>
