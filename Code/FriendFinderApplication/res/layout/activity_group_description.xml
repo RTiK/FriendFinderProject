@@ -51,14 +51,14 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/BottomMenu"
+        android:id="@+id/bottomMenu"
 		style="@style/bottomMenu"
         android:weightSum="3" >
 
         <Button
             android:id="@+id/Option_one"
             style="@style/button"
-            android:text="@string/group_map" />
+            android:text="@string/button_one" />
 
         <Button
             android:id="@+id/Option_two"

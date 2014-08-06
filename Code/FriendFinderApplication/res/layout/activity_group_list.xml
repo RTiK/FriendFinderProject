@@ -77,10 +77,10 @@
         android:weightSum="3" >
 
         <Button
-            android:id="@+id/group_map_button"
+            android:id="@+id/Option_one"
             style="@style/button"
             android:onClick="onClickGroupMap"
-            android:text="@string/group_map"
+            android:text="@string/button_one"
             android:textColor="#FFFFFF" />
 
         <Button

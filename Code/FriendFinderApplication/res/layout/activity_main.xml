@@ -8,20 +8,44 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.summerschool.friendfinderapplication.activity.MainActivity" >
 
-    <TextView
-        android:id="@+id/header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:text="Header Placeholder"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    <LinearLayout
+        android:id="@+id/actionBar"
+		style="@style/topMenu"
+        android:weightSum="3" >
+
+		<ImageButton
+		    android:id="@+id/topButton_one"
+		    style="@style/button"
+		    android:layout_height="match_parent"
+		    android:layout_weight="1.15"
+		    android:background="@drawable/buttonsborders"
+		    android:contentDescription="To main map view"
+		    android:src="@drawable/house28" />
+
+        <ImageButton
+            android:id="@+id/topButton_two"
+            style="@style/button"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1.08"
+            android:background="@drawable/buttonsborders"
+            android:contentDescription="To Event view"
+            android:src="@drawable/calendar68" />
+
+        <ImageButton
+            android:id="@+id/topButton_three"
+            style="@style/button"
+            android:layout_gravity="center"
+            android:layout_height="match_parent"
+            android:background="@drawable/buttonsborders"
+		    android:contentDescription="To POI view"
+		    android:src="@drawable/location32" />
+    </LinearLayout>
     
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.MapFragment"
-        android:layout_below="@+id/header"
+        android:layout_below="@+id/actionBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
