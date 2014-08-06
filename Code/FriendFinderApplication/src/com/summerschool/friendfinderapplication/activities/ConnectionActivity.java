@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -36,16 +37,16 @@ public class ConnectionActivity extends Activity {
 
 	public void onClickConnButton(final View v) {		
 		TelephonyManager tMgr = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
-		final String mPhoneNumber = tMgr.getLine1Number(); //Password
+		final String simno = tMgr.getSimSerialNumber(); //password
 		final String mUsername = mConnInput.getText().toString(); //Username
 		ParseUser.logInInBackground(
 				mUsername, 
-				mPhoneNumber, 
+				simno, 
 				new LogInCallback() {					
 					@Override
 					public void done(ParseUser user, ParseException e) {
 						if(user != null) {
-							Intent intent = new Intent(ConnectionActivity.this, MainActivity.class);
+							Intent intent = new Intent(ConnectionActivity.this, GroupListActivity.class);
 							startActivity(intent);
 							finish();
 						} else {
@@ -63,14 +64,14 @@ public class ConnectionActivity extends Activity {
 								//create new user
 								ParseUser newUser = new ParseUser();
 								newUser.setUsername(mUsername);
-								newUser.setPassword(mPhoneNumber);
+								newUser.setPassword(simno);
 								newUser.signUpInBackground(new SignUpCallback() {
 									@Override
 									public void done(ParseException e) {
 										if(e == null) {
 											//make username persistance
 											saveUser(mUsername);											
-											Intent intent = new Intent(ConnectionActivity.this, MainActivity.class);
+											Intent intent = new Intent(ConnectionActivity.this, GroupListActivity.class);
 											startActivity(intent);
 											finish();
 										} else {

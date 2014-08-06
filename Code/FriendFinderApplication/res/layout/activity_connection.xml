@@ -24,7 +24,7 @@
             android:layout_height="fill_parent"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/connectionTitle"
-            android:background="@drawable/arrow"
+            android:background="@drawable/ic_action_next_item"
             android:onClick="onClickConnButton" />
 
         <EditText

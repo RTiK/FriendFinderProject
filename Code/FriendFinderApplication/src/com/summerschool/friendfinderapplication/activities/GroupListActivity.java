@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -40,7 +41,7 @@ public class GroupListActivity extends Activity {
 	}
 	
 	private void populateGroupList() {
-		//Testing data
+		//Testing data -> needs to be extracted from parse DB with relation to the specific user
 		myGroups.add(new Group("Group 1", "This is group number one", true));
 		myGroups.add(new Group("Group 2", "This is group number two", true));
 		myGroups.add(new Group("Group 3", "This is group number tree", true));
@@ -56,6 +57,13 @@ public class GroupListActivity extends Activity {
 		ListView list = (ListView) findViewById(R.id.groupListView);
 		list.setAdapter(adapter);
 	}	
+	
+	public void onClickAddGroup(final View v) {
+		//intent to new Group activty		
+		Intent intent = new Intent(GroupListActivity.this, NewGroupActivity.class);
+		startActivity(intent);
+		finish();		
+	}
 	
 	private class MyGroupAdapter extends ArrayAdapter<Group> {
 
