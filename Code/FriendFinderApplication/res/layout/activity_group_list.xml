@@ -36,36 +36,20 @@
 	        android:id="@+id/helloView"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:text="@string/hello_world" />
-	
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentRight="true"
+	        android:paddingLeft="25dp"
+	        android:text="@string/hello_world"
+	        android:textColor="#003070"
+	        android:textSize="15sp" />
+	    
 	    <ListView
 	        android:id="@+id/groupListView"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_alignLeft="@+id/helloView"
-	        android:layout_below="@+id/helloView"
-	        android:layout_marginTop="14dp" >
+	        android:layout_marginTop="50dp" >
 	    </ListView>
-	
-	    <Button
-	        android:id="@+id/new_group_button"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignRight="@+id/groupListView"
-	        android:layout_alignTop="@+id/helloView"
-	        android:layout_marginRight="20dp"
-	        android:onClick="onClickAddGroup"
-	        android:text="+" />
-	
-	    <Button
-	        android:id="@+id/reload_button"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignBaseline="@+id/new_group_button"
-	        android:layout_alignBottom="@+id/new_group_button"
-	        android:layout_toLeftOf="@+id/new_group_button"
-	        android:onClick="onClickReloadButton"
-	        android:text="reload" />
+
 	</RelativeLayout>
 	<LinearLayout
         android:id="@+id/BottomMenu"
@@ -75,17 +59,21 @@
         <Button
             android:id="@+id/Option_one"
             style="@style/button"
-            android:text="@string/button_one" />
+            android:text="@string/button_one"
+            android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/Option_two"
             style="@style/button"
-            android:text="@string/button_two" />
+            android:text="@string/button_two"
+            android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/Option_three"
             style="@style/button"
-            android:text="@string/add" />
+            android:onClick="onClickAddGroup"
+            android:text="@string/add"
+            android:textColor="#FFFFFF" />
         
     </LinearLayout>
 </RelativeLayout>
