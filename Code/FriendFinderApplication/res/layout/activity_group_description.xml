@@ -9,20 +9,26 @@
 		style="@style/topMenu"
         android:weightSum="3" >
 
-        <Button
-            android:id="@+id/topButton_one"
-            style="@style/button"
-            android:text="@string/button_one" />
+		<ImageButton
+		    android:id="@+id/topButton_one"
+		    style="@style/button"
+		    android:layout_gravity="center"
+		    android:contentDescription="To main map view"
+		    android:src="@drawable/ic_action_map" />
 
-        <Button
+        <ImageButton
             android:id="@+id/topButton_two"
             style="@style/button"
-            android:text="@string/button_two" />
+            android:layout_gravity="center"
+		    android:contentDescription="To Event view"
+		    android:src="@drawable/calendar5"  />
 
-        <Button
+        <ImageButton
             android:id="@+id/topButton_three"
             style="@style/button"
-            android:text="@string/button_three" />
+            android:layout_gravity="center"
+		    android:contentDescription="To POI view"
+		    android:src="@drawable/placeholder8" />
     </LinearLayout>
     
     <RelativeLayout
