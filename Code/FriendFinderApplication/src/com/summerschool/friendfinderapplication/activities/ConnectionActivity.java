@@ -71,7 +71,7 @@ public class ConnectionActivity extends Activity {
 										if(e == null) {
 											//make username persistance
 											saveUser(mUsername);											
-											Intent intent = new Intent(ConnectionActivity.this, MainActivity.class);
+											Intent intent = new Intent(ConnectionActivity.this, GroupListActivity.class);
 											startActivity(intent);
 											finish();
 										} else {
