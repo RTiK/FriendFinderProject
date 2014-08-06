@@ -15,7 +15,7 @@
     <string name="connection_title">Connection</string>
 
     <!-- Text for button at the bottom -->
-    <string name="button_one">Button 1</string>
+    <string name="group_map">Map</string>
     <string name="button_two">Button 2</string>
     <string name="button_three">Button 3</string>
     <string name="add">+</string>

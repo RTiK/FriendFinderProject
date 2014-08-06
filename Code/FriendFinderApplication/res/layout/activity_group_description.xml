@@ -51,7 +51,7 @@
         <Button
             android:id="@+id/Option_one"
             style="@style/button"
-            android:text="@string/button_one" />
+            android:text="@string/group_map" />
 
         <Button
             android:id="@+id/Option_two"

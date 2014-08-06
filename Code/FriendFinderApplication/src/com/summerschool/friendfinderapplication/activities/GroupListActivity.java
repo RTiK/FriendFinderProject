@@ -104,6 +104,13 @@ public class GroupListActivity extends Activity {
 		populateListView();
 	}
 	
+	public void onClickGroupMap(View v) {
+		Log.i("TEST", "map button clicked");
+		Intent switchToMainView = new Intent(getApplicationContext(), MainActivity.class);
+		startActivity(switchToMainView);
+		finish();
+	}
+	
 	private class MyGroupAdapter extends ArrayAdapter<Group> {
 
 		public MyGroupAdapter() {
