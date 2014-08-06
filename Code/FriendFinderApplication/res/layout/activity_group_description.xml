@@ -23,17 +23,13 @@
             android:id="@+id/topButton_three"
             style="@style/button"
             android:text="@string/button_three" />
-        
     </LinearLayout>
     
     <RelativeLayout
         android:id="@+id/Content"
-        style="@android:attr/buttonBarStyle"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
         android:layout_alignStart="@+id/BottomMenu"
-        android:background="#FEFEFE"
-        android:layout_below="@+id/actionBar" >
+        android:layout_below="@+id/actionBar"
+        style="@style/content" >
 
         <TextView
             android:layout_width="fill_parent"
