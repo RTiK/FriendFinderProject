@@ -75,7 +75,7 @@ public class GroupListActivity extends Activity {
 			public void done(List<GroupMember> groups, ParseException error) {
 				if(groups != null) {
 					for(GroupMember gm : groups) {
-						myGroups.add(gm.getGroupName());
+						//myGroups.add(gm.getGroupName());
 					}
 				}
 			}
