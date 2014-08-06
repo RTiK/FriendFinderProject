@@ -45,7 +45,7 @@ public class GroupListActivity extends Activity {
 		setContentView(R.layout.activity_group_list);
 		
 		TextView tv = (TextView) findViewById(R.id.helloView);
-		tv.setText("Hello " + ParseUser.getCurrentUser().getUsername());
+		tv.setText(ParseUser.getCurrentUser().getUsername() + "'s groups");
 		
 		adapter = new MyGroupAdapter(this,new ArrayList<Group>());
 		

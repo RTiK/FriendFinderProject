@@ -42,13 +42,14 @@
 	        android:paddingLeft="25dp"
 	        android:text="@string/hello_world"
 	        android:textColor="#003070"
+	        android:background="#F5F5F5"
 	        android:textSize="15sp" />
 	    
 	    <ListView
 	        android:id="@+id/groupListView"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_marginTop="50dp" >
+	        android:layout_marginTop="30dp" >
 	    </ListView>
 	
 	    <Button
