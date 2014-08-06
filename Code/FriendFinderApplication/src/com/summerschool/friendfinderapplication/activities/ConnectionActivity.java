@@ -61,6 +61,7 @@ public class ConnectionActivity extends Activity {
 									Toast.makeText(ConnectionActivity.this, "username needed", Toast.LENGTH_SHORT).show();
 									break;
 								}
+								Log.i("Login Failed", e.getLocalizedMessage().toString());								
 								//create new user
 								String password = "12345";
 								if(simno != null && simno != "") password = simno;
@@ -78,7 +79,8 @@ public class ConnectionActivity extends Activity {
 											finish();
 										} else {
 											//sign-up didn't succeed ?!
-											Toast.makeText(ConnectionActivity.this, "Epic fail", Toast.LENGTH_SHORT).show();
+											Log.i("Create Failed", e.getLocalizedMessage().toString());
+											Toast.makeText(ConnectionActivity.this, "Epic fail: ", Toast.LENGTH_SHORT).show();
 										}
 									}
 								});								

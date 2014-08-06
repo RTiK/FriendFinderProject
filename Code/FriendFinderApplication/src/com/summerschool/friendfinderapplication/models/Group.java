@@ -36,5 +36,4 @@ public class Group extends ParseObject {
 		put("user", currentUser);
 	}
 	
-	
 }

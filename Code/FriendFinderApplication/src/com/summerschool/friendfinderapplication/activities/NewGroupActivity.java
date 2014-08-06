@@ -27,30 +27,54 @@ public class NewGroupActivity extends Activity {
 		
 		//create new group
 		EditText newNameTextField = (EditText) findViewById(R.id.group_name);		
-		String newGroupName = newNameTextField.getText().toString();
+		String newGroupName = newNameTextField.getText().toString().trim();
 		
-		//save new group in parse				
-		ParseUser currentUser = ParseUser.getCurrentUser();
-		if(currentUser == null){
-			Intent intent = new Intent(this, ConnectionActivity.class);
-			startActivity(intent);
-			finish();
-		}		
-		ParseObject.registerSubclass(Group.class);
-		Group g = new Group();
-		g.setACL(new ParseACL(ParseUser.getCurrentUser()));
-		g.setOwner(ParseUser.getCurrentUser());
-		g.setName(newGroupName);
-		g.setDescription("Dummy Description");
-		g.setGPS(false);
-		try {
-			g.save();
-			//intent back to group list view
-			Intent i = new Intent(NewGroupActivity.this,GroupListActivity.class);
-			startActivity(i);
-			finish();
-		} catch (ParseException e) {
-			Toast.makeText(NewGroupActivity.this, "Was not able to save", Toast.LENGTH_SHORT).show();
+		if(newGroupName == null || newGroupName.length() < 1) {
+			Toast.makeText(this, "Group can't be empty", Toast.LENGTH_SHORT).show();
+		} else {
+			Log.i("new group","creat group " + newGroupName);
+			//save new group in parse				
+			ParseUser currentUser = ParseUser.getCurrentUser();
+			if(currentUser == null){
+				Intent intent = new Intent(this, ConnectionActivity.class);
+				startActivity(intent);
+				finish();
+			}		
+			ParseObject.registerSubclass(Group.class);
+			Group g = new Group();
+			g.setACL(new ParseACL(ParseUser.getCurrentUser()));
+			g.setOwner(ParseUser.getCurrentUser());
+			g.setName(newGroupName);
+			g.setDescription("Dummy Description");
+			g.setGPS(false);
+			try {
+				g.save();
+				//intent back to group list view
+				Intent i = new Intent(NewGroupActivity.this,GroupListActivity.class);
+				startActivity(i);
+				finish();
+			} catch (ParseException e) {
+				Toast.makeText(NewGroupActivity.this, "Was not able to save", Toast.LENGTH_SHORT).show();
+			}
 		}
+	}
+	
+	public void onClickJoinGroupButton() {
+		
+		EditText newNameTextField = (EditText) findViewById(R.id.group_name);		
+		String newGroupName = newNameTextField.getText().toString().trim();
+		
+		if(newGroupName == null || newGroupName.length() < 1) {
+			Toast.makeText(this, "Group can't be empty", Toast.LENGTH_SHORT).show();
+		} else {
+			
+			//find out if group exists
+			
+			//attempt to join group 
+			
+			//go back to group view
+			
+		}
+		
 	}
 }

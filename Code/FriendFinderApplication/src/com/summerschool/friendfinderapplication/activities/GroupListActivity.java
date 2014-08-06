@@ -24,6 +24,7 @@ import com.parse.ParseQuery.CachePolicy;
 import com.parse.ParseUser;
 import com.summerschool.friendfinderapplication.R;
 import com.summerschool.friendfinderapplication.models.Group;
+import com.summerschool.friendfinderapplication.models.GroupMember;
 
 public class GroupListActivity extends Activity {
 
@@ -49,6 +50,10 @@ public class GroupListActivity extends Activity {
 	}
 	
 	private void updateGroupList() {
+
+		myGroups.clear();
+		
+		//Add your own groups
 		ParseQuery<Group> query = ParseQuery.getQuery(Group.class);
 		query.whereEqualTo("user", ParseUser.getCurrentUser());
 		query.setCachePolicy(CachePolicy.CACHE_THEN_NETWORK);
@@ -56,11 +61,24 @@ public class GroupListActivity extends Activity {
 			@Override
 			public void done(List<Group> groups, ParseException error) {
 				if(groups != null) {
-					myGroups.clear();
 					myGroups.addAll(groups);
 				}
 			}
 		});
+		
+		//add groups you have joined
+//		ParseQuery<GroupMember> query2 = ParseQuery.getQuery(GroupMember.class);
+//		query2.whereEqualTo("Member", ParseUser.getCurrentUser());
+//		query2.setCachePolicy(CachePolicy.CACHE_THEN_NETWORK);
+//		query2.findInBackground(new FindCallback<Group>() {
+//			@Override
+//			public void done(List<Group> groups, ParseException error) {
+//				if(groups != null) {
+//					myGroups.addAll(groups);
+//				}
+//			}
+//		});
+		
 	}
 	
 	private void populateListView() {

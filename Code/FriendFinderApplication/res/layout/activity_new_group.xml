@@ -14,33 +14,47 @@
         android:layout_height="wrap_content"
         android:text="New Group:" />
 
-    <EditText
-        android:id="@+id/group_name"
+    <Button
+        android:id="@+id/create_group_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/create_group_button"
-        android:layout_alignLeft="@+id/helloView"
-        android:layout_below="@+id/helloView"
-        android:layout_marginTop="48dp"
-        android:ems="10" />
+        android:layout_alignBaseline="@+id/NameLabel"
+        android:layout_alignBottom="@+id/NameLabel"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="21dp"
+        android:onClick="onClickCreateGroupButton"
+        android:text="Create" />
+
+    <Button
+        android:id="@+id/join_grou_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/create_group_button"
+        android:layout_alignRight="@+id/create_group_button"
+        android:layout_below="@+id/create_group_button"
+        android:layout_marginTop="18dp"
+        android:onClick="onClickJoinGroupButton"
+        android:text="Join" />
 
     <TextView
         android:id="@+id/NameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/group_name"
+        android:layout_alignLeft="@+id/helloView"
         android:layout_below="@+id/helloView"
-        android:layout_marginTop="29dp"
+        android:layout_marginTop="32dp"
         android:text="Name:" />
 
-    <Button
-        android:id="@+id/create_group_button"
+    <EditText
+        android:id="@+id/group_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/group_name"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/NameLabel"
-        android:onClick="onClickCreateGroupButton"
-        android:text="Create" />
+        android:layout_alignLeft="@+id/NameLabel"
+        android:layout_below="@+id/NameLabel"
+        android:layout_toLeftOf="@+id/create_group_button"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
 
 </RelativeLayout>
