@@ -73,9 +73,8 @@
         <Button
             android:id="@+id/group_map_button"
             style="@style/button"
-            android:text="@string/group_map"
             android:onClick="onClickGroupMap"
-            android:text="@string/button_one"
+            android:text="@string/group_map"
             android:textColor="#FFFFFF" />
 
         <Button
