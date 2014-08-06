@@ -6,6 +6,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -19,12 +20,12 @@ import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseQuery.CachePolicy;
 import com.parse.ParseUser;
 import com.summerschool.friendfinderapplication.R;
 import com.summerschool.friendfinderapplication.models.Group;
-import com.summerschool.friendfinderapplication.models.GroupMember;
 
 public class GroupListActivity extends Activity {
 
@@ -52,7 +53,7 @@ public class GroupListActivity extends Activity {
 	private void updateGroupList() {
 
 		myGroups.clear();
-		
+		Log.i("userinfo:",""+ParseUser.getCurrentUser());
 		//Add your own groups
 		ParseQuery<Group> query = ParseQuery.getQuery(Group.class);
 		query.whereEqualTo("user", ParseUser.getCurrentUser());
@@ -61,25 +62,27 @@ public class GroupListActivity extends Activity {
 			@Override
 			public void done(List<Group> groups, ParseException error) {
 				if(groups != null) {
+					Log.i("created group size", ""+groups.size());
 					myGroups.addAll(groups);
 				}
 			}
 		});
 		
-		//add groups you have joined
-		ParseQuery<GroupMember> query2 = ParseQuery.getQuery(GroupMember.class);
-		query2.whereEqualTo("Member", ParseUser.getCurrentUser());
-		query2.setCachePolicy(CachePolicy.CACHE_THEN_NETWORK);
-		query2.findInBackground(new FindCallback<GroupMember>() {
-			@Override
-			public void done(List<GroupMember> groups, ParseException error) {
-				if(groups != null) {
-					for(GroupMember gm : groups) {
-						//myGroups.add(gm.getGroupName());
-					}
-				}
-			}
-		});
+		
+//		//add groups you have joined
+//		ParseQuery<GroupMember> query2 = ParseQuery.getQuery(GroupMember.class);
+//		query2.whereEqualTo("Member", ParseUser.getCurrentUser());
+//		query2.setCachePolicy(CachePolicy.CACHE_THEN_NETWORK);
+//		query2.findInBackground(new FindCallback<GroupMember>() {
+//			@Override
+//			public void done(List<GroupMember> groups, ParseException error) {
+//				if(groups != null) {
+//					for(GroupMember gm : groups) {
+//						myGroups.add(gm.getGroup());
+//					}
+//				}
+//			}
+//		});
 		
 	}
 	
@@ -116,8 +119,11 @@ public class GroupListActivity extends Activity {
 			}
 			
 			//find the group to work with
+			Log.i("Position",""+position);
 			final Group currentGroup = myGroups.get(position);
 			
+			//			myGroups.get(position);
+			//final Group currentGroup = new Group();
 			//Set the text of the TextField to the right name and its onclicklistener
 			TextView textView = (TextView) itemView.findViewById(R.id.item_group_name);
 			textView.setText(currentGroup.getName());

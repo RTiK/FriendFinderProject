@@ -37,16 +37,19 @@ public class ConnectionActivity extends Activity {
 
 	public void onClickConnButton(final View v) {		
 		TelephonyManager tMgr = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
+		String password = "12345";
 		final String simno = tMgr.getSimSerialNumber(); //password
+		if(simno != null || simno != "") password = simno;
 		final String mUsername = mConnInput.getText().toString(); //Username
 		ParseUser.logInInBackground(
 				mUsername, 
-				simno, 
+				password, 
 				new LogInCallback() {					
 					@Override
 					public void done(ParseUser user, ParseException e) {
 						if(user != null) {
-							Intent intent = new Intent(ConnectionActivity.this, GroupDescriptionActivity.class);
+							saveUser(mUsername);
+							Intent intent = new Intent(ConnectionActivity.this, GroupListActivity.class);
 							startActivity(intent);
 							finish();
 						} else {

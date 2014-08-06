@@ -4,7 +4,7 @@ import com.parse.ParseClassName;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
-@ParseClassName("Groups")
+@ParseClassName("Group")
 public class Group extends ParseObject {
 
 	public Group() {

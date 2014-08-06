@@ -2,6 +2,7 @@ package com.summerschool.friendfinderapplication.models;
 
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 @ParseClassName("GroupMemebers")
 public class GroupMember extends ParseObject {
@@ -11,18 +12,18 @@ public class GroupMember extends ParseObject {
 	}
 	
 	//Getter
-	public String getMemberName() {
-		return getString("Member");
+	public ParseUser getMember() {
+		return (ParseUser) get("Member");
 	}
-	public String getGroupName() {
-		return getString("Group");
+	public Group getGroup() {
+		return (Group) get("Group");
 	}
 	
 	//Setter
-	public void addMember(String memberName) {
-		put("Member", memberName);
+	public void addMember(ParseUser member) {
+		put("Member", member);
 	}
-	public void addGroup(String groupName) {
-		put("Group",groupName);
+	public void addGroup(Group group) {
+		put("Group",group);
 	}
 }
