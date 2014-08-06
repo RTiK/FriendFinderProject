@@ -40,7 +40,7 @@
 
     </LinearLayout>
     
-    <RelativeLayout
+   <RelativeLayout
         android:id="@+id/Content"
         style="@style/content"
         android:layout_alignStart="@+id/BottomMenu"
@@ -66,15 +66,7 @@
 	        android:layout_marginTop="30dp" >
 	    </ListView>
 	
-	    <Button
-	        android:id="@+id/new_group_button"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignRight="@+id/groupListView"
-	        android:layout_alignTop="@+id/helloView"
-	        android:layout_marginRight="20dp"
-	        android:onClick="onClickAddGroup"
-	        android:text="+" />
+
 
 	</RelativeLayout>
     
