@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,7 +37,7 @@ public class GroupListActivity extends Activity {
 	protected Button mSearchButton;
 	protected Button mAddButton;
 	
-	private List<Group> myGroups = new ArrayList<Group>();
+	private MyGroupAdapter adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,13 +47,15 @@ public class GroupListActivity extends Activity {
 		TextView tv = (TextView) findViewById(R.id.helloView);
 		tv.setText("Hello " + ParseUser.getCurrentUser().getUsername());
 		
+		adapter = new MyGroupAdapter(this,new ArrayList<Group>());
+		
 		updateGroupList();
 		populateListView();
+		
+		
 	}
 	
 	private void updateGroupList() {
-
-		myGroups.clear();
 		Log.i("userinfo:",""+ParseUser.getCurrentUser());
 		//Add your own groups
 		ParseQuery<Group> query = ParseQuery.getQuery(Group.class);
@@ -61,9 +64,14 @@ public class GroupListActivity extends Activity {
 		query.findInBackground(new FindCallback<Group>() {
 			@Override
 			public void done(List<Group> groups, ParseException error) {
-				if(groups != null) {
-					Log.i("created group size", ""+groups.size());
-					myGroups.addAll(groups);
+				if(error != null) {
+					Log.e("FUCK THIS ParseObject", error.getLocalizedMessage());
+				} else if(groups != null) {
+					Log.i("created group size", "" + groups.size());
+					adapter.clear();
+					for(Group g : groups) {
+						adapter.add(g);
+					}
 				}
 			}
 		});
@@ -87,7 +95,6 @@ public class GroupListActivity extends Activity {
 	}
 	
 	private void populateListView() {
-		ArrayAdapter<Group> adapter = new MyGroupAdapter();
 		ListView list = (ListView) findViewById(R.id.groupListView);
 		list.setAdapter(adapter);
 	}	
@@ -101,13 +108,18 @@ public class GroupListActivity extends Activity {
 	
 	public void onClickReloadButton(final View v) {
 		updateGroupList();
-		populateListView();
+		//populateListView();
 	}
 	
 	private class MyGroupAdapter extends ArrayAdapter<Group> {
 
-		public MyGroupAdapter() {
-			super(GroupListActivity.this, R.layout.group_item_view, myGroups);
+		private Context mContext;
+		private List<Group> mGroups;
+		
+		public MyGroupAdapter(Context context, List<Group> groups) {
+			super(GroupListActivity.this, R.layout.group_item_view, groups);
+			this.mContext = context;
+			this.mGroups = groups;
 		}
 
 		@Override
@@ -119,10 +131,9 @@ public class GroupListActivity extends Activity {
 			}
 			
 			//find the group to work with
-			Log.i("Position",""+position);
-			final Group currentGroup = myGroups.get(position);
+			Log.i("Position","" + position);
+			final Group currentGroup = mGroups.get(position);
 			
-			//			myGroups.get(position);
 			//final Group currentGroup = new Group();
 			//Set the text of the TextField to the right name and its onclicklistener
 			TextView textView = (TextView) itemView.findViewById(R.id.item_group_name);

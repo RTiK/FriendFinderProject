@@ -122,13 +122,13 @@ public class ConnectionActivity extends Activity {
 	@Override
 	protected void onStart() {
 		super.onStart();		
-		SharedPreferences sp = 
-				 getSharedPreferences(PREF_NAME, MODE_PRIVATE);		
-		Boolean isFirstRun = sp.getBoolean(FIRST_RUN,true);
-		if(!isFirstRun) {
-			mConnInput.setText(sp.getString(ACTIVE_USER_ACCOUNT, "")); //set Text into box
-			this.onClickConnButton(null); //call login method
-		}
+//		SharedPreferences sp = 
+//				 getSharedPreferences(PREF_NAME, MODE_PRIVATE);		
+//		Boolean isFirstRun = sp.getBoolean(FIRST_RUN,true);
+//		if(!isFirstRun) {
+//			mConnInput.setText(sp.getString(ACTIVE_USER_ACCOUNT, "")); //set Text into box
+//			this.onClickConnButton(null); //call login method
+//		}
 	}
 
 }
