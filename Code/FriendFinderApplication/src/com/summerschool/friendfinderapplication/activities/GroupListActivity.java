@@ -67,17 +67,19 @@ public class GroupListActivity extends Activity {
 		});
 		
 		//add groups you have joined
-//		ParseQuery<GroupMember> query2 = ParseQuery.getQuery(GroupMember.class);
-//		query2.whereEqualTo("Member", ParseUser.getCurrentUser());
-//		query2.setCachePolicy(CachePolicy.CACHE_THEN_NETWORK);
-//		query2.findInBackground(new FindCallback<Group>() {
-//			@Override
-//			public void done(List<Group> groups, ParseException error) {
-//				if(groups != null) {
-//					myGroups.addAll(groups);
-//				}
-//			}
-//		});
+		ParseQuery<GroupMember> query2 = ParseQuery.getQuery(GroupMember.class);
+		query2.whereEqualTo("Member", ParseUser.getCurrentUser());
+		query2.setCachePolicy(CachePolicy.CACHE_THEN_NETWORK);
+		query2.findInBackground(new FindCallback<GroupMember>() {
+			@Override
+			public void done(List<GroupMember> groups, ParseException error) {
+				if(groups != null) {
+					for(GroupMember gm : groups) {
+						myGroups.add(gm.getGroupName());
+					}
+				}
+			}
+		});
 		
 	}
 	
