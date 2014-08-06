@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     tools:context="com.summerschool.friendfinderapplication.activity.GroupListActivity" >
 
+    <!-- top buttons -->
     <LinearLayout
         android:id="@+id/actionBar"
 		style="@style/topMenu"
@@ -36,15 +37,18 @@
 	        android:id="@+id/helloView"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:text="@string/hello_world" />
-	
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentRight="true"
+	        android:paddingLeft="25dp"
+	        android:text="@string/hello_world"
+	        android:textColor="#003070"
+	        android:textSize="15sp" />
+	    
 	    <ListView
 	        android:id="@+id/groupListView"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_alignLeft="@+id/helloView"
-	        android:layout_below="@+id/helloView"
-	        android:layout_marginTop="14dp" >
+	        android:layout_marginTop="50dp" >
 	    </ListView>
 	
 	    <Button
@@ -58,6 +62,8 @@
 	        android:text="+" />
 	
 	</RelativeLayout>
+    
+    <!-- bottom buttons -->
 	<LinearLayout
         android:id="@+id/BottomMenu"
 		style="@style/bottomMenu"
@@ -67,17 +73,22 @@
             android:id="@+id/group_map_button"
             style="@style/button"
             android:text="@string/group_map"
-            android:onClick="onClickGroupMap" />
+            android:onClick="onClickGroupMap"
+            android:text="@string/button_one"
+            android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/Option_two"
             style="@style/button"
-            android:text="@string/button_two" />
+            android:text="@string/button_two"
+            android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/Option_three"
             style="@style/button"
-            android:text="@string/add" />
+            android:onClick="onClickAddGroup"
+            android:text="@string/add"
+            android:textColor="#FFFFFF" />
         
     </LinearLayout>
 </RelativeLayout>

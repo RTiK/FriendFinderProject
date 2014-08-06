@@ -18,9 +18,11 @@ import com.parse.LogInCallback;
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 import com.summerschool.friendfinderapplication.R;
+import com.summerschool.friendfinderapplication.models.Group;
 
 public class ConnectionActivity extends Activity {
 
@@ -108,6 +110,8 @@ public class ConnectionActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_connection);
+		
+		ParseObject.registerSubclass(Group.class);
 		
 		//Initialize Parse
 		Parse.initialize(this, PARSE_APPLICATION_ID, PARSE_CLIENT_KEY);
