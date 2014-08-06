@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -56,6 +57,13 @@ public class GroupListActivity extends Activity {
 		ListView list = (ListView) findViewById(R.id.groupListView);
 		list.setAdapter(adapter);
 	}	
+	
+	public void onClickAddGroup(final View v) {
+		//intent to new Group activty		
+		Intent intent = new Intent(GroupListActivity.this, NewGroupActivity.class);
+		startActivity(intent);
+		finish();		
+	}
 	
 	private class MyGroupAdapter extends ArrayAdapter<Group> {
 

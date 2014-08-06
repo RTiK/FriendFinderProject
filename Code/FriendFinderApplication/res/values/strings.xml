@@ -8,9 +8,9 @@
     <string name="title_activity_connection">ConnectionActivity</string>
     <string name="title_activity_group_list">GroupListActivity</string>
     <string name="title_activity_group_description">GroupDescriptionActivity</string>
-    
     <string name="hint_connection_input">Choose your name</string>
     <string name="contentDescription_connButton">Connection Button</string>
     <string name="connection_title">Connection</string>
+    <string name="title_activity_new_group">NewGroupActivity</string>
 
 </resources>
