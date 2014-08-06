@@ -1,53 +1,39 @@
 package com.summerschool.friendfinderapplication.models;
 
-public class Group {
+import com.parse.ParseClassName;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
 
-	private String ID_Group;
-	private String name;
-	private String description;
-	private boolean gps;
+@ParseClassName("Groups")
+public class Group extends ParseObject {
 
-	public Group(String name, String description, boolean gps) {
-		super();
-		this.name = name;
-		this.description = description;
-		this.gps = gps;
+	public Group() {
+
 	}
 	
+	//Getters
 	public String getName() {
-		return this.name;
-	}
-
-	/**
-	 * 
-	 * @param name
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
+		return getString("name");
+	}	
 	public String getDescription() {
-		return this.description;
+		return getString("description");
 	}
-
-	/**
-	 * 
-	 * @param description
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
 	public boolean getGPS(){
-		return this.gps; 
+		return getBoolean("GPSActive");
 	}
 	
-	/**
-	 * 
-	 * @param gps
-	 */
-	public void setGPS(boolean gps){
-		this.gps = gps;
+	//Setters	
+	public void setName(String name) {
+		put("name",name);
+	}
+	public void setDescription(String description) {
+		put("description",description);
+	}
+	public void setGPS(boolean gpsActive){
+		put("GPSActive",gpsActive);
+	}
+	public void setOwner(ParseUser currentUser) {
+		put("user", currentUser);
 	}
 	
 	

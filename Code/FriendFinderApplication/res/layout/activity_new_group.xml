@@ -9,7 +9,7 @@
     tools:context="com.summerschool.friendfinderapplication.activities.NewGroupActivity" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/helloView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Group:" />
@@ -18,9 +18,9 @@
         android:id="@+id/group_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/button1"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
+        android:layout_alignBottom="@+id/create_group_button"
+        android:layout_alignLeft="@+id/helloView"
+        android:layout_below="@+id/helloView"
         android:layout_marginTop="48dp"
         android:ems="10" />
 
@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/group_name"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/helloView"
         android:layout_marginTop="29dp"
         android:text="Name:" />
 

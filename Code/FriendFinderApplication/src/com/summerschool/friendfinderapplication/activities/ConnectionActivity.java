@@ -62,9 +62,11 @@ public class ConnectionActivity extends Activity {
 									break;
 								}
 								//create new user
+								String password = "12345";
+								if(simno != null && simno != "") password = simno;
 								ParseUser newUser = new ParseUser();
 								newUser.setUsername(mUsername);
-								newUser.setPassword(simno);
+								newUser.setPassword(password);
 								newUser.signUpInBackground(new SignUpCallback() {
 									@Override
 									public void done(ParseException e) {

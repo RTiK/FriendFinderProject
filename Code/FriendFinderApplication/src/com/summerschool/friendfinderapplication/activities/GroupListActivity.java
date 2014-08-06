@@ -17,6 +17,11 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
+import com.parse.ParseQuery.CachePolicy;
+import com.parse.ParseUser;
 import com.summerschool.friendfinderapplication.R;
 import com.summerschool.friendfinderapplication.models.Group;
 
@@ -36,20 +41,26 @@ public class GroupListActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_group_list);
 		
-		populateGroupList();
+		TextView tv = (TextView) findViewById(R.id.helloView);
+		tv.setText("Hello " + ParseUser.getCurrentUser().getUsername());
+		
+		updateGroupList();
 		populateListView();
 	}
 	
-	private void populateGroupList() {
-		//Testing data -> needs to be extracted from parse DB with relation to the specific user
-		myGroups.add(new Group("Group 1", "This is group number one", true));
-		myGroups.add(new Group("Group 2", "This is group number two", true));
-		myGroups.add(new Group("Group 3", "This is group number tree", true));
-		myGroups.add(new Group("Group 4", "This is group number four", true));
-		myGroups.add(new Group("Group 5", "This is group number five", true));
-		myGroups.add(new Group("Group 6", "This is group number six", true));
-		myGroups.add(new Group("Group 7", "This is group number seven", true));
-		myGroups.add(new Group("Group 8", "This is group number eight", true));
+	private void updateGroupList() {
+		ParseQuery<Group> query = ParseQuery.getQuery(Group.class);
+		query.whereEqualTo("user", ParseUser.getCurrentUser());
+		query.setCachePolicy(CachePolicy.CACHE_THEN_NETWORK);
+		query.findInBackground(new FindCallback<Group>() {
+			@Override
+			public void done(List<Group> groups, ParseException error) {
+				if(groups != null) {
+					myGroups.clear();
+					myGroups.addAll(groups);
+				}
+			}
+		});
 	}
 	
 	private void populateListView() {
@@ -63,6 +74,11 @@ public class GroupListActivity extends Activity {
 		Intent intent = new Intent(GroupListActivity.this, NewGroupActivity.class);
 		startActivity(intent);
 		finish();		
+	}
+	
+	public void onClickReloadButton(final View v) {
+		updateGroupList();
+		populateListView();
 	}
 	
 	private class MyGroupAdapter extends ArrayAdapter<Group> {

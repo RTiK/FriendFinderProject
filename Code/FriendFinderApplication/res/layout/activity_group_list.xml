@@ -9,7 +9,7 @@
     tools:context="com.summerschool.friendfinderapplication.activity.GroupListActivity" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/helloView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hello_world" />
@@ -18,8 +18,8 @@
         android:id="@+id/groupListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
+        android:layout_alignLeft="@+id/helloView"
+        android:layout_below="@+id/helloView"
         android:layout_marginTop="14dp" >
     </ListView>
 
@@ -28,9 +28,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/groupListView"
-        android:layout_alignTop="@+id/textView1"
+        android:layout_alignTop="@+id/helloView"
         android:layout_marginRight="20dp"
         android:onClick="onClickAddGroup"
         android:text="+" />
+
+    <Button
+        android:id="@+id/reload_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/new_group_button"
+        android:layout_alignBottom="@+id/new_group_button"
+        android:layout_toLeftOf="@+id/new_group_button"
+        android:onClick="onClickReloadButton"
+        android:text="reload" />
 
 </RelativeLayout>
