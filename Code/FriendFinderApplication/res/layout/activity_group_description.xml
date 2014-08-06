@@ -12,23 +12,30 @@
 		<ImageButton
 		    android:id="@+id/topButton_one"
 		    style="@style/button"
-		    android:layout_gravity="center"
+		    android:layout_height="match_parent"
+		    android:layout_weight="1.15"
+		    android:background="@drawable/buttonsborders"
 		    android:contentDescription="To main map view"
-		    android:src="@drawable/ic_action_map" />
+		    android:src="@drawable/house28" />
 
         <ImageButton
             android:id="@+id/topButton_two"
             style="@style/button"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-		    android:contentDescription="To Event view"
-		    android:src="@drawable/calendar5"  />
+            android:layout_weight="1.08"
+            android:background="@drawable/buttonsborders"
+            android:contentDescription="To Event view"
+            android:src="@drawable/calendar68" />
 
         <ImageButton
             android:id="@+id/topButton_three"
             style="@style/button"
             android:layout_gravity="center"
+            android:layout_height="match_parent"
+            android:background="@drawable/buttonsborders"
 		    android:contentDescription="To POI view"
-		    android:src="@drawable/placeholder8" />
+		    android:src="@drawable/location32" />
     </LinearLayout>
     
     <RelativeLayout

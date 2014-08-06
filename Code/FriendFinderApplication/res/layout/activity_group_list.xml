@@ -7,23 +7,37 @@
     <!-- top buttons -->
     <LinearLayout
         android:id="@+id/actionBar"
-		style="@style/topMenu"
+        style="@style/topMenu"
         android:weightSum="3" >
 
-        <Button
+        <ImageButton
             android:id="@+id/topButton_one"
             style="@style/button"
-            android:text="@string/myGroups" />
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1.17"
+            android:background="@drawable/buttonsborders"
+            android:contentDescription="To main map view"
+            android:src="@drawable/house28" />
 
-        <Button
+        <ImageButton
             android:id="@+id/topButton_two"
             style="@style/button"
-            android:text="@string/myEvents" />
+            android:layout_height="match_parent"
+            android:layout_weight="1.06"
+            android:background="@drawable/buttonsborders"
+            android:contentDescription="To Event view"
+            android:src="@drawable/calendar68" />
 
-        <Button
+        <ImageButton
             android:id="@+id/topButton_three"
             style="@style/button"
-            android:text="@string/myPoI" />
+            android:layout_height="match_parent"
+            android:layout_weight="0.81"
+            android:background="@drawable/buttonsborders"
+            android:contentDescription="To POI view"
+            android:src="@drawable/location32" />
+
     </LinearLayout>
     
     <RelativeLayout
@@ -91,4 +105,5 @@
             android:textColor="#FFFFFF" />
         
     </LinearLayout>
+
 </RelativeLayout>
