@@ -1,8 +1,13 @@
 package com.summerschool.friendfinderapplication.controller;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,9 +18,16 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
 import com.summerschool.friendfinderapplication.R;
 import com.summerschool.friendfinderapplication.activities.GroupListActivity;
+import com.summerschool.friendfinderapplication.activities.MainActivity;
 import com.summerschool.friendfinderapplication.models.Group;
+import com.summerschool.friendfinderapplication.models.GroupMember;
+import com.summerschool.friendfinderapplication.models.User;
 
 public class MyGroupAdapter extends ArrayAdapter<Group> {
 
@@ -47,7 +59,12 @@ public class MyGroupAdapter extends ArrayAdapter<Group> {
 			textView.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Toast.makeText(mContext, "This is " + currentGroup.getName(), Toast.LENGTH_SHORT).show();
+//					Toast.makeText(mContext, "This is " + currentGroup.getName(), Toast.LENGTH_SHORT).show();
+					
+					Intent goToMap = new Intent(mContext.getApplicationContext(), MainActivity.class);
+					goToMap.putExtra("GROUPNAME", currentGroup.getString("name"));
+					mContext.startActivity(goToMap);
+					
 				}
 			});
 			

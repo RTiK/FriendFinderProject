@@ -151,6 +151,8 @@ public class ConnectionActivity extends Activity {
 		long timeRefresh = 60000; // refresh every minute
 		float distanceRefresh = 10; // refresh 10 meters
 		
+		Log.i("TEST", "location");
+		
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, timeRefresh, distanceRefresh, locationListener);
 //		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, timeRefresh, distanceRefresh, locationListener);
 
