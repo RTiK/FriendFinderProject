@@ -54,12 +54,12 @@
             android:text="@string/button_one"
             android:onClick="onClickMemberListButton" />
 
-        <Button
+        <ImageButton
             android:id="@+id/Option_two"
             style="@style/button"
             android:text="@string/button_two" />
 
-        <Button
+        <ImageButton
             android:id="@+id/Option_three"
             style="@style/button"
             android:text="@string/button_three" />

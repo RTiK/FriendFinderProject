@@ -53,9 +53,14 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1.15</item>
         <item name="android:background">@drawable/buttonsborders</item>
-        <item name="android:src">@drawable/ic_launcher</item>
+        <item name="android:src">@drawable/ic_house</item>
     </style>
-    
+    <style name="groupButton" parent="button">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1.15</item>
+        <item name="android:background">@drawable/buttonsborders</item>
+        <item name="android:src">@drawable/ic_group58</item>
+    </style>    
     <style name="eventButton" parent="button">
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1.15</item>
