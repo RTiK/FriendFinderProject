@@ -1,0 +1,103 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.summerschool.friendfinderapplication.activities.MyEventActivity" >
+
+   <LinearLayout
+        android:id="@+id/actionBar"
+        style="@style/topMenu"
+        android:weightSum="3" >
+
+        <ImageButton
+            android:id="@+id/topButton_one"
+            style="@style/button"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1.17"
+            android:background="@drawable/buttonsborders"
+            android:contentDescription="@string/home"
+            android:src="@drawable/house28"
+            android:onClick="onClickHome" />
+
+        <ImageButton
+            android:id="@+id/topButton_two"
+            style="@style/button"
+            android:layout_height="match_parent"
+            android:layout_weight="1.06"
+            android:background="@drawable/buttonsborders"
+            android:contentDescription="@string/myGroups"
+            android:src="@drawable/calendar68"
+            android:onClick="onClickMyEvent" />
+
+        <ImageButton
+            android:id="@+id/topButton_three"
+            style="@style/button"
+            android:layout_height="match_parent"
+            android:layout_weight="0.81"
+            android:background="@drawable/buttonsborders"
+            android:contentDescription="@string/myPoI"
+            android:src="@drawable/location32"
+            android:onClick="onClickMyPoI" />
+
+    </LinearLayout>
+    
+   <RelativeLayout
+        android:id="@+id/Content"
+        style="@style/content"
+        android:layout_alignStart="@+id/BottomMenu"
+        android:layout_below="@+id/actionBar"
+        android:paddingBottom="50dp" >
+
+	    <TextView
+	        android:id="@+id/helloView"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentRight="true"
+	        android:paddingLeft="25dp"
+	        android:text="@string/myEvents"
+	        android:textColor="#003070"
+	        android:background="#F5F5F5"
+	        android:textSize="15sp" />
+	    
+	    <ListView
+	        android:id="@+id/groupListView"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="30dp" >
+	    </ListView>
+	
+
+
+	</RelativeLayout>
+    
+    <!-- bottom buttons -->
+	<LinearLayout
+        android:id="@+id/BottomMenu"
+		style="@style/bottomMenu"
+        android:weightSum="3" >
+
+        <Button
+            android:id="@+id/Option_one"
+            style="@style/button"
+            android:onClick="onClickGroupMap"
+            android:text="@string/button_one"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/Option_two"
+            style="@style/button"
+            android:text="@string/button_two"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/Option_three"
+            style="@style/button"
+            android:onClick="onClickAddGroup"
+            android:text="@string/add"
+            android:textColor="#FFFFFF" />
+        
+    </LinearLayout>
+
+</RelativeLayout>
