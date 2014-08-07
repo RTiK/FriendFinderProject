@@ -28,8 +28,8 @@
             android:layout_weight="1.06"
             android:background="@drawable/buttonsborders"
             android:contentDescription="@string/myEvents"
-            android:src="@drawable/calendar68"
-            android:onClick="onClickMyEvent" />
+            android:onClick="onClickMyEvent"
+            android:src="@drawable/calendar68" />
 
         <ImageButton
             android:id="@+id/topButton_three"
@@ -69,7 +69,6 @@
 	        android:layout_marginTop="30dp" >
 	    </ListView>
 	
-
 
 	</RelativeLayout>
     
