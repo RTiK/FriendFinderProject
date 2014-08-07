@@ -116,6 +116,27 @@ public class GroupListActivity extends Activity {
 		finish();
 	}
 	
+	public void onClickHome(final View v) {
+		//intent to new Group activty		
+		Intent intent = new Intent(GroupListActivity.this, MainActivity.class);
+		startActivity(intent);
+		finish();		
+	}
+	
+	public void onClickMyEvent(final View v) {
+		//intent to new Group activty		
+		Intent intent = new Intent(GroupListActivity.this, MyEventActivity.class);
+		startActivity(intent);
+		finish();		
+	}
+	
+	public void onClickMyPoI(final View v) {
+		//intent to new Group activty		
+		Intent intent = new Intent(GroupListActivity.this, MyPOIActivity.class);
+		startActivity(intent);
+		finish();		
+	}
+	
 	private class MyGroupAdapter extends ArrayAdapter<Group> {
 
 		private Context mContext;
