@@ -19,7 +19,7 @@
 		    android:src="@drawable/house28" />
 
         <ImageButton
-            android:id="@+id/topButton_two"
+            android:id="@+id/topButton_twoe"
             style="@style/button"
             android:layout_height="match_parent"
             android:layout_gravity="center"

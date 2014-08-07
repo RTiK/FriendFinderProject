@@ -1,5 +1,7 @@
 package com.summerschool.friendfinderapplication.activities;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,12 +10,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.parse.ParseACL;
+import com.parse.CountCallback;
+import com.parse.FindCallback;
 import com.parse.ParseException;
-import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.summerschool.friendfinderapplication.R;
+import com.summerschool.friendfinderapplication.controller.MyGroupAdapter;
 import com.summerschool.friendfinderapplication.models.Group;
+import com.summerschool.friendfinderapplication.models.GroupMember;
 
 public class NewGroupActivity extends Activity {
 
@@ -24,10 +29,10 @@ public class NewGroupActivity extends Activity {
 	}
 	
 	public void onClickCreateGroupButton(final View v) {
-		
+		Log.i("JoinGroup", "Create new group ... ");
 		//create new group
 		EditText newNameTextField = (EditText) findViewById(R.id.group_name);		
-		String newGroupName = newNameTextField.getText().toString().trim();
+		final String newGroupName = newNameTextField.getText().toString().trim();
 		
 		if(newGroupName == null || newGroupName.length() < 1) {
 			Toast.makeText(this, "Group can't be empty", Toast.LENGTH_SHORT).show();
@@ -39,40 +44,97 @@ public class NewGroupActivity extends Activity {
 				Intent intent = new Intent(this, ConnectionActivity.class);
 				startActivity(intent);
 				finish();
-			}		
-			Group g = new Group();
-			g.setACL(new ParseACL(ParseUser.getCurrentUser()));
-			g.setOwner(ParseUser.getCurrentUser());
-			g.setName(newGroupName);
-			g.setDescription("Dummy Description");
-			g.setGPS(false);
-			try {
-				g.save();
-				//intent back to group list view
-				Intent i = new Intent(NewGroupActivity.this,GroupListActivity.class);
-				startActivity(i);
-				finish();
-			} catch (ParseException e) {
-				Toast.makeText(NewGroupActivity.this, "Was not able to save", Toast.LENGTH_SHORT).show();
 			}
+			ParseQuery<Group> validGroupQuery = ParseQuery.getQuery(Group.class);
+			validGroupQuery.whereEqualTo("name", newGroupName);
+			validGroupQuery.countInBackground(new CountCallback() {
+				@Override
+				public void done(int c, ParseException err) {
+					if(c == 0) {
+						Group g = new Group();
+						g.setOwner(ParseUser.getCurrentUser());
+						g.setName(newGroupName);
+						g.setDescription("Dummy Description");
+						g.setGPS(false);
+						try {
+							g.save();
+							//intent back to group list view
+							Intent i = new Intent(NewGroupActivity.this,GroupListActivity.class);
+							startActivity(i);
+							finish();
+						} catch (ParseException e) {
+							Toast.makeText(NewGroupActivity.this, "Was not able to save", Toast.LENGTH_SHORT).show();
+						}
+					} else {
+						Toast.makeText(NewGroupActivity.this, "This group already exists!", Toast.LENGTH_SHORT).show();
+					}
+				}
+			});
+			
+			
 		}
 	}
 	
-	public void onClickJoinGroupButton() {
-		
+	public void onClickJoinGroupButton(final View v) {
+		Log.i("JoinGroup", "Join new group ... ");
 		EditText newNameTextField = (EditText) findViewById(R.id.group_name);		
-		String newGroupName = newNameTextField.getText().toString().trim();
+		final String groupName = newNameTextField.getText().toString().trim();
 		
-		if(newGroupName == null || newGroupName.length() < 1) {
+		if(groupName == null || groupName.length() < 1) {
 			Toast.makeText(this, "Group can't be empty", Toast.LENGTH_SHORT).show();
 		} else {
 			
 			//find out if group exists
-			
-			//attempt to join group 
-			
-			//go back to group view
-			
+			ParseQuery<Group> groupQuery = ParseQuery.getQuery(Group.class);
+			groupQuery.whereEqualTo("name", groupName);
+			groupQuery.findInBackground(new FindCallback<Group>() {
+				@Override
+				public void done(final List<Group> groups, ParseException error) {
+					Log.i("JoinGroup","Found " + groups.size() + " groups matching " + groupName);
+					//group name is ok -> check if you are already in group -> create group -> go back
+										
+					if(MyGroupAdapter.isGroupJoined(groupName)) {
+						//join group now
+						GroupMember gm = new GroupMember();					
+						gm.addGroup(groups.get(0));
+						gm.addMember(ParseUser.getCurrentUser());
+						
+						try {
+							gm.save();
+						} catch (ParseException err) {
+							err.printStackTrace();
+						}
+								
+						//jump back
+						Intent i = new Intent(NewGroupActivity.this,GroupListActivity.class);
+						startActivity(i);
+						finish();								
+					} else {
+						Toast.makeText(NewGroupActivity.this, "You already joined this group", Toast.LENGTH_SHORT).show();
+					}
+				}
+			});
+//			try {
+//				int c = groupQuery.count();
+//				if(c > 0) {
+//					Log.i("JoinGroup", "Found a group to join: " + c);
+//					//group name is ok -> create group -> go back
+//					GroupMember gm = new GroupMember();
+//					gm.addGroup(groupQuery.getFirst());
+//					gm.addMember(ParseUser.getCurrentUser());
+//					gm.save();
+//					
+//					//jump back
+//					Intent i = new Intent(NewGroupActivity.this,GroupListActivity.class);
+//					startActivity(i);
+//					finish();
+//				} else {
+//					Log.i("JoinGroup", "There is no such group to join");
+//					Toast.makeText(this, "This group does not exists...", Toast.LENGTH_SHORT).show();
+//				}
+//			} catch (ParseException e) {
+//				e.printStackTrace();
+//			}
 		}
 		
 	}

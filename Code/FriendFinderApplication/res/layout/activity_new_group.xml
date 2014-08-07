@@ -2,59 +2,110 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.summerschool.friendfinderapplication.activities.NewGroupActivity" >
+	
+    <LinearLayout
+        android:id="@+id/actionBar"
+        style="@style/topMenu"
+        android:weightSum="3" >
 
-    <TextView
-        android:id="@+id/helloView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Group:" />
+        <ImageButton
+            android:id="@+id/topButton_one"
+            style="@style/button"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1.17"
+            android:background="@drawable/buttonsborders"
+            android:contentDescription="@string/home"
+            android:src="@drawable/house28"
+            android:onClick="onClickHome" />
 
-    <Button
-        android:id="@+id/create_group_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/NameLabel"
-        android:layout_alignBottom="@+id/NameLabel"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="21dp"
-        android:onClick="onClickCreateGroupButton"
-        android:text="Create" />
+        <ImageButton
+            android:id="@+id/topButton_two"
+            style="@style/button"
+            android:layout_height="match_parent"
+            android:layout_weight="1.06"
+            android:background="@drawable/buttonsborders"
+            android:contentDescription="@string/myEvents"
+            android:src="@drawable/calendar68"
+            android:onClick="onClickMyEvent" />
 
-    <Button
-        android:id="@+id/join_grou_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/create_group_button"
-        android:layout_alignRight="@+id/create_group_button"
-        android:layout_below="@+id/create_group_button"
-        android:layout_marginTop="18dp"
-        android:onClick="onClickJoinGroupButton"
-        android:text="Join" />
+        <ImageButton
+            android:id="@+id/topButton_three"
+            style="@style/button"
+            android:layout_height="match_parent"
+            android:layout_weight="0.81"
+            android:background="@drawable/buttonsborders"
+            android:contentDescription="@string/myPoI"
+            android:src="@drawable/location32"
+            android:onClick="onClickMyPoI" />
 
-    <TextView
-        android:id="@+id/NameLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/helloView"
-        android:layout_below="@+id/helloView"
-        android:layout_marginTop="32dp"
-        android:text="Name:" />
+    </LinearLayout>
+    
+    <RelativeLayout 
+        android:id="@+id/titleDiv"
+        style="@style/content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/actionBar"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+	    android:paddingRight="@dimen/activity_horizontal_margin">
 
-    <EditText
-        android:id="@+id/group_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/NameLabel"
-        android:layout_below="@+id/NameLabel"
-        android:layout_toLeftOf="@+id/create_group_button"
-        android:ems="10" >
+        <TextView
+            android:id="@+id/helloView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="@string/newGroup_title"
+            android:textSize="20sp" />
 
-        <requestFocus />
-    </EditText>
+    </RelativeLayout >
+    
+    <RelativeLayout
+        android:id="@+id/editTextDiv"
+        style="@style/content"
+        android:layout_below="@+id/titleDiv"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+	    android:paddingRight="@dimen/activity_horizontal_margin">
+
+	    <EditText
+	        android:id="@+id/group_name"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:ems="10"
+	        android:hint="@string/newGroup_editText"
+	        android:inputType="textPersonName" />
+
+	</RelativeLayout>
+    
+	<RelativeLayout
+	    android:id="@+id/buttonsDiv"
+	    style="@style/content"
+	    android:layout_below="@+id/editTextDiv"
+	    android:layout_marginTop="10dp"
+	    android:paddingLeft="@dimen/activity_horizontal_margin"
+	    android:paddingRight="@dimen/activity_horizontal_margin">
+
+	    <Button
+	        android:id="@+id/create_group_button"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:onClick="onClickCreateGroupButton"
+	        android:background="#003070"
+	        android:textColor="#FFFFFF"
+	        android:text="@string/createButton" />
+
+	    <Button
+	        android:id="@+id/join_grou_button"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="5dp"
+	        android:onClick="onClickJoinGroupButton"
+	        android:background="#003070"
+	        android:textColor="#FFFFFF"
+	        android:layout_below="@+id/create_group_button"
+	        android:text="@string/joinButton" />
+	</RelativeLayout>
 
 </RelativeLayout>
