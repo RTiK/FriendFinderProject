@@ -9,17 +9,17 @@
         style="@style/topMenu"
         android:weightSum="3" >
 
-		<ImageButton
+		<Button
 		    android:id="@+id/topButton_one"
 		    style="@style/homeButton"
 		    android:contentDescription="To main map view" />
 
-        <ImageButton
+        <Button
             android:id="@+id/topButton_two"
             style="@style/eventButton"
             android:contentDescription="To Event view" />
 
-        <ImageButton
+        <Button
             android:id="@+id/topButton_three"
             style="@style/poiButton"
 		    android:contentDescription="To POI view" />
@@ -76,7 +76,7 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:onClick="onClickCreateGroupButton"
-	        android:background="#003070"
+	        android:background="@drawable/buttonsaction"
 	        android:textColor="#FFFFFF"
 	        android:text="@string/createButton" />
 
@@ -86,7 +86,7 @@
 	        android:layout_height="wrap_content"
 	        android:layout_marginTop="5dp"
 	        android:onClick="onClickJoinGroupButton"
-	        android:background="#003070"
+	        android:background="@drawable/buttonsaction"
 	        android:textColor="#FFFFFF"
 	        android:layout_below="@+id/create_group_button"
 	        android:text="@string/joinButton" />
