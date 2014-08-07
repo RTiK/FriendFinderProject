@@ -64,7 +64,7 @@ public class MyGroupAdapter extends ArrayAdapter<Group> {
 				}
 			});
 			
-			//Set onclicklistener for ImageButton
+			//Set onclicklistener for GPS Switch
 			Switch gpsSwitch = (Switch) itemView.findViewById(R.id.item_group_switch);
 			gpsSwitch.setOnClickListener(new OnClickListener() {
 				@Override
