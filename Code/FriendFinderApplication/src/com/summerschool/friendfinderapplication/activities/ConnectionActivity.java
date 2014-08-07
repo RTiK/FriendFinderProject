@@ -23,6 +23,7 @@ import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 import com.summerschool.friendfinderapplication.R;
 import com.summerschool.friendfinderapplication.models.Group;
+import com.summerschool.friendfinderapplication.models.GroupMember;
 
 public class ConnectionActivity extends Activity {
 
@@ -112,6 +113,7 @@ public class ConnectionActivity extends Activity {
 		setContentView(R.layout.activity_connection);
 		
 		ParseObject.registerSubclass(Group.class);
+		ParseObject.registerSubclass(GroupMember.class);
 		
 		//Initialize Parse
 		Parse.initialize(this, PARSE_APPLICATION_ID, PARSE_CLIENT_KEY);
