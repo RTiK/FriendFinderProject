@@ -27,6 +27,7 @@
             android:contentDescription="To POI view"
             android:onClick="onClickMyEvent" />
 
+
     </LinearLayout>
     
    <RelativeLayout

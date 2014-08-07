@@ -8,13 +8,13 @@
     <LinearLayout
         android:id="@+id/actionBar"
         style="@style/topMenu"
-        android:weightSum="3" >		
-        
-       <ImageButton
+        android:weightSum="3" >	
+        	
+ 		<ImageButton
 		    android:id="@+id/topButton_one"
 		    style="@style/homeButton"
 		    android:contentDescription="To main map view" 
-		    android:onClick="onClickHome"/>
+		    android:onClick="onClickHome" />
 
         <ImageButton
             android:id="@+id/topButton_two"
@@ -25,9 +25,8 @@
         <ImageButton
             android:id="@+id/topButton_three"
             style="@style/poiButton"
-		    android:contentDescription="To POI view" 
-		    android:onClick="onClickMyPoI" />
-
+            android:contentDescription="To POI view"
+            android:onClick="onClickMyEvent" />
 
     </LinearLayout>
     
