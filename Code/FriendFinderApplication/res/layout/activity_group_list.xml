@@ -17,7 +17,7 @@
             android:layout_gravity="center"
             android:layout_weight="1.17"
             android:background="@drawable/buttonsborders"
-            android:contentDescription="To main map view"
+            android:contentDescription="@string/home"
             android:src="@drawable/house28"
             android:onClick="onClickHome" />
 
@@ -27,7 +27,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1.06"
             android:background="@drawable/buttonsborders"
-            android:contentDescription="To Event view"
+            android:contentDescription="@string/myEvents"
             android:src="@drawable/calendar68"
             android:onClick="onClickMyEvent" />
 
@@ -37,7 +37,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.81"
             android:background="@drawable/buttonsborders"
-            android:contentDescription="To POI view"
+            android:contentDescription="@string/myPoI"
             android:src="@drawable/location32"
             android:onClick="onClickMyPoI" />
 

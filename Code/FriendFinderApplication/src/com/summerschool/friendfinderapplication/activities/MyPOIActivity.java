@@ -17,7 +17,7 @@ public class MyPOIActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_poi);
-		TextView Tv = (TextView)findViewById(R.id.TextView1);
+		TextView Tv = (TextView)findViewById(R.id.helloView);
 		Tv.setText("MyPOI Avtivity");
 	}
 
