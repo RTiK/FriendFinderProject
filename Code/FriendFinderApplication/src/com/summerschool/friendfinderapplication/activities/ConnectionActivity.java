@@ -1,10 +1,12 @@
 package com.summerschool.friendfinderapplication.activities;
 
 import android.app.Activity;
+import android.app.LocalActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -23,6 +25,7 @@ import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 import com.summerschool.friendfinderapplication.R;
 import com.summerschool.friendfinderapplication.models.Group;
+import com.summerschool.friendfinderapplication.models.User;
 
 public class ConnectionActivity extends Activity {
 
@@ -32,6 +35,7 @@ public class ConnectionActivity extends Activity {
 	private final String PREF_NAME = "MySettings";
 	private static final String ACTIVE_USER_ACCOUNT = "activeUserAccount";
 	private static final String FIRST_RUN = "firstRun";
+	private ParseUser mUser;
 		
 	protected ImageButton mConnButton;
 	protected EditText mConnInput;	
@@ -47,7 +51,7 @@ public class ConnectionActivity extends Activity {
 		ParseUser.logInInBackground(
 				mUsername, 
 				password, 
-				new LogInCallback() {					
+				new LogInCallback() {
 					@Override
 					public void done(ParseUser user, ParseException e) {
 						if(user != null) {
@@ -79,7 +83,7 @@ public class ConnectionActivity extends Activity {
 									public void done(ParseException e) {
 										if(e == null) {
 											//make username persistance
-											saveUser(mUsername);											
+											saveUser(mUsername);
 											Intent intent = new Intent(ConnectionActivity.this, GroupListActivity.class);
 											startActivity(intent);
 											finish();
@@ -89,12 +93,15 @@ public class ConnectionActivity extends Activity {
 											Toast.makeText(ConnectionActivity.this, "Epic fail: ", Toast.LENGTH_SHORT).show();
 										}
 									}
-								});								
+								});
 							}	
 							v.setEnabled(true);
 						}
 					}
 				});
+		
+		updateLocation(ParseUser.getCurrentUser());
+		
 	}
 	
 	private void saveUser(String username) {
@@ -133,6 +140,17 @@ public class ConnectionActivity extends Activity {
 			mConnInput.setText(sp.getString(ACTIVE_USER_ACCOUNT, "")); //set Text into box
 			this.onClickConnButton(null); //call login method
 		}
+	}
+	
+	private void updateLocation(ParseUser user) {
+		
+		LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		
+		UserLocationListener locationListener = new UserLocationListener(user);
+		
+		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+
 	}
 
 }
