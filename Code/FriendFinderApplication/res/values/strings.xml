@@ -23,16 +23,18 @@
     <string name="title_activity_my_poi">MyPOIActivity</string>
     <string name="title_activity_my_event">MyEventActivity</string>
     <string name="title_activity_event">EventActivity</string>
-    
+
     <!-- Text for button at the top -->
     <string name="myGroups">My groups</string>
     <string name="myEvents">My Events</string>
     <string name="myPoI">My PoI</string>
     <string name="home">Home</string>
-    
+
     <!-- New Group Layout -->
     <string name="newGroup_title">Create a new group</string>
     <string name="newGroup_editText">Enter his name</string>
     <string name="createButton">Create</string>
     <string name="joinButton">Join</string>
+    <string name="title_activity_new_poi">NewPOIActivity</string>
+
 </resources>
