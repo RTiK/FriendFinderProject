@@ -66,6 +66,7 @@ public class NewGroupActivity extends Activity {
 							Toast.makeText(NewGroupActivity.this, "Was not able to save", Toast.LENGTH_SHORT).show();
 						}
 					} else {
+						
 						Toast.makeText(NewGroupActivity.this, "This group already exists!", Toast.LENGTH_SHORT).show();
 					}
 				}
