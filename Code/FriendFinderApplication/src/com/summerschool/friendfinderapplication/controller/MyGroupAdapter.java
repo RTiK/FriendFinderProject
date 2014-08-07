@@ -72,11 +72,4 @@ public class MyGroupAdapter extends ArrayAdapter<Group> {
 			return itemView;
 		}
 		
-		public static boolean isGroupJoined(String groupName) {
-			for(Group g : mGroups) {
-				if(g.getName().equals(groupName)) return true;
-			}
-			return false;
-		}
-		
 	}

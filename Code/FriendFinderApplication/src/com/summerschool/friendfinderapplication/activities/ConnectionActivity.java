@@ -148,8 +148,11 @@ public class ConnectionActivity extends Activity {
 		
 		UserLocationListener locationListener = new UserLocationListener(user);
 		
-		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+		long timeRefresh = 60000; // refresh every minute
+		float distanceRefresh = 10; // refresh 10 meters
+		
+		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, timeRefresh, distanceRefresh, locationListener);
+//		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, timeRefresh, distanceRefresh, locationListener);
 
 	}
 

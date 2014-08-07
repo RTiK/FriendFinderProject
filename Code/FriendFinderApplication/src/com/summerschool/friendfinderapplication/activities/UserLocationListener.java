@@ -6,6 +6,7 @@ import com.parse.ParseUser;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
+import android.util.Log;
 
 public class UserLocationListener implements LocationListener {
 	
@@ -24,25 +25,23 @@ public class UserLocationListener implements LocationListener {
 				location.getLatitude(),
 				location.getLongitude()
 				));
-		mUser.saveEventually();
+		mUser.saveInBackground();
+		Log.i("UPDATE", "location updated: " + location.getLatitude() + ", " + location.getLongitude());
 	}
 
 	@Override
 	public void onStatusChanged(String provider, int status, Bundle extras) {
-		// TODO Auto-generated method stub
-
+		Log.i("TEST", "status changed");
 	}
 
 	@Override
 	public void onProviderEnabled(String provider) {
-		// TODO Auto-generated method stub
-
+		Log.i("TEST", "provider enabled");
 	}
 
 	@Override
 	public void onProviderDisabled(String provider) {
-		// TODO Auto-generated method stub
-
+		Log.i("TEST", "provider diasabled");
 	}
 
 }

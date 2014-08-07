@@ -48,5 +48,25 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">#FFFFFF</item>
     </style>
-
+    
+    <style name="homeButton" parent="button">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1.15</item>
+        <item name="android:background">@drawable/buttonsborders</item>
+        <item name="android:src">@drawable/ic_house</item>
+    </style>
+    
+    <style name="eventButton" parent="button">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1.15</item>
+        <item name="android:background">@drawable/buttonsborders</item>
+        <item name="android:src">@drawable/ic_calendar</item>
+    </style>	
+    <style name="poiButton" parent="button">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">0.7</item>
+        <item name="android:background">@drawable/buttonsborders</item>
+        <item name="android:src">@drawable/ic_location</item>
+    </style>	
+    
 </resources>

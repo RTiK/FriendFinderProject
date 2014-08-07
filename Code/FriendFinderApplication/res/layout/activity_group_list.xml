@@ -8,38 +8,25 @@
     <LinearLayout
         android:id="@+id/actionBar"
         style="@style/topMenu"
-        android:weightSum="3" >
-
-        <ImageButton
-            android:id="@+id/topButton_one"
-            style="@style/button"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="1.17"
-            android:background="@drawable/buttonsborders"
-            android:contentDescription="@string/home"
-            android:src="@drawable/house28"
-            android:onClick="onClickHome" />
+        android:weightSum="3" >	
+        	
+ 		<ImageButton
+		    android:id="@+id/topButton_one"
+		    style="@style/homeButton"
+		    android:contentDescription="To main map view" 
+		    android:onClick="onClickHome" />
 
         <ImageButton
             android:id="@+id/topButton_two"
-            style="@style/button"
-            android:layout_height="match_parent"
-            android:layout_weight="1.06"
-            android:background="@drawable/buttonsborders"
-            android:contentDescription="@string/myEvents"
-            android:onClick="onClickMyEvent"
-            android:src="@drawable/calendar68" />
+            style="@style/eventButton"
+            android:contentDescription="To Event view" 
+            android:onClick="onClickMyEvent"/>
 
         <ImageButton
             android:id="@+id/topButton_three"
-            style="@style/button"
-            android:layout_height="match_parent"
-            android:layout_weight="0.81"
-            android:background="@drawable/buttonsborders"
-            android:contentDescription="@string/myPoI"
-            android:src="@drawable/location32"
-            android:onClick="onClickMyPoI" />
+            style="@style/poiButton"
+            android:contentDescription="To POI view"
+            android:onClick="onClickMyEvent" />
 
     </LinearLayout>
     

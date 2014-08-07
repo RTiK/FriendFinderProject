@@ -1,7 +1,0 @@
-package com.summerschool.friendfinderapplication;
-
-import com.parse.ParseObject;
-
-public class Task extends ParseObject {
-	
-}

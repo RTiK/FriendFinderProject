@@ -66,6 +66,7 @@ public class NewGroupActivity extends Activity {
 							Toast.makeText(NewGroupActivity.this, "Was not able to save", Toast.LENGTH_SHORT).show();
 						}
 					} else {
+						
 						Toast.makeText(NewGroupActivity.this, "This group already exists!", Toast.LENGTH_SHORT).show();
 					}
 				}
@@ -82,8 +83,7 @@ public class NewGroupActivity extends Activity {
 		
 		if(groupName == null || groupName.length() < 1) {
 			Toast.makeText(this, "Group can't be empty", Toast.LENGTH_SHORT).show();
-		} else {
-			
+		} else {			
 			//find out if group exists
 			ParseQuery<Group> groupQuery = ParseQuery.getQuery(Group.class);
 			groupQuery.whereEqualTo("name", groupName);
@@ -92,26 +92,47 @@ public class NewGroupActivity extends Activity {
 				public void done(final List<Group> groups, ParseException error) {
 					Log.i("JoinGroup","Found " + groups.size() + " groups matching " + groupName);
 					//group name is ok -> check if you are already in group -> create group -> go back
-										
-					if(MyGroupAdapter.isGroupJoined(groupName)) {
-						//join group now
-						GroupMember gm = new GroupMember();					
-						gm.addGroup(groups.get(0));
-						gm.addMember(ParseUser.getCurrentUser());
-						
-						try {
-							gm.save();
-						} catch (ParseException err) {
-							err.printStackTrace();
-						}
-								
-						//jump back
-						Intent i = new Intent(NewGroupActivity.this,GroupListActivity.class);
-						startActivity(i);
-						finish();								
+					if(groups.size() == 0) {
+						//no group found
+						Toast.makeText(NewGroupActivity.this, "This group doesn\'t exists", Toast.LENGTH_SHORT).show();
+					} else if(groups.size() == 1) {
+						//found 1 group, lets try to join
+						ParseQuery<GroupMember> groupQuery = ParseQuery.getQuery(GroupMember.class);
+						groupQuery.whereEqualTo("Group", groups.get(0));
+						groupQuery.countInBackground(new CountCallback() {
+							@Override
+							public void done(int c, ParseException error) {
+								if(c==0) {
+									// not joined yet, join group now
+									GroupMember gm = new GroupMember();					
+									gm.addGroup(groups.get(0));
+									gm.addMember(ParseUser.getCurrentUser());
+									
+									try {
+										gm.save();
+									} catch (ParseException err) {
+										err.printStackTrace();
+									}
+											
+									//jump back
+									Intent i = new Intent(NewGroupActivity.this,GroupListActivity.class);
+									startActivity(i);
+									finish();
+									
+								} else if(c==1) {
+									//group already joined
+									Toast.makeText(NewGroupActivity.this, "You already joined this group", Toast.LENGTH_SHORT).show();
+								} else {
+									//fail, same group joined several times
+									Toast.makeText(NewGroupActivity.this, "Fail! Group was joined several times. impossible.", Toast.LENGTH_SHORT).show();
+								}
+							}
+						});
 					} else {
-						Toast.makeText(NewGroupActivity.this, "You already joined this group", Toast.LENGTH_SHORT).show();
+						//found several groups -> his should not happen
+						Toast.makeText(NewGroupActivity.this, "Fail! Group was joined several times. impossible.", Toast.LENGTH_SHORT).show();
 					}
+					
 				}
 			});
 //			try {
