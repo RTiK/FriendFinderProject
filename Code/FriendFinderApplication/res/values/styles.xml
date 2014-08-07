@@ -68,5 +68,14 @@
         <item name="android:background">@drawable/buttonsborders</item>
         <item name="android:src">@drawable/ic_location</item>
     </style>	
-    
+    <style name="settingsButton" parent="button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_alignParentBottom">true</item>
+		<item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:layout_marginBottom">18dp</item>
+        <item name="android:src">@drawable/settings21</item>
+    </style>	
+
 </resources>

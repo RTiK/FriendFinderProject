@@ -40,4 +40,9 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="52dp" />
 
+    <ImageButton
+        android:id="@+id/settings"
+        style="@style/settingsButton"
+        android:onClick="onClickMainSettings" />
+
 </RelativeLayout>
