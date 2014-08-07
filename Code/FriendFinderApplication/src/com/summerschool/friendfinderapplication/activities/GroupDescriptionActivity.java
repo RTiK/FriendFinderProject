@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseQuery.CachePolicy;
 import com.summerschool.friendfinderapplication.R;
 import com.summerschool.friendfinderapplication.models.Group;
 
@@ -46,8 +47,9 @@ public class GroupDescriptionActivity extends Activity {
 		startActivity(intent);
 	}
 	public void onClickMemberListButton(final View v) {
-		//TODO
-		Intent intent = new Intent(GroupDescriptionActivity.this, GroupListActivity.class);
+		Log.i("Info","go to MemberList");
+		Intent intent = new Intent(GroupDescriptionActivity.this, MemberListActivity.class);
+		intent.putExtra("GroupName", currentGroup.getName());
 		startActivity(intent);
 	}
 	public void onClickEventsButton(final View v) {
@@ -72,22 +74,29 @@ public class GroupDescriptionActivity extends Activity {
 		
 		ParseQuery<Group> getGroupInfo = ParseQuery.getQuery(Group.class);
 		getGroupInfo.whereEqualTo("name", groupName);
+		getGroupInfo.setCachePolicy(CachePolicy.CACHE_THEN_NETWORK);
 		getGroupInfo.findInBackground(new FindCallback<Group>() {
 			@Override
 			public void done(List<Group> groups, ParseException error) {
-				if(groups.size() > 1) {
-					Log.i("Error", "Multiple Groups with the same name found");
-				} else if(groups.size() == 0) {
-					Log.i("Warning", "No Group found like that?!");
-					tv.setText("WTF?");
+				if(groups != null) {
+					if(groups.size() > 1) {
+						Log.i("Error", "Multiple Groups with the same name found");
+					} else if(groups.size() == 0) {
+						Log.i("Warning", "No Group found like that?!");
+						tv.setText("WTF?");
+					} else {
+						currentGroup = groups.get(0);
+						
+						String txt = currentGroup.getName() + "\n" + currentGroup.getDescription() +
+								"\n";
+						tv.setText(txt);
+					}
 				} else {
-					currentGroup = groups.get(0);
-					
-					String txt = currentGroup.getName() + "\n" + currentGroup.getDescription() +
-							"\n";
-					tv.setText(txt);
-					
+					//groups was null
+					Log.i("ERROR", "Group List returned was null ??");
 				}
+				
+				
 			}
 		});
 	}

@@ -100,6 +100,7 @@ public class NewGroupActivity extends Activity {
 						//found 1 group, lets try to join
 						ParseQuery<GroupMember> groupQuery = ParseQuery.getQuery(GroupMember.class);
 						groupQuery.whereEqualTo("Group", groups.get(0));
+						groupQuery.whereEqualTo("Member", ParseUser.getCurrentUser());
 						groupQuery.countInBackground(new CountCallback() {
 							@Override
 							public void done(int c, ParseException error) {
