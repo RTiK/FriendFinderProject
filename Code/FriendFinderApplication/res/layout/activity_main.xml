@@ -25,7 +25,7 @@
             android:id="@+id/topButton_three"
             style="@style/poiButton"
             android:contentDescription="To POI view"
-            android:onClick="onClickMyEvent" />
+            android:onClick="onClickMyPoi" />
 
     </LinearLayout>
     

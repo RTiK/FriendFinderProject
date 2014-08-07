@@ -48,10 +48,11 @@
 		style="@style/bottomMenu"
         android:weightSum="3" >
 
-        <Button
+        <ImageButton
             android:id="@+id/Option_one"
-            style="@style/button"
-            android:text="@string/button_one" />
+            style="@style/membersListButton"
+            android:text="@string/button_one"
+            android:onClick="onClickMemberListButton" />
 
         <Button
             android:id="@+id/Option_two"

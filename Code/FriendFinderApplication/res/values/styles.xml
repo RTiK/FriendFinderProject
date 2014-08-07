@@ -34,7 +34,7 @@
     <style name="bottomMenu" parent="menu">
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:layout_alignParentLeft">true</item>
-        <item name="android:background">#003070</item>
+        <item name="android:background">#569EFB</item>
     </style>
     
     <style name="topMenu" parent="menu">
@@ -77,5 +77,10 @@
         <item name="android:layout_marginBottom">18dp</item>
         <item name="android:src">@drawable/settings21</item>
     </style>	
-
+    <style name="membersListButton" parent="button">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">0.7</item>
+        <item name="android:background">@drawable/buttonsborders</item>
+        <item name="android:src">@drawable/ic_action_group</item>
+    </style>	
 </resources>
