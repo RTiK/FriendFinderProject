@@ -36,9 +36,11 @@
         style="@style/content" >
 
         <TextView
+            android:id="@+id/testTextView"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:text="test" />
+            android:text="..." />
+
     </RelativeLayout>
 
     <LinearLayout

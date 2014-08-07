@@ -3,6 +3,7 @@ package com.summerschool.friendfinderapplication.controller;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.summerschool.friendfinderapplication.R;
-import com.summerschool.friendfinderapplication.activities.GroupListActivity;
+import com.summerschool.friendfinderapplication.activities.GroupDescriptionActivity;
 import com.summerschool.friendfinderapplication.models.Group;
 
 public class MyGroupAdapter extends ArrayAdapter<Group> {
@@ -56,7 +57,10 @@ public class MyGroupAdapter extends ArrayAdapter<Group> {
 			infButton.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Toast.makeText(mContext, "This is " + currentGroup.getName(), Toast.LENGTH_SHORT).show();
+					Intent intent = new Intent(mContext, GroupDescriptionActivity.class);
+					intent.putExtra("GroupName", currentGroup.getName());
+					mContext.startActivity(intent);					
+					//Toast.makeText(mContext, "This is " + currentGroup.getName(), Toast.LENGTH_SHORT).show();
 				}
 			});
 			

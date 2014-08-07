@@ -1,16 +1,22 @@
 package com.summerschool.friendfinderapplication.activities;
 
-import com.summerschool.friendfinderapplication.R;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.Switch;
+import android.widget.TextView;
+
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
+import com.summerschool.friendfinderapplication.R;
+import com.summerschool.friendfinderapplication.models.Group;
 
 public class GroupDescriptionActivity extends Activity {
 
@@ -21,6 +27,8 @@ public class GroupDescriptionActivity extends Activity {
 	protected Button mMemberListButton;
 	protected Button mEventsButton;
 	protected Button mMapButton;
+	
+	private Group currentGroup;
 	
 	public void onClickHomeButton(final View v) {
 		//TODO
@@ -56,25 +64,31 @@ public class GroupDescriptionActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_group_description);	
-	}
+		setContentView(R.layout.activity_group_description);
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.group_description, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
+		String groupName = getIntent().getStringExtra("GroupName");
+		final TextView tv = (TextView) findViewById(R.id.testTextView);
+		tv.setText("this is group: " + groupName);
+		
+		ParseQuery<Group> getGroupInfo = ParseQuery.getQuery(Group.class);
+		getGroupInfo.whereEqualTo("name", groupName);
+		getGroupInfo.findInBackground(new FindCallback<Group>() {
+			@Override
+			public void done(List<Group> groups, ParseException error) {
+				if(groups.size() > 1) {
+					Log.i("Error", "Multiple Groups with the same name found");
+				} else if(groups.size() == 0) {
+					Log.i("Warning", "No Group found like that?!");
+					tv.setText("WTF?");
+				} else {
+					currentGroup = groups.get(0);
+					
+					String txt = currentGroup.getName() + "\n" + currentGroup.getDescription() +
+							"\n";
+					tv.setText(txt);
+					
+				}
+			}
+		});
 	}
 }
