@@ -10,8 +10,13 @@
 <fullyQualifiedTypeName name="java.sql.Array"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.lang.String"/>
-<fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="com.summerschool.friendfinderapplication.activities.GroupListActivity"/>
-<fullyQualifiedTypeName name="android.content.Intent"/>
 <fullyQualifiedTypeName name="com.summerschool.friendfinderapplication.activities.MainActivity"/>
+<fullyQualifiedTypeName name="android.content.Intent"/>
+<fullyQualifiedTypeName name="com.google.android.gms.maps.GoogleMap"/>
+<fullyQualifiedTypeName name="com.google.android.gms.maps.MapFragment"/>
+<fullyQualifiedTypeName name="com.google.android.gms.maps.model.MarkerOptions"/>
+<fullyQualifiedTypeName name="com.parse.ParseGeoPoint"/>
+<fullyQualifiedTypeName name="com.google.android.gms.maps.model.LatLng"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
 </qualifiedTypeNameHistroy>

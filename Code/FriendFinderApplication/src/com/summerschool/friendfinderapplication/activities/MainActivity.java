@@ -13,7 +13,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.summerschool.friendfinderapplication.R;
@@ -48,48 +53,54 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		Intent call = getIntent();
-		int numberOfUsers = call.getIntExtra("NUMBER_OF_USERS", 0);
-		ArrayList<String> users = new ArrayList<String>();
-		for (int i = 0; i < numberOfUsers; i++) {
-			users.add(call.getStringExtra("USER_IN_GROUP" + i));
-			Log.i("DISPLAY", call.getStringExtra("USER_IN_GROUP" + i));
-		}
+		Log.i("LOCATION", "map loaded");
+		GoogleMap mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 		
-//		ParseQuery<GroupMember> members =
-//				ParseQuery.getQuery(GroupMember.class).whereEqualTo("Group", currentGroup);
-//		members.include("Member");
-//		
+		
+//		Intent call = getIntent();
+//		int numberOfUsers = call.getIntExtra("NUMBER_OF_USERS", 0);
+//		ArrayList<String> users = new ArrayList<String>();
+//		for (int i = 0; i < numberOfUsers; i++) {
+//			users.add(call.getStringExtra("USER_IN_GROUP" + i));
+//			Log.i("DISPLAY", call.getStringExtra("USER_IN_GROUP" + i));
+//		}
+		
+		Intent i = getIntent();
+		String groupName = i.getStringExtra("GROUPNAME");
+		
+		Log.i("LOCATION", groupName);
+		
+		ParseQuery<GroupMember> members =
+				ParseQuery.getQuery(GroupMember.class).whereEqualTo("Group", groupName);
+		members.include("Member");
+	
 //		ArrayList<ParseUser> usersInGroup = new ArrayList<ParseUser>();
-//		
-//		try {
-//			List<GroupMember> users = members.find();
-//			for (GroupMember u : users) {
-//				ParseUser user = u.getParseUser("Member");
-//				if (user.getParseGeoPoint("location") != null) {
-//					usersInGroup.add(user);
-//					Log.i("LOCATION", user.getString("username") + " is at " +
-//						user.getParseGeoPoint("location").getLatitude() + " " +
-//						user.getParseGeoPoint("location").getLongitude());
-//				} else {
-//					Log.i("LOCATION", user.getString("username") + " has no location");
-//				}
-//			}
-//				
-//		} catch (ParseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//		Intent goToMap = new Intent(mContext.getApplicationContext(), MainActivity.class);
-////		Intent goToMap = new Intent(mContext, MainActivity.class);
-//		goToMap.putExtra("NUMBER_OF_USERS", usersInGroup.size());
-//		for (int i = 0; i < usersInGroup.size(); i++) {
-//			goToMap.putExtra("USER_IN_GROUP" + i , usersInGroup.get(i).getUsername());
-//			// TODO do not show me on the map!
-//			Log.i("TEST", i + " users added");
-//		}
 		
+		try {
+			List<GroupMember> users = members.find();
+			Log.i("LOCATION", "found " + users.size() + " members");
+			for (GroupMember u : users) {
+				ParseUser user = u.getParseUser("Member");
+				if (user.getParseGeoPoint("location") != null) {
+//					usersInGroup.add(user);
+					ParseGeoPoint pos = user.getParseGeoPoint("location");
+					
+					mMap.addMarker(new MarkerOptions()
+						.position(new LatLng(pos.getLatitude(), pos.getLatitude()))
+						.title(user.getUsername()));
+
+					Log.i("LOCATION", user.getString("username") + " is at " +
+						user.getParseGeoPoint("location").getLatitude() + " " +
+						user.getParseGeoPoint("location").getLongitude());
+					
+				} else {
+					Log.i("LOCATION", user.getString("username") + " has no location");
+				}
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	@Override

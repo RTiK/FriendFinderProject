@@ -64,6 +64,7 @@ public class MyGroupAdapter extends ArrayAdapter<Group> {
 					Intent goToMap = new Intent(mContext.getApplicationContext(), MainActivity.class);
 					goToMap.putExtra("GROUPNAME", currentGroup.getString("name"));
 					mContext.startActivity(goToMap);
+					Log.i("TEST", "activity started");
 					
 				}
 			});
