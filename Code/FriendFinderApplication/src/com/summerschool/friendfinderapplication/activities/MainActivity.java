@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -68,7 +70,9 @@ public class MainActivity extends Activity {
 
 		Log.i("LOCATION", "map loaded");
 		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
-
+		
+		
+		
 		// Intent call = getIntent();
 		// int numberOfUsers = call.getIntExtra("NUMBER_OF_USERS", 0);
 		// ArrayList<String> users = new ArrayList<String>();
@@ -109,6 +113,8 @@ public class MainActivity extends Activity {
 									ParseUser user = u.getParseUser("Member");
 									groupMembers.add(user);
 								}
+							
+								//show on map
 								showMembersOnMap(groupMembers);
 							}
 						});
@@ -131,8 +137,14 @@ public class MainActivity extends Activity {
 				mo.position(new LatLng(pos.getLatitude(), pos.getLongitude()));
 				mo.title(user.getUsername());
 				mo.visible(true);
-				if (user.equals(ParseUser.getCurrentUser())) {
+				if (user.getUsername().equals(ParseUser.getCurrentUser().getUsername())) {
 					mo.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+					
+					//set Camera to my own position
+					Log.i("LOCATION","move to position " + pos.getLatitude() + " " + pos.getLongitude());
+					CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(new LatLng(pos.getLatitude(), pos.getLongitude()),10);
+					mMap.moveCamera(cu);
+					
 				} else {
 					mo.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
 				}
@@ -153,60 +165,5 @@ public class MainActivity extends Activity {
 					.getParseGeoPoint("location").getLongitude()));
 		}
 		return markers;
-	}
-
-	private void plotMarkers(List<MyMarker> list) {
-		if (list.size() > 0) {
-			for (MyMarker myMarker : list) {
-				// Create user marker with custom icon and other options
-				MarkerOptions markerOption = new MarkerOptions().position(new LatLng(myMarker.getmLatitude(), myMarker
-						.getmLongitude()));
-				markerOption.icon(BitmapDescriptorFactory.fromResource(R.drawable.currentlocation_icon));
-
-				Marker currentMarker = mMap.addMarker(markerOption); // receive
-																		// a
-																		// marker
-																		// object
-																		// markersHashMap.put(currentMarker,
-																		// myMarker);
-																		// //
-																		// save
-																		// in
-																		// hashmap
-				// because of
-				// infowindow
-
-				mMap.setInfoWindowAdapter(new MarkerInfoWindowAdapter());
-			}
-		}
-	}
-
-	public class MarkerInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
-		public MarkerInfoWindowAdapter() {
-		}
-
-		@Override
-		public View getInfoWindow(Marker marker) {
-			return null;
-		}
-
-		@Override
-		public View getInfoContents(Marker marker) {
-			// View v = getLayoutInflater().inflate(R.layout.infowindow_layout,
-			// null);
-			//
-			// MyMarker myMarker = markersHashMap.get(marker);
-			//
-			// ImageView markerIcon = (ImageView)
-			// v.findViewById(R.id.marker_icon);
-			// TextView markerLabel =
-			// (TextView)v.findViewById(R.id.marker_label);
-			//
-			// markerIcon.setImageResource(manageMarkerIcon(myMarker.getmIcon()));
-			//
-			// markerLabel.setText(myMarker.getmLabel());
-
-			return null;
-		}
 	}
 }
