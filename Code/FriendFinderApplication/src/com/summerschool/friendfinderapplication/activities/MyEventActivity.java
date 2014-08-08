@@ -16,12 +16,17 @@ import android.widget.Button;
 
 public class MyEventActivity extends Activity {
 
-	
+	protected Button mHomeButton;
 	protected Button mMyEventButton;
 	protected Button mMyPOIButton;
 	protected Button mGroupsButton;
 	
-	
+	public void onClickHome(final View v) {
+		//intent to new Group activty		
+		Intent intent = new Intent(MyEventActivity.this, MainActivity.class);
+		startActivity(intent);
+		finish();		
+	}
 	public void onClickGroupsButton(final View v) {
 		// intent to main activity
 		Intent intent = new Intent(MyEventActivity.this, GroupListActivity.class);

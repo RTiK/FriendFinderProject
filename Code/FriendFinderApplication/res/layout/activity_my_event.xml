@@ -9,17 +9,18 @@
         style="@style/topMenu"
         android:weightSum="3" >
 
-		<Button
+       <Button
 		    android:id="@+id/topButton_one"
+		    style="@style/homeButton"
+		    android:contentDescription="To main map view" 
+		    android:onClick="onClickHome" />
+       
+		<Button
+		    android:id="@+id/topButton_two"
 		    style="@style/groupButton"
 		    android:contentDescription="To group list view" 
 		    android:onClick="onClickGroupsButton" />
 
-        <Button
-            android:id="@+id/topButton_two"
-            style="@style/eventButton"
-            android:contentDescription="To Event view" 
-            android:onClick="onClickMyEventButton"/>
 
         <Button
             android:id="@+id/topButton_three"

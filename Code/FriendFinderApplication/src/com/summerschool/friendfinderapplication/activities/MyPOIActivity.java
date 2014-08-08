@@ -17,11 +17,17 @@ import android.widget.TextView;
 
 public class MyPOIActivity extends Activity {
 
-	
+	protected Button mHomeButton;
 	protected Button mMyEventButton;
 	protected Button mMyPOIButton;
 	protected Button mGroupsButton;
 	
+	public void onClickHome(final View v) {
+		//intent to new Group activty		
+		Intent intent = new Intent(MyPOIActivity.this, MainActivity.class);
+		startActivity(intent);
+		finish();		
+	}
 	
 	public void onClickGroupsButton(final View v) {
 		// intent to main activity
