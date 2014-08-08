@@ -10,19 +10,19 @@
         style="@style/topMenu"
         android:weightSum="3" >	
         	
- 		<ImageButton
+ 		<Button
 		    android:id="@+id/topButton_one"
 		    style="@style/homeButton"
 		    android:contentDescription="To main map view" 
 		    android:onClick="onClickHome" />
 
-        <ImageButton
+        <Button
             android:id="@+id/topButton_two"
             style="@style/eventButton"
             android:contentDescription="To Event view" 
             android:onClick="onClickMyEvent"/>
 
-        <ImageButton
+        <Button
             android:id="@+id/topButton_three"
             style="@style/poiButton"
             android:contentDescription="To POI view"

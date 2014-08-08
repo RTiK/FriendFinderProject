@@ -25,6 +25,7 @@ import com.parse.ParseUser;
 import com.summerschool.friendfinderapplication.R;
 import com.summerschool.friendfinderapplication.activities.GroupListActivity;
 import com.summerschool.friendfinderapplication.activities.MainActivity;
+import com.summerschool.friendfinderapplication.activities.GroupDescriptionActivity;
 import com.summerschool.friendfinderapplication.models.Group;
 import com.summerschool.friendfinderapplication.models.GroupMember;
 import com.summerschool.friendfinderapplication.models.User;
@@ -74,11 +75,14 @@ public class MyGroupAdapter extends ArrayAdapter<Group> {
 			infButton.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Toast.makeText(mContext, "This is " + currentGroup.getName(), Toast.LENGTH_SHORT).show();
+					Intent intent = new Intent(mContext, GroupDescriptionActivity.class);
+					intent.putExtra("GroupName", currentGroup.getName());
+					mContext.startActivity(intent);					
+					//Toast.makeText(mContext, "This is " + currentGroup.getName(), Toast.LENGTH_SHORT).show();
 				}
 			});
 			
-			//Set onclicklistener for ImageButton
+			//Set onclicklistener for GPS Switch
 			Switch gpsSwitch = (Switch) itemView.findViewById(R.id.item_group_switch);
 			gpsSwitch.setOnClickListener(new OnClickListener() {
 				@Override

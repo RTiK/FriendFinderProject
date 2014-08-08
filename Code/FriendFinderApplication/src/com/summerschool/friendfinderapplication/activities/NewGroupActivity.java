@@ -15,6 +15,7 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.summerschool.friendfinderapplication.R;
 import com.summerschool.friendfinderapplication.controller.MyGroupAdapter;
 import com.summerschool.friendfinderapplication.models.Group;
@@ -99,10 +100,12 @@ public class NewGroupActivity extends Activity {
 						//found 1 group, lets try to join
 						ParseQuery<GroupMember> groupQuery = ParseQuery.getQuery(GroupMember.class);
 						groupQuery.whereEqualTo("Group", groups.get(0));
+						groupQuery.whereEqualTo("Member", ParseUser.getCurrentUser());
 						groupQuery.countInBackground(new CountCallback() {
 							@Override
 							public void done(int c, ParseException error) {
 								if(c==0) {
+									Log.i("CreateJoinGroup","try to join group ...");
 									// not joined yet, join group now
 									GroupMember gm = new GroupMember();					
 									gm.addGroup(groups.get(0));
@@ -113,7 +116,9 @@ public class NewGroupActivity extends Activity {
 									} catch (ParseException err) {
 										err.printStackTrace();
 									}
-											
+									
+									Log.i("CreateJoinGroup","... group joined");
+									
 									//jump back
 									Intent i = new Intent(NewGroupActivity.this,GroupListActivity.class);
 									startActivity(i);
@@ -121,9 +126,11 @@ public class NewGroupActivity extends Activity {
 									
 								} else if(c==1) {
 									//group already joined
+									Log.i("CreateJoinGroup","already joined");
 									Toast.makeText(NewGroupActivity.this, "You already joined this group", Toast.LENGTH_SHORT).show();
 								} else {
 									//fail, same group joined several times
+									Log.i("CreateJoinGroup","failure, fix this");
 									Toast.makeText(NewGroupActivity.this, "Fail! Group was joined several times. impossible.", Toast.LENGTH_SHORT).show();
 								}
 							}

@@ -34,7 +34,7 @@
     <style name="bottomMenu" parent="menu">
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:layout_alignParentLeft">true</item>
-        <item name="android:background">#003070</item>
+        <item name="android:background">#569EFB</item>
     </style>
     
     <style name="topMenu" parent="menu">
@@ -53,20 +53,43 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1.15</item>
         <item name="android:background">@drawable/buttonsborders</item>
-        <item name="android:src">@drawable/ic_house</item>
+        <item name="android:drawableLeft">@drawable/ic_house</item>
+        <item name="android:text">@string/home</item>
     </style>
-    
+    <style name="groupButton" parent="button">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1.15</item>
+        <item name="android:background">@drawable/buttonsborders</item>
+        <item name="android:drawableLeft">@drawable/ic_group58</item>
+        <item name="android:text">Groups</item>
+    </style>    
     <style name="eventButton" parent="button">
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1.15</item>
         <item name="android:background">@drawable/buttonsborders</item>
-        <item name="android:src">@drawable/ic_calendar</item>
+        <item name="android:drawableLeft">@drawable/ic_calendar</item>
+        <item name="android:text">Events</item>
     </style>	
     <style name="poiButton" parent="button">
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">0.7</item>
         <item name="android:background">@drawable/buttonsborders</item>
-        <item name="android:src">@drawable/ic_location</item>
+        <item name="android:drawableLeft">@drawable/ic_location</item>
+        <item name="android:text">POI</item>        
     </style>	
-    
+    <style name="settingsButton" parent="button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_alignParentBottom">true</item>
+		<item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:layout_marginBottom">18dp</item>
+        <item name="android:src">@drawable/settings21</item>
+    </style>	
+    <style name="membersListButton" parent="button">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">0.7</item>
+        <item name="android:background">@drawable/buttonsborders</item>
+        <item name="android:src">@drawable/ic_action_group</item>
+    </style>	
 </resources>

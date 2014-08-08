@@ -36,5 +36,6 @@
     <string name="createButton">Create</string>
     <string name="joinButton">Join</string>
     <string name="title_activity_new_poi">NewPOIActivity</string>
+    <string name="title_activity_memberlist">MemberList</string>
 
 </resources>

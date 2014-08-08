@@ -9,23 +9,23 @@
 		style="@style/topMenu"
         android:weightSum="3" >
 
-		<ImageButton
+		<Button
 		    android:id="@+id/topButton_one"
 		    style="@style/homeButton"
-		    android:contentDescription="To main map view" 
-		    android:onClick="onClickHome" />
+		    android:contentDescription="To main map view"
+		    android:onClick="onClickHome"/>
 
-        <ImageButton
+        <Button
             android:id="@+id/topButton_two"
             style="@style/eventButton"
             android:contentDescription="To Event view" 
             android:onClick="onClickMyEvent"/>
 
-        <ImageButton
+        <Button
             android:id="@+id/topButton_three"
             style="@style/poiButton"
             android:contentDescription="To POI view"
-            android:onClick="onClickMyEvent" />
+            android:onClick="onClickMyPoi" />
 
     </LinearLayout>
     
@@ -36,9 +36,11 @@
         style="@style/content" >
 
         <TextView
+            android:id="@+id/testTextView"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:text="test" />
+            android:text="..." />
+
     </RelativeLayout>
 
     <LinearLayout
@@ -46,17 +48,18 @@
 		style="@style/bottomMenu"
         android:weightSum="3" >
 
-        <Button
+        <ImageButton
             android:id="@+id/Option_one"
-            style="@style/button"
-            android:text="@string/button_one" />
+            style="@style/membersListButton"
+            android:text="@string/button_one"
+            android:onClick="onClickMemberListButton" />
 
-        <Button
+        <ImageButton
             android:id="@+id/Option_two"
             style="@style/button"
             android:text="@string/button_two" />
 
-        <Button
+        <ImageButton
             android:id="@+id/Option_three"
             style="@style/button"
             android:text="@string/button_three" />

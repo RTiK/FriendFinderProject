@@ -33,7 +33,10 @@ public class MainActivity extends Activity {
 	protected Switch mLocationSwitch;
 	
 	public void onClickGroupsButton(final View v) {
-		//TODO
+		//intent to main activity		
+		Intent intent = new Intent(MainActivity.this, GroupListActivity.class);
+		startActivity(intent);
+		finish();
 	}
 	public void onClickMyEventButton(final View v) {
 		//TODO
