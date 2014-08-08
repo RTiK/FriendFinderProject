@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.summerschool.friendfinderapplication.R;
 import com.summerschool.friendfinderapplication.activities.GroupDescriptionActivity;
-import com.summerschool.friendfinderapplication.activities.MainActivity;
+import com.summerschool.friendfinderapplication.activities.MapActivity;
 import com.summerschool.friendfinderapplication.models.Group;
 
 public class MyGroupAdapter extends ArrayAdapter<Group> {
@@ -52,7 +52,7 @@ public class MyGroupAdapter extends ArrayAdapter<Group> {
 				public void onClick(View v) {
 //					Toast.makeText(mContext, "This is " + currentGroup.getName(), Toast.LENGTH_SHORT).show();
 					
-					Intent goToMap = new Intent(mContext.getApplicationContext(), MainActivity.class);
+					Intent goToMap = new Intent(mContext.getApplicationContext(), MapActivity.class);
 					goToMap.putExtra("GROUPNAME", currentGroup.getString("name"));
 					mContext.startActivity(goToMap);
 					Log.i("TEST", "activity started");

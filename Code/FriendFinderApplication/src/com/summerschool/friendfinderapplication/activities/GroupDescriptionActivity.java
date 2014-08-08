@@ -33,17 +33,17 @@ public class GroupDescriptionActivity extends Activity {
 	
 	public void onClickHomeButton(final View v) {
 		//TODO
-		Intent intent = new Intent(GroupDescriptionActivity.this, MainActivity.class);
+		Intent intent = new Intent(GroupDescriptionActivity.this, MapActivity.class);
 		startActivity(intent);
 	}
 	public void onClickMyEventButton(final View v) {
 		//TODO
-		Intent intent = new Intent(GroupDescriptionActivity.this, MyEventActivity.class);
+		Intent intent = new Intent(GroupDescriptionActivity.this, MyEventListActivity.class);
 		startActivity(intent);
 	}
 	public void onClickMyPOIButton(final View v) {
 		//TODO
-		Intent intent = new Intent(GroupDescriptionActivity.this, MyPOIActivity.class);
+		Intent intent = new Intent(GroupDescriptionActivity.this, MyPOIListActivity.class);
 		startActivity(intent);
 	}
 	public void onClickMemberListButton(final View v) {
@@ -54,12 +54,12 @@ public class GroupDescriptionActivity extends Activity {
 	}
 	public void onClickEventsButton(final View v) {
 		//TODO
-		Intent intent = new Intent(GroupDescriptionActivity.this, EventActivity.class);
+		Intent intent = new Intent(GroupDescriptionActivity.this, MyEventListActivity.class);
 		startActivity(intent);
 	}
 	public void onClickMapButton(final View v) {
 		//TODO
-		Intent intent = new Intent(GroupDescriptionActivity.this, MainActivity.class);
+		Intent intent = new Intent(GroupDescriptionActivity.this, MapActivity.class);
 		startActivity(intent);
 	}
 	

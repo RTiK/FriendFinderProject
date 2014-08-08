@@ -23,6 +23,7 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 import com.summerschool.friendfinderapplication.R;
+import com.summerschool.friendfinderapplication.controller.UserLocationListener;
 import com.summerschool.friendfinderapplication.models.Group;
 import com.summerschool.friendfinderapplication.models.GroupMember;
 
@@ -55,7 +56,7 @@ public class ConnectionActivity extends Activity {
 					public void done(ParseUser user, ParseException e) {
 						if(user != null) {
 							saveUser(mUsername);
-							Intent intent = new Intent(ConnectionActivity.this, MainActivity.class);
+							Intent intent = new Intent(ConnectionActivity.this, MapActivity.class);
 							startActivity(intent);
 							finish();
 						} else {
@@ -84,7 +85,7 @@ public class ConnectionActivity extends Activity {
 											//make username persistance
 											saveUser(mUsername);
 											updateLocation(ParseUser.getCurrentUser());
-											Intent intent = new Intent(ConnectionActivity.this, MainActivity.class);
+											Intent intent = new Intent(ConnectionActivity.this, MapActivity.class);
 											startActivity(intent);
 											finish();
 										} else {

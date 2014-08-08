@@ -149,28 +149,28 @@ public class GroupListActivity extends Activity {
 	
 	public void onClickGroupMap(View v) {
 		Log.i("TEST", "map button clicked");
-		Intent switchToMainView = new Intent(getApplicationContext(), MainActivity.class);
+		Intent switchToMainView = new Intent(getApplicationContext(), MapActivity.class);
 		startActivity(switchToMainView);
 		finish();
 	}
 	
 	public void onClickHome(final View v) {
 		//intent to new Group activty		
-		Intent intent = new Intent(GroupListActivity.this, MainActivity.class);
+		Intent intent = new Intent(GroupListActivity.this, MapActivity.class);
 		startActivity(intent);
 		finish();		
 	}
 	
 	public void onClickMyEvent(final View v) {
 		//intent to new Group activty		
-		Intent intent = new Intent(GroupListActivity.this, MyEventActivity.class);
+		Intent intent = new Intent(GroupListActivity.this, MyEventListActivity.class);
 		startActivity(intent);
 		finish();		
 	}
 	
 	public void onClickMyPoI(final View v) {
 		//intent to new Group activty		
-		Intent intent = new Intent(GroupListActivity.this, MyPOIActivity.class);
+		Intent intent = new Intent(GroupListActivity.this, MyPOIListActivity.class);
 		startActivity(intent);
 		finish();		
 	}

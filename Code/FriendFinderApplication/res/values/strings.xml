@@ -39,5 +39,8 @@
     <string name="title_activity_member_list">MemberListActivity</string>
     <string name="title_activity_new_poi">NewPOIActivity</string>
     <string name="title_activity_memberlist">MemberList</string>
+    <string name="title_activity_event_info">EventInfoActivity</string>
+    <string name="title_activity_poiinfo">POIInfoActivity</string>
+    <string name="title_activity_new_marker">NewMarkerActivity</string>
 
 </resources>
