@@ -83,6 +83,7 @@ public class ConnectionActivity extends Activity {
 										if(e == null) {
 											//make username persistance
 											saveUser(mUsername);
+											updateLocation(ParseUser.getCurrentUser());
 											Intent intent = new Intent(ConnectionActivity.this, MainActivity.class);
 											startActivity(intent);
 											finish();
@@ -98,9 +99,6 @@ public class ConnectionActivity extends Activity {
 						}
 					}
 				});
-		
-		updateLocation(ParseUser.getCurrentUser());
-		
 	}
 	
 	private void saveUser(String username) {

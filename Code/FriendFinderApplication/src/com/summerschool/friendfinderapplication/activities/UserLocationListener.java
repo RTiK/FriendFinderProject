@@ -21,12 +21,14 @@ public class UserLocationListener implements LocationListener {
 
 	@Override
 	public void onLocationChanged(Location location) {
-		mUser.put("location", new ParseGeoPoint(
-				location.getLatitude(),
-				location.getLongitude()
-				));
-		mUser.saveInBackground();
-		Log.i("UPDATE", "location updated: " + location.getLatitude() + ", " + location.getLongitude());
+		if(location != null) {
+			mUser.put("location", new ParseGeoPoint(
+					location.getLatitude(),
+					location.getLongitude()
+					));
+			mUser.saveInBackground();
+			Log.i("UPDATE", "location updated: " + location.getLatitude() + ", " + location.getLongitude());
+		}
 	}
 
 	@Override
