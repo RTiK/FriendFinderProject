@@ -1,8 +1,5 @@
 package com.summerschool.friendfinderapplication.controller;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
 
 import android.content.Context;
@@ -18,17 +15,10 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
-import com.parse.ParseUser;
 import com.summerschool.friendfinderapplication.R;
-import com.summerschool.friendfinderapplication.activities.GroupListActivity;
-import com.summerschool.friendfinderapplication.activities.MainActivity;
 import com.summerschool.friendfinderapplication.activities.GroupDescriptionActivity;
+import com.summerschool.friendfinderapplication.activities.MainActivity;
 import com.summerschool.friendfinderapplication.models.Group;
-import com.summerschool.friendfinderapplication.models.GroupMember;
-import com.summerschool.friendfinderapplication.models.User;
 
 public class MyGroupAdapter extends ArrayAdapter<Group> {
 
