@@ -1,4 +1,4 @@
-package com.summerschool.friendfinderapplication.activities;
+package com.summerschool.friendfinderapplication.controller;
 
 public class MyMarker
 {

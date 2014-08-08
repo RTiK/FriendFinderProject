@@ -14,7 +14,9 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -22,6 +24,7 @@ import com.parse.ParseGeoPoint;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.summerschool.friendfinderapplication.R;
+import com.summerschool.friendfinderapplication.controller.MyMarker;
 import com.summerschool.friendfinderapplication.models.Group;
 import com.summerschool.friendfinderapplication.models.GroupMember;
 
@@ -76,9 +79,8 @@ public class MainActivity extends Activity {
 
 		Intent i = getIntent();
 		String groupName = i.getStringExtra("GROUPNAME");
-		
-		showMembersOnMap(getUsersOfGroup(groupName));
-		
+
+		getUsersOfGroup(groupName);
 	}
 
 	private List<ParseUser> getUsersOfGroup(String groupName) {
@@ -86,16 +88,16 @@ public class MainActivity extends Activity {
 		if (groupName != null && !groupName.equals("")) {
 			Log.i("LOCATION", groupName);
 			Toast.makeText(MainActivity.this, "Map for Group " + groupName, Toast.LENGTH_SHORT).show();
-			
+
 			ParseQuery<Group> groupQuery = ParseQuery.getQuery(Group.class);
 			groupQuery.whereEqualTo("name", groupName);
 			groupQuery.findInBackground(new FindCallback<Group>() {
 				@Override
 				public void done(List<Group> group, ParseException error) {
-					if(group != null && group.size() == 1) {
+					if (group != null && group.size() == 1) {
 						Group thisGroup = group.get(0);
-						Log.i("LOCATION","Found group " + thisGroup.getName());
-						
+						Log.i("LOCATION", "Found group " + thisGroup.getName());
+
 						ParseQuery<GroupMember> members = ParseQuery.getQuery(GroupMember.class);
 						members.whereEqualTo("Group", thisGroup);
 						members.include("Member");
@@ -107,10 +109,11 @@ public class MainActivity extends Activity {
 									ParseUser user = u.getParseUser("Member");
 									groupMembers.add(user);
 								}
+								showMembersOnMap(groupMembers);
 							}
 						});
 					} else {
-						Log.i("Error","Group didn't exist or is double");
+						Log.i("Error", "Group didn't exist or is double");
 					}
 				}
 			});
@@ -118,15 +121,22 @@ public class MainActivity extends Activity {
 		return groupMembers;
 	}
 
-	//Only 1 Location
+	// Only 1 Location
 	private void showMembersOnMap(List<ParseUser> groupMembers) {
+		Log.i("LOCATION", "call showMembersOnMap groupMembers size: " + groupMembers.size());
 		for (ParseUser user : groupMembers) {
 			if (user.getParseGeoPoint("location") != null) {
 				ParseGeoPoint pos = user.getParseGeoPoint("location");
-				
-				mMap.addMarker(new MarkerOptions().position(new LatLng(pos.getLatitude(), pos.getLatitude())).title(
-						user.getUsername()));
-				
+				MarkerOptions mo = new MarkerOptions();
+				mo.position(new LatLng(pos.getLatitude(), pos.getLongitude()));
+				mo.title(user.getUsername());
+				mo.visible(true);
+				if (user.equals(ParseUser.getCurrentUser())) {
+					mo.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+				} else {
+					mo.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
+				}
+				mMap.addMarker(mo).setVisible(true);
 				Log.i("LOCATION", user.getString("username") + " is at "
 						+ user.getParseGeoPoint("location").getLatitude() + " "
 						+ user.getParseGeoPoint("location").getLongitude());
@@ -135,6 +145,68 @@ public class MainActivity extends Activity {
 			}
 		}
 	}
-	
-	
+
+	public List<MyMarker> createMarkerFromMemberData(List<ParseUser> members) {
+		List<MyMarker> markers = new LinkedList<MyMarker>();
+		for (ParseUser m : members) {
+			markers.add(new MyMarker(m.getUsername(), "icon1", m.getParseGeoPoint("location").getLatitude(), m
+					.getParseGeoPoint("location").getLongitude()));
+		}
+		return markers;
+	}
+
+	private void plotMarkers(List<MyMarker> list) {
+		if (list.size() > 0) {
+			for (MyMarker myMarker : list) {
+				// Create user marker with custom icon and other options
+				MarkerOptions markerOption = new MarkerOptions().position(new LatLng(myMarker.getmLatitude(), myMarker
+						.getmLongitude()));
+				markerOption.icon(BitmapDescriptorFactory.fromResource(R.drawable.currentlocation_icon));
+
+				Marker currentMarker = mMap.addMarker(markerOption); // receive
+																		// a
+																		// marker
+																		// object
+																		// markersHashMap.put(currentMarker,
+																		// myMarker);
+																		// //
+																		// save
+																		// in
+																		// hashmap
+				// because of
+				// infowindow
+
+				mMap.setInfoWindowAdapter(new MarkerInfoWindowAdapter());
+			}
+		}
+	}
+
+	public class MarkerInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
+		public MarkerInfoWindowAdapter() {
+		}
+
+		@Override
+		public View getInfoWindow(Marker marker) {
+			return null;
+		}
+
+		@Override
+		public View getInfoContents(Marker marker) {
+			// View v = getLayoutInflater().inflate(R.layout.infowindow_layout,
+			// null);
+			//
+			// MyMarker myMarker = markersHashMap.get(marker);
+			//
+			// ImageView markerIcon = (ImageView)
+			// v.findViewById(R.id.marker_icon);
+			// TextView markerLabel =
+			// (TextView)v.findViewById(R.id.marker_label);
+			//
+			// markerIcon.setImageResource(manageMarkerIcon(myMarker.getmIcon()));
+			//
+			// markerLabel.setText(myMarker.getmLabel());
+
+			return null;
+		}
+	}
 }
