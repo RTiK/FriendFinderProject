@@ -18,9 +18,10 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.summerschool.friendfinderapplication.R;
+import com.summerschool.friendfinderapplication.controller.MyGroupAdapter;
 import com.summerschool.friendfinderapplication.models.Group;
 import com.summerschool.friendfinderapplication.models.GroupMember;
-import com.summerschool.friendfinderapplication.controller.*;
+import com.summerschool.friendfinderapplication.controller.MyGroupAdapter;
 
 public class GroupListActivity extends Activity {
 
@@ -52,7 +53,7 @@ public class GroupListActivity extends Activity {
 		Log.i("userinfo:",""+ParseUser.getCurrentUser() + " ___ " + ParseUser.getCurrentUser().getObjectId());
 		
 		//Add your own groups
-		final List<Group> myCreatedGroups = new ArrayList<Group>();
+		/*final List<Group> myCreatedGroups = new ArrayList<Group>();
 		ParseQuery<Group> query = ParseQuery.getQuery(Group.class);
 		query.whereEqualTo("user", ParseUser.getCurrentUser());
 		//query.setCachePolicy(CachePolicy.CACHE_THEN_NETWORK);
@@ -67,7 +68,7 @@ public class GroupListActivity extends Activity {
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}
+		}*/
 		
 		
 //		query.findInBackground(new FindCallback<Group>() {
@@ -126,7 +127,7 @@ public class GroupListActivity extends Activity {
 		
 		//add both list to my adapter
 		adapter.clear();
-		adapter.addAll(myCreatedGroups);
+		//adapter.addAll(myCreatedGroups);
 		adapter.addAll(myJoinedGroups);
 	}
 	

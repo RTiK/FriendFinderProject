@@ -62,9 +62,16 @@
             android:value="AIzaSyBOJcQWgnhMU5APRLrZGYboqEk1Fj2kwJk" />
 
         <activity
+            android:name="com.summerschool.friendfinderapplication.activities.MemberListActivity"
+            android:label="@string/title_activity_member_list" >
+        </activity>
+
+
+        <activity
             android:name=".NewPOIActivity"
             android:label="@string/title_activity_new_poi" >
         </activity>
+
     </application>
 
 </manifest>

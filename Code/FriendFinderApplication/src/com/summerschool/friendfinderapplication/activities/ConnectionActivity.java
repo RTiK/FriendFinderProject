@@ -55,7 +55,7 @@ public class ConnectionActivity extends Activity {
 					public void done(ParseUser user, ParseException e) {
 						if(user != null) {
 							saveUser(mUsername);
-							Intent intent = new Intent(ConnectionActivity.this, GroupListActivity.class);
+							Intent intent = new Intent(ConnectionActivity.this, MainActivity.class);
 							startActivity(intent);
 							finish();
 						} else {
@@ -83,7 +83,7 @@ public class ConnectionActivity extends Activity {
 										if(e == null) {
 											//make username persistance
 											saveUser(mUsername);
-											Intent intent = new Intent(ConnectionActivity.this, GroupListActivity.class);
+											Intent intent = new Intent(ConnectionActivity.this, MainActivity.class);
 											startActivity(intent);
 											finish();
 										} else {
@@ -137,6 +137,7 @@ public class ConnectionActivity extends Activity {
 				 getSharedPreferences(PREF_NAME, MODE_PRIVATE);		
 		Boolean isFirstRun = sp.getBoolean(FIRST_RUN,true);
 		if(!isFirstRun) {
+			Log.i("UserName","/"+sp.getString(ACTIVE_USER_ACCOUNT, "")+"/");
 			mConnInput.setText(sp.getString(ACTIVE_USER_ACCOUNT, "")); //set Text into box
 			this.onClickConnButton(null); //call login method
 		}

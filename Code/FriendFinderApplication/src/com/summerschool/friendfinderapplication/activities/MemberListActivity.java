@@ -1,3 +1,4 @@
+
 package com.summerschool.friendfinderapplication.activities;
 
 import java.util.ArrayList;

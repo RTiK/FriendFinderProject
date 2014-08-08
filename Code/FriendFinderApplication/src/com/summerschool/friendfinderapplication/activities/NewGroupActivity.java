@@ -51,7 +51,8 @@ public class NewGroupActivity extends Activity {
 			validGroupQuery.countInBackground(new CountCallback() {
 				@Override
 				public void done(int c, ParseException err) {
-					if(c == 0) {
+					if(c == 0) { //no other group has the same name
+						//instantiation of a new group
 						Group g = new Group();
 						g.setOwner(ParseUser.getCurrentUser());
 						g.setName(newGroupName);
@@ -65,6 +66,16 @@ public class NewGroupActivity extends Activity {
 							finish();
 						} catch (ParseException e) {
 							Toast.makeText(NewGroupActivity.this, "Was not able to save", Toast.LENGTH_SHORT).show();
+						}
+						//Instantiation of a new user
+						GroupMember gm = new GroupMember();					
+						gm.addGroup(g);
+						gm.addMember(ParseUser.getCurrentUser());
+						
+						try {
+							gm.save();
+						} catch (ParseException err2) {
+							err2.printStackTrace();
 						}
 					} else {
 						

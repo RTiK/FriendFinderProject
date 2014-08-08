@@ -10,11 +10,24 @@
         style="@style/topMenu"
         android:weightSum="3" >
 
+
+        <ImageButton
+            android:id="@+id/topButton_one"
+            style="@style/button"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1.17"
+            android:background="@drawable/buttonsborders"
+            android:contentDescription="To main map view"
+            android:src="@drawable/ic_house"
+            android:onClick="onClickHome" />
+
         <Button
 		    android:id="@+id/topButton_one"
 		    style="@style/homeButton"
 		    android:contentDescription="@string/home" 
 		    android:onClick="onClickHome" />
+
 
         <Button
             android:id="@+id/topButton_two"
@@ -22,11 +35,14 @@
             android:contentDescription="@string/myEvents" 
             android:onClick="onClickMyEvent"/>
 
+
         <Button
             android:id="@+id/topButton_three"
             style="@style/poiButton"
             android:contentDescription="@string/myPoI"
-            android:onClick="onClickMyEvent" />
+            android:src="@drawable/ic_location"
+            android:onClick="onClickMyPoI" />
+
 
     </LinearLayout>
     
@@ -37,12 +53,13 @@
         android:layout_below="@+id/actionBar"
         android:paddingBottom="50dp" >
 
+	    
+	    
 	    <ListView
 	        android:id="@+id/memberListView"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_marginTop="30dp" >
-
 	    </ListView>
 	
 
@@ -54,6 +71,26 @@
         android:id="@+id/BottomMenu"
 		style="@style/bottomMenu"
         android:weightSum="3" >
+
+        <Button
+            android:id="@+id/Option_one"
+            style="@style/button"
+            android:onClick="onClickGroupMap"
+            android:text="@string/button_one"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/Option_two"
+            style="@style/button"
+            android:text="@string/button_two"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/Option_three"
+            style="@style/button"
+            android:onClick="onClickAddGroup"
+            android:text="@string/add"
+            android:textColor="#FFFFFF" />
         
     </LinearLayout>
 
