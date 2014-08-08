@@ -77,7 +77,7 @@ public class MyGroupAdapter extends ArrayAdapter<Group> {
 			gpsSwitch.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Toast.makeText(mContext, "This is " + currentGroup.getName(), Toast.LENGTH_SHORT).show();
+					Toast.makeText(mContext, "not implemented yet", Toast.LENGTH_SHORT).show();
 				}
 			});
 						
