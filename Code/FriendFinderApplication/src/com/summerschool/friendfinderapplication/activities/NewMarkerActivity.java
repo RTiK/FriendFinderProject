@@ -1,4 +1,9 @@
-package com.summerschool.friendfinderapplication;
+package com.summerschool.friendfinderapplication.activities;
+
+import com.summerschool.friendfinderapplication.R;
+import com.summerschool.friendfinderapplication.R.id;
+import com.summerschool.friendfinderapplication.R.layout;
+import com.summerschool.friendfinderapplication.R.menu;
 
 import android.app.Activity;
 import android.os.Bundle;

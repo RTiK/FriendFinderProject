@@ -14,7 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-public class MyEventActivity extends Activity {
+public class MyEventListActivity extends Activity {
 
 	protected Button mHomeButton;
 	protected Button mMyEventButton;
@@ -23,13 +23,13 @@ public class MyEventActivity extends Activity {
 	
 	public void onClickHome(final View v) {
 		//intent to new Group activty		
-		Intent intent = new Intent(MyEventActivity.this, MainActivity.class);
+		Intent intent = new Intent(MyEventListActivity.this, MapActivity.class);
 		startActivity(intent);
 		finish();		
 	}
 	public void onClickGroupsButton(final View v) {
 		// intent to main activity
-		Intent intent = new Intent(MyEventActivity.this, GroupListActivity.class);
+		Intent intent = new Intent(MyEventListActivity.this, GroupListActivity.class);
 		startActivity(intent);
 		finish();
 	}
@@ -37,7 +37,7 @@ public class MyEventActivity extends Activity {
 	public void onClickMyEventButton(final View v) {
 		// TODO
 		Log.i("button","Clicked");
-		Intent intent = new Intent(MyEventActivity.this, MyEventActivity.class);
+		Intent intent = new Intent(MyEventListActivity.this, MyEventListActivity.class);
 		Log.i("button","instantiation of Intent");
 		startActivity(intent);
 		finish();
@@ -46,7 +46,7 @@ public class MyEventActivity extends Activity {
 	public void onClickMyPOIButton(final View v) {
 		// TODO
 		Log.i("button","Clicked");
-		Intent intent = new Intent(MyEventActivity.this, MyPOIActivity.class);
+		Intent intent = new Intent(MyEventListActivity.this, MyPOIListActivity.class);
 		Log.i("button","instantiation of Intent");
 		startActivity(intent);
 		Log.i("button","start !");

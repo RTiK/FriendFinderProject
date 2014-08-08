@@ -15,7 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MyPOIActivity extends Activity {
+public class MyPOIListActivity extends Activity {
 
 	protected Button mHomeButton;
 	protected Button mMyEventButton;
@@ -24,14 +24,14 @@ public class MyPOIActivity extends Activity {
 	
 	public void onClickHome(final View v) {
 		//intent to new Group activty		
-		Intent intent = new Intent(MyPOIActivity.this, MainActivity.class);
+		Intent intent = new Intent(MyPOIListActivity.this, MapActivity.class);
 		startActivity(intent);
 		finish();		
 	}
 	
 	public void onClickGroupsButton(final View v) {
 		// intent to main activity
-		Intent intent = new Intent(MyPOIActivity.this, GroupListActivity.class);
+		Intent intent = new Intent(MyPOIListActivity.this, GroupListActivity.class);
 		startActivity(intent);
 		finish();
 	}
@@ -39,7 +39,7 @@ public class MyPOIActivity extends Activity {
 	public void onClickMyEventButton(final View v) {
 		// TODO
 		Log.i("button","Clicked");
-		Intent intent = new Intent(MyPOIActivity.this, MyEventActivity.class);
+		Intent intent = new Intent(MyPOIListActivity.this, MyEventListActivity.class);
 		Log.i("button","instantiation of Intent");
 		startActivity(intent);
 		finish();
@@ -48,7 +48,7 @@ public class MyPOIActivity extends Activity {
 	public void onClickMyPOIButton(final View v) {
 		// TODO
 		Log.i("button","Clicked");
-		Intent intent = new Intent(MyPOIActivity.this, MyPOIActivity.class);
+		Intent intent = new Intent(MyPOIListActivity.this, MyPOIListActivity.class);
 		Log.i("button","instantiation of Intent");
 		startActivity(intent);
 		Log.i("button","start !");

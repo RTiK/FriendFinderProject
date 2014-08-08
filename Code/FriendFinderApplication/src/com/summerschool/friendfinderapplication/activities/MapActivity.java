@@ -30,7 +30,7 @@ import com.summerschool.friendfinderapplication.controller.MyMarker;
 import com.summerschool.friendfinderapplication.models.Group;
 import com.summerschool.friendfinderapplication.models.GroupMember;
 
-public class MainActivity extends Activity {
+public class MapActivity extends Activity {
 
 	protected Button mMyEventButton;
 	protected Button mMyPOIButton;
@@ -42,7 +42,7 @@ public class MainActivity extends Activity {
 
 	public void onClickGroupsButton(final View v) {
 		// intent to main activity
-		Intent intent = new Intent(MainActivity.this, GroupListActivity.class);
+		Intent intent = new Intent(MapActivity.this, GroupListActivity.class);
 		startActivity(intent);
 		finish();
 	}
@@ -50,7 +50,7 @@ public class MainActivity extends Activity {
 	public void onClickMyEventButton(final View v) {
 		// TODO
 		Log.i("button","Clicked");
-		Intent intent = new Intent(MainActivity.this, MyEventActivity.class);
+		Intent intent = new Intent(MapActivity.this, MyEventListActivity.class);
 		Log.i("button","instantiation of Intent");
 		startActivity(intent);
 		finish();
@@ -59,7 +59,7 @@ public class MainActivity extends Activity {
 	public void onClickMyPOIButton(final View v) {
 		// TODO
 		Log.i("button","Clicked");
-		Intent intent = new Intent(MainActivity.this, MyPOIActivity.class);
+		Intent intent = new Intent(MapActivity.this, MyPOIListActivity.class);
 		Log.i("button","instantiation of Intent");
 		startActivity(intent);
 		Log.i("button","start !");
@@ -102,7 +102,7 @@ public class MainActivity extends Activity {
 		final List<ParseUser> groupMembers = new LinkedList<ParseUser>();
 		if (groupName != null && !groupName.equals("")) {
 			Log.i("LOCATION", groupName);
-			Toast.makeText(MainActivity.this, "Map for Group " + groupName, Toast.LENGTH_SHORT).show();
+			Toast.makeText(MapActivity.this, "Map for Group " + groupName, Toast.LENGTH_SHORT).show();
 
 			ParseQuery<Group> groupQuery = ParseQuery.getQuery(Group.class);
 			groupQuery.whereEqualTo("name", groupName);
