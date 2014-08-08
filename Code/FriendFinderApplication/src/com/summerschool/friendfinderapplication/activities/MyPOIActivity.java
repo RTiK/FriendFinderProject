@@ -7,6 +7,7 @@ import com.summerschool.friendfinderapplication.R.menu;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -17,8 +18,9 @@ public class MyPOIActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_poi);
-		TextView Tv = (TextView)findViewById(R.id.helloView);
-		Tv.setText("MyPOI Avtivity");
+		//TextView Tv = (TextView)findViewById(R.id.helloView);
+		//Tv.setText("MyPOI Avtivity");
+		Log.i("here","Successfully opennned");
 	}
 
 	@Override

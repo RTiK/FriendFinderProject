@@ -53,6 +53,15 @@
             android:name=".activities.MemberListActivity"
             android:label="@string/title_activity_memberlist" >
         </activity>
+        <activity
+            android:name=".activities.MyPOIActivity"
+            android:label="@string/title_activity_my_poi" >
+        </activity>
+        <activity
+            android:name=".activities.MyEventActivity"
+            android:label="@string/title_activity_my_event" >
+        </activity>
+        
         <!-- Google play stuff -->
         <meta-data
             android:name="com.google.android.gms.version"
@@ -60,11 +69,6 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyBOJcQWgnhMU5APRLrZGYboqEk1Fj2kwJk" />
-
-        <activity
-            android:name="com.summerschool.friendfinderapplication.activities.MemberListActivity"
-            android:label="@string/title_activity_member_list" >
-        </activity>
 
 
         <activity

@@ -49,10 +49,21 @@ public class MainActivity extends Activity {
 
 	public void onClickMyEventButton(final View v) {
 		// TODO
+		Log.i("button","Clicked");
+		Intent intent = new Intent(MainActivity.this, MyEventActivity.class);
+		Log.i("button","instantiation of Intent");
+		startActivity(intent);
+		finish();
 	}
 
 	public void onClickMyPOIButton(final View v) {
 		// TODO
+		Log.i("button","Clicked");
+		Intent intent = new Intent(MainActivity.this, MyPOIActivity.class);
+		Log.i("button","instantiation of Intent");
+		startActivity(intent);
+		Log.i("button","start !");
+		finish();
 	}
 
 	public void onClickLocationSwitch(final View v) {
