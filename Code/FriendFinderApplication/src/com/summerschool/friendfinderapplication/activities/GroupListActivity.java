@@ -13,15 +13,14 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.maps.MapActivity;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.summerschool.friendfinderapplication.R;
 import com.summerschool.friendfinderapplication.controller.MyGroupAdapter;
 import com.summerschool.friendfinderapplication.models.Group;
 import com.summerschool.friendfinderapplication.models.GroupMember;
-import com.summerschool.friendfinderapplication.controller.MyGroupAdapter;
 
 public class GroupListActivity extends Activity {
 
