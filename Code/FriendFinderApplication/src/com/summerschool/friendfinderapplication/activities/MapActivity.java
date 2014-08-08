@@ -77,7 +77,7 @@ public class MapActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_map);
 
 		Log.i("LOCATION", "map loaded");
 		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
