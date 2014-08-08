@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.summerschool.friendfinderapplication.activities.MemberListActivity" >
+    tools:context="com.summerschool.friendfinderapplication.activities.MemberListActivity"
+    android:background="@android:color/white" >
     <!-- top buttons -->
     <LinearLayout
         android:id="@+id/actionBar"
@@ -12,19 +13,19 @@
         <Button
 		    android:id="@+id/topButton_one"
 		    style="@style/homeButton"
-		    android:contentDescription="To main map view" 
+		    android:contentDescription="@string/home" 
 		    android:onClick="onClickHome" />
 
         <Button
             android:id="@+id/topButton_two"
             style="@style/eventButton"
-            android:contentDescription="To Event view" 
+            android:contentDescription="@string/myEvents" 
             android:onClick="onClickMyEvent"/>
 
         <Button
             android:id="@+id/topButton_three"
             style="@style/poiButton"
-            android:contentDescription="To POI view"
+            android:contentDescription="@string/myPoI"
             android:onClick="onClickMyEvent" />
 
     </LinearLayout>

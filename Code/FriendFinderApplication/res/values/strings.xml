@@ -19,6 +19,7 @@
     <string name="button_two">Button 2</string>
     <string name="button_three">Button 3</string>
     <string name="add">+</string>
+    <string name="search">Search</string>
     <string name="title_activity_new_group">NewGroupActivity</string>
     <string name="title_activity_my_poi">MyPOIActivity</string>
     <string name="title_activity_my_event">MyEventActivity</string>

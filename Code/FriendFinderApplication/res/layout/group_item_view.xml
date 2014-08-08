@@ -32,11 +32,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/item_group_switch"
+        android:background="@android:color/transparent"
         android:baselineAlignBottom="false"
         android:cropToPadding="false"
         android:fitsSystemWindows="false"
         android:maxHeight="40dp"
         android:maxWidth="40dp"
-        android:src="@android:drawable/ic_dialog_info" />
+        android:src="@drawable/inf_button" />
 
 </RelativeLayout>

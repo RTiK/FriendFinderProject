@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.summerschool.friendfinderapplication.activity.GroupListActivity" >
+    tools:context="com.summerschool.friendfinderapplication.activity.GroupListActivity"
+    android:background="#FFFFFF" >
 
     <!-- top buttons -->
     <LinearLayout
@@ -65,25 +66,28 @@
 		style="@style/bottomMenu"
         android:weightSum="3" >
 
-        <Button
+        <ImageButton
             android:id="@+id/Option_one"
             style="@style/button"
             android:onClick="onClickGroupMap"
-            android:text="@string/button_one"
+            android:contentDescription="@string/button_one"
+            android:src="@drawable/edit"
             android:textColor="#FFFFFF" />
 
-        <Button
+        <ImageButton
             android:id="@+id/Option_two"
             style="@style/button"
-            android:text="@string/button_two"
+            android:src="@drawable/ic_search_white"
+            android:contentDescription="@string/search"
             android:textColor="#FFFFFF" />
 
-        <Button
+        <ImageButton
             android:id="@+id/Option_three"
             style="@style/button"
             android:onClick="onClickAddGroup"
-            android:text="@string/add"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF"
+            android:src="@drawable/add_button"
+            android:contentDescription="@string/add" />
         
     </LinearLayout>
 
