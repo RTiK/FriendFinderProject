@@ -11,12 +11,6 @@
         style="@style/topMenu"
         android:weightSum="3" >	
         	
- 		<Button
-		    android:id="@+id/topButton_one"
-		    style="@style/homeButton"
-		    android:contentDescription="To main map view" 
-		    android:onClick="onClickHome" />
-
         <Button
             android:id="@+id/topButton_two"
             style="@style/eventButton"
@@ -27,7 +21,7 @@
             android:id="@+id/topButton_three"
             style="@style/poiButton"
             android:contentDescription="To POI view"
-            android:onClick="onClickMyEvent" />
+            android:onClick="onClickMyPoi" />
 
     </LinearLayout>
     
@@ -60,35 +54,6 @@
 
 	</RelativeLayout>
     
-    <!-- bottom buttons -->
-	<LinearLayout
-        android:id="@+id/BottomMenu"
-		style="@style/bottomMenu"
-        android:weightSum="3" >
-
-        <ImageButton
-            android:id="@+id/Option_one"
-            style="@style/button"
-            android:onClick="onClickGroupMap"
-            android:contentDescription="@string/button_one"
-            android:src="@drawable/edit"
-            android:textColor="#FFFFFF" />
-
-        <ImageButton
-            android:id="@+id/Option_two"
-            style="@style/button"
-            android:src="@drawable/ic_search_white"
-            android:contentDescription="@string/search"
-            android:textColor="#FFFFFF" />
-
-        <ImageButton
-            android:id="@+id/Option_three"
-            style="@style/button"
-            android:onClick="onClickAddGroup"
-            android:textColor="#FFFFFF"
-            android:src="@drawable/add_button"
-            android:contentDescription="@string/add" />
-        
-    </LinearLayout>
+    
 
 </RelativeLayout>

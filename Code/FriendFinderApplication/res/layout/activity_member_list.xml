@@ -23,7 +23,7 @@
             android:onClick="onClickHome" />
 
         <Button
-		    android:id="@+id/topButton_one"
+		    android:id="@+id/topButton_one2"
 		    style="@style/homeButton"
 		    android:contentDescription="@string/home" 
 		    android:onClick="onClickHome" />

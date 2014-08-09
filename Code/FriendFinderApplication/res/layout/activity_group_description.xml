@@ -9,12 +9,6 @@
 		style="@style/topMenu"
         android:weightSum="3" >
 
-		<Button
-		    android:id="@+id/topButton_one"
-		    style="@style/homeButton"
-		    android:contentDescription="To main map view"
-		    android:onClick="onClickHome"/>
-
         <Button
             android:id="@+id/topButton_two"
             style="@style/eventButton"

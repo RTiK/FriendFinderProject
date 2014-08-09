@@ -1,76 +1,61 @@
 package com.summerschool.friendfinderapplication.models;
 
-public class Event {
+import java.util.Date;
 
-	private String ID_Event;
-	private String title;
-	private double location;
-	private String description;
-	private String time;
-	private String date;
+import com.parse.ParseClassName;
+import com.parse.ParseGeoPoint;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
 
-	public Event(){
-		
+@ParseClassName("Event")
+public class Event extends ParseObject {
+	
+	//Columns
+	public final static String TITLE = "title";
+	public final static String DATE = "date";
+	public final static String LOCATION = "location";
+	public final static String DESCRIPTION = "description";
+	public final static String OWNER = "owner";
+	public final static String GROUP = "group";
+	public final static String EVENTMEMBER = "eventmember";
+	
+	//getters
+	public String getTitle() {
+		return getString(TITLE);
+	}
+	public Date getDate() {
+		return getDate(DATE);
+	}
+	public ParseGeoPoint getLocation() {
+		return getParseGeoPoint(LOCATION);
+	}
+	public String getDescription() {
+		return getString(DESCRIPTION);
+	}
+	public ParseUser getOwner() {
+		return getParseUser(OWNER);
+	}
+	public Group getGroup() {
+		return (Group) get(GROUP);
 	}
 	
-	public String getTitle() {
-		return this.title;
-	}
-
-	/**
-	 * 
-	 * @param title
-	 */
+	//setters
 	public void setTitle(String title) {
-		this.title = title;
+		put(TITLE, title);
 	}
-
-	public double getLocation() {
-		return this.location;
+	public void setLocation(ParseGeoPoint location) {
+		put(LOCATION, location);
 	}
-
-	/**
-	 * 
-	 * @param location
-	 */
-	public void setLocation(double location) {
-		this.location = location;
-	}
-
-	public String getDescription() {
-		return this.description;
-	}
-
-	/**
-	 * 
-	 * @param description
-	 */
 	public void setDescription(String description) {
-		this.description = description;
+		put(DESCRIPTION, description);
 	}
-
-	public String getTime() {
-		return this.time;
+	public void setDate(Date date) {
+		put(DATE,date);
 	}
-
-	/**
-	 * 
-	 * @param time
-	 */
-	public void setTime(String time) {
-		this.time = time;
+	public void setOwner(ParseUser owner) {
+		put(OWNER, owner);
 	}
-
-	public String getDate() {
-		return this.date;
+	public void setGroup(Group group) {
+		put(GROUP, group);
 	}
-
-	/**
-	 * 
-	 * @param date
-	 */
-	public void setDate(String date) {
-		this.date = date;
-	}
-
 }
