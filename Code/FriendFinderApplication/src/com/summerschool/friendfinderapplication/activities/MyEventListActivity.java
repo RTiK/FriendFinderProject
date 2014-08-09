@@ -3,6 +3,7 @@ package com.summerschool.friendfinderapplication.activities;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,10 +27,18 @@ public class MyEventListActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_event_list);
 		
+
 		adapter = new MyEventListAdapter(MyEventListActivity.this, new ArrayList<Event>());
 		
 		updateEventList();
 		populateEventList();
+
+        // get action bar   
+        ActionBar actionBar = getActionBar();
+ 
+        // Enabling Up / Back navigation
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
 	}
 
 	private void updateEventList() {

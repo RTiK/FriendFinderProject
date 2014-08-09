@@ -5,6 +5,7 @@ import com.summerschool.friendfinderapplication.R.id;
 import com.summerschool.friendfinderapplication.R.layout;
 import com.summerschool.friendfinderapplication.R.menu;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -60,6 +61,12 @@ public class MyPOIListActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_poi);
+		
+        // get action bar   
+        ActionBar actionBar = getActionBar();
+ 
+        // Enabling Up / Back navigation
+        actionBar.setDisplayHomeAsUpEnabled(true);
 		//TextView Tv = (TextView)findViewById(R.id.helloView);
 		//Tv.setText("MyPOI Avtivity");
 		Log.i("here","Successfully opennned");
