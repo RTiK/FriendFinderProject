@@ -18,7 +18,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -26,7 +25,6 @@ import com.parse.ParseGeoPoint;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.summerschool.friendfinderapplication.R;
-import com.summerschool.friendfinderapplication.controller.MyMarker;
 import com.summerschool.friendfinderapplication.models.Group;
 import com.summerschool.friendfinderapplication.models.GroupMember;
 
@@ -167,14 +165,5 @@ public class MapActivity extends Activity {
 				Log.i("LOCATION", user.getString("username") + " has no location");
 			}
 		}
-	}
-
-	public List<MyMarker> createMarkerFromMemberData(List<ParseUser> members) {
-		List<MyMarker> markers = new LinkedList<MyMarker>();
-		for (ParseUser m : members) {
-			markers.add(new MyMarker(m.getUsername(), "icon1", m.getParseGeoPoint("location").getLatitude(), m
-					.getParseGeoPoint("location").getLongitude()));
-		}
-		return markers;
 	}
 }
