@@ -4,31 +4,6 @@
     android:layout_height="match_parent"
     tools:context="com.summerschool.friendfinderapplication.activity.MainActivity" >
 
-    <LinearLayout
-        android:id="@+id/actionBar"
-		style="@style/topMenu"
-        android:weightSum="3" >
-        
-		<Button
-		    android:id="@+id/topButton_one"
-		    style="@style/groupButton"
-		    android:contentDescription="To group list view" 
-		    android:onClick="onClickGroupsButton" />
-
-        <Button
-            android:id="@+id/topButton_two"
-            style="@style/eventButton"
-            android:contentDescription="To Event view" 
-            android:onClick="onClickMyEventButton"/>
-
-        <Button
-            android:id="@+id/topButton_three"
-            style="@style/poiButton"
-            android:contentDescription="To POI view"
-            android:onClick="onClickMyPOIButton" />
-
-    </LinearLayout>
-    
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.MapFragment"
@@ -36,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/actionBar" />
+        android:layout_alignParentTop="true" />
 
  <!--     <ImageButton
         android:id="@+id/settings"

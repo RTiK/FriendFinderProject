@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -167,7 +168,7 @@ public class GroupListActivity extends Activity {
 		finish();		
 	}
 	
-	public void onClickMyPoI(final View v) {
+	public void onClickMyPoi(final View v) {
 		//intent to new Group activty		
 		Intent intent = new Intent(GroupListActivity.this, MyPOIListActivity.class);
 		startActivity(intent);
