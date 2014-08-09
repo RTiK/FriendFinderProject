@@ -85,7 +85,7 @@ public class ConnectionActivity extends Activity {
 											//make username persistance
 											saveUser(mUsername);
 											updateLocation(ParseUser.getCurrentUser());
-											Intent intent = new Intent(ConnectionActivity.this, MapActivity.class);
+											Intent intent = new Intent(ConnectionActivity.this, GroupListActivity.class);
 											startActivity(intent);
 											finish();
 										} else {
