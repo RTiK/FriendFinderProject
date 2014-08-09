@@ -26,7 +26,6 @@ public class MyEventListActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_event_list);
-		
 
 		adapter = new MyEventListAdapter(MyEventListActivity.this, new ArrayList<Event>());
 		
@@ -42,12 +41,12 @@ public class MyEventListActivity extends Activity {
 	}
 
 	private void updateEventList() {
-		Log.i("MyEventList","updateing my event list");
+		Log.i("MyEventList","updating my event list");
 		
 		//final List<Event> myEvents = new ArrayList<Event>();
 		
 		ParseQuery<EventMember> innerQuery = ParseQuery.getQuery(EventMember.class);
-		innerQuery.whereEqualTo(Event.OWNER, ParseUser.getCurrentUser());
+		innerQuery.whereEqualTo(EventMember.MEMBER, ParseUser.getCurrentUser());
 		
 		ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
 		query.whereMatchesQuery(Event.EVENTMEMBER, innerQuery);
@@ -63,7 +62,7 @@ public class MyEventListActivity extends Activity {
 	}
 	
 	private void populateEventList() {
-		ListView list = (ListView) findViewById(R.id.groupListView);
+		ListView list = (ListView) findViewById(R.id.eventListView);
 		list.setAdapter(adapter);
 	}
 
