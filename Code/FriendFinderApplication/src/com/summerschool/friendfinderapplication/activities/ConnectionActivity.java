@@ -56,7 +56,7 @@ public class ConnectionActivity extends Activity {
 					public void done(ParseUser user, ParseException e) {
 						if(user != null) {
 							saveUser(mUsername);
-							Intent intent = new Intent(ConnectionActivity.this, MapActivity.class);
+							Intent intent = new Intent(ConnectionActivity.this, GroupListActivity.class);
 							startActivity(intent);
 							finish();
 						} else {
