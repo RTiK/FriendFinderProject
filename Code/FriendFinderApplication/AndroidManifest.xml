@@ -86,6 +86,10 @@
             android:name=".NewMarkerActivity"
             android:label="@string/title_activity_new_marker" >
         </activity>
+        <activity
+            android:name="com.summerschool.friendfinderapplication.activities.MyEventListActivity"
+            android:label="@string/title_activity_my_event_list" >
+        </activity>
     </application>
 
 </manifest>

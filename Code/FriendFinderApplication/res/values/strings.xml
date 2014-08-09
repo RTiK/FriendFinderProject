@@ -42,5 +42,6 @@
     <string name="title_activity_event_info">EventInfoActivity</string>
     <string name="title_activity_poiinfo">POIInfoActivity</string>
     <string name="title_activity_new_marker">NewMarkerActivity</string>
+    <string name="title_activity_my_event_list">MyEventListActivity</string>
 
 </resources>
