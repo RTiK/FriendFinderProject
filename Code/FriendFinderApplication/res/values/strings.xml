@@ -30,6 +30,11 @@
     <string name="myEvents">My Events</string>
     <string name="myPoI">My PoI</string>
     <string name="home">Home</string>
+    
+    <!-- Text for radio switches in map -->
+    <string name="mapUsersToggle">Users</string>
+    <string name="mapPOIToggle">POI</string>
+    <string name="mapEventsToggle">Events</string>
 
     <!-- New Group Layout -->
     <string name="newGroup_title">Create a new group</string>

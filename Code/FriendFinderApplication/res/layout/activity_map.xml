@@ -5,30 +5,49 @@
     tools:context="com.summerschool.friendfinderapplication.activity.MainActivity" >
 
     <LinearLayout
-        android:id="@+id/actionBar"
-		style="@style/topMenu"
-        android:weightSum="3" >
+        android:id="@+id/mapToggleButtonHeader"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="0dp"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <ToggleButton
+            android:id="@+id/mapToggleUsers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/mapUsersToggle"
+            android:textOn="@string/mapUsersToggle"
+            android:textOff="@string/mapUsersToggle"
+            android:onClick="onClick_mapToggleUsers" />
+
+        <ToggleButton
+            android:id="@+id/mapToggleEvents"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/mapEventsToggle"
+            android:textOn="@string/mapEventsToggle"
+            android:textOff="@string/mapEventsToggle"
+            android:onClick="onClick_mapToggleEvents" />
+
+        <ToggleButton
+            android:id="@+id/mapTogglePOIs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/mapPOIToggle"
+            android:textOn="@string/mapPOIToggle"
+            android:textOff="@string/mapPOIToggle"
+            android:onClick="onClick_mapTogglePOIs" />
         
-		<Button
-		    android:id="@+id/topButton_one"
-		    style="@style/groupButton"
-		    android:contentDescription="To group list view" 
-		    android:onClick="onClickGroupsButton" />
-
-        <Button
-            android:id="@+id/topButton_two"
-            style="@style/eventButton"
-            android:contentDescription="To Event view" 
-            android:onClick="onClickMyEventButton"/>
-
-        <Button
-            android:id="@+id/topButton_three"
-            style="@style/poiButton"
-            android:contentDescription="To POI view"
-            android:onClick="onClickMyPOIButton" />
-
     </LinearLayout>
-    
+
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.MapFragment"
@@ -36,11 +55,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/actionBar" />
-
- <!--     <ImageButton
-        android:id="@+id/settings"
-        style="@style/settingsButton"
-        android:onClick="onClickMainSettings" /> -->
+        android:layout_below="@+id/mapToggleButtonHeader" />
 
 </RelativeLayout>

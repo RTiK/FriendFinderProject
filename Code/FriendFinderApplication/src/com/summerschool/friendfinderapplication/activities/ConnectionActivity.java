@@ -104,8 +104,7 @@ public class ConnectionActivity extends Activity {
 	}
 	
 	private void saveUser(String username) {
-		SharedPreferences sp = 
-				 getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+		SharedPreferences sp = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
 		Editor editor = sp.edit();	
 		editor.putString(ACTIVE_USER_ACCOUNT, username);
 		editor.putBoolean(FIRST_RUN, false);
@@ -133,8 +132,7 @@ public class ConnectionActivity extends Activity {
 	@Override
 	protected void onStart() {
 		super.onStart();		
-		SharedPreferences sp = 
-				 getSharedPreferences(PREF_NAME, MODE_PRIVATE);		
+		SharedPreferences sp = getSharedPreferences(PREF_NAME, MODE_PRIVATE);		
 		Boolean isFirstRun = sp.getBoolean(FIRST_RUN,true);
 		if(!isFirstRun) {
 			Log.i("UserName","/"+sp.getString(ACTIVE_USER_ACCOUNT, "")+"/");
@@ -150,7 +148,6 @@ public class ConnectionActivity extends Activity {
 		UserLocationListener locationListener = new UserLocationListener(user);
 		
 		long timeRefresh = 5000; // refresh every 20 seconds
-		float distanceRefresh = 10; // refresh 10 meters
 		
 		Log.i("TEST", "location");
 		
