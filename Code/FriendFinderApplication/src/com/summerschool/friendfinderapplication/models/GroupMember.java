@@ -6,10 +6,6 @@ import com.parse.ParseUser;
 
 @ParseClassName("GroupMemebers")
 public class GroupMember extends ParseObject {
-
-	public GroupMember() {
-		
-	}
 	
 	//Getter
 	public ParseUser getMember() {

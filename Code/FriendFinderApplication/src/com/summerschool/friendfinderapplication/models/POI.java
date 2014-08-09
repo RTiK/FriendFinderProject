@@ -1,63 +1,36 @@
 package com.summerschool.friendfinderapplication.models;
 
-public class POI {
+import com.parse.ParseClassName;
+import com.parse.ParseGeoPoint;
+import com.parse.ParseObject;
 
-	private String ID_POI;
-	private String title;
-	private double location;
-	private String description;
-	private byte rating;
+@ParseClassName("POI")
+public class POI extends ParseObject {
 
-	public POI(){
-		
-	}
+	public final static String NAME = "name";
+	public final static String LOCATION = "location";
+	public final static String DESCRIPTION = "description";
+	public final static String CREATOR = "creator";
+	public final static String GROUP = "group";
+	public final static String USER_LIKES_POI = "user_poi_likes";
 	
-	public String getTitle() {
-		return this.title;
+	//getters
+	public String getName() {
+		return getString(NAME);
 	}
-
-	/**
-	 * 
-	 * @param title
-	 */
-	public void setTitle(String title) {
-		this.title = title;
+	public ParseGeoPoint getLocation() {
+		return getParseGeoPoint(LOCATION);
 	}
-
-	public double getLocation() {
-		return this.location;
-	}
-
-	/**
-	 * 
-	 * @param location
-	 */
-	public void setLocation(double location) {
-		this.location = location;
-	}
-
 	public String getDescription() {
-		return this.description;
+		return getString(DESCRIPTION);
 	}
-
-	/**
-	 * 
-	 * @param description
-	 */
-	public void setDescription(String description) {
-		this.description = description;
+	public String getCreator() {
+		return getString(CREATOR);
 	}
-
-	public byte getRating() {
-		return this.rating;
+	public Group getGroup() {
+		return (Group) get(GROUP);
 	}
-
-	/**
-	 * 
-	 * @param rating
-	 */
-	public void setRating(byte rating) {
-		this.rating = rating;
+	public UserLikesPOI getUserLikesPOI() {
+		return (UserLikesPOI) get(USER_LIKES_POI);
 	}
-
 }

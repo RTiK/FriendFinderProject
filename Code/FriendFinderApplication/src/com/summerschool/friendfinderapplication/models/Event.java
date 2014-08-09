@@ -11,16 +11,13 @@ import com.parse.ParseUser;
 public class Event extends ParseObject {
 	
 	//Columns
-	private final static String TITLE = "title";
-	private final static String DATE = "date";
-	private final static String LOCATION = "location";
-	private final static String DESCRIPTION = "description";
-	private final static String OWNER = "owner";
-	private final static String GROUP = "group";
-
-	public Event(){
-		
-	}
+	public final static String TITLE = "title";
+	public final static String DATE = "date";
+	public final static String LOCATION = "location";
+	public final static String DESCRIPTION = "description";
+	public final static String OWNER = "owner";
+	public final static String GROUP = "group";
+	public final static String EVENTMEMBER = "eventmember";
 	
 	//getters
 	public String getTitle() {
