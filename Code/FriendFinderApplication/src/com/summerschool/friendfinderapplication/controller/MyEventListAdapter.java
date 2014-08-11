@@ -21,7 +21,7 @@ public class MyEventListAdapter extends ArrayAdapter<Event>{
 	private static List<Event> mEvents;
 	
 	public MyEventListAdapter(Context context, List<Event> events) {
-		super(context, R.layout.event_item_view);
+		super(context, R.layout.event_item_view,events);
 		this.mContext = context;
 		this.mEvents = events;
 	}
@@ -32,7 +32,7 @@ public class MyEventListAdapter extends ArrayAdapter<Event>{
 		
 		if(itemView == null) {
 			LayoutInflater mLayoutInflater = LayoutInflater.from(mContext);
-			itemView = mLayoutInflater.inflate(R.layout.group_item_view, parent, false);
+			itemView = mLayoutInflater.inflate(R.layout.event_item_view, parent, false);
 		}
 		
 		final Event currentEvent = mEvents.get(position);

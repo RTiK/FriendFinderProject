@@ -23,7 +23,7 @@ import com.summerschool.friendfinderapplication.models.Group;
 public class MyGroupAdapter extends ArrayAdapter<Group> {
 
 		private Context mContext;
-		private static List<Group> mGroups;
+		private List<Group> mGroups;
 		
 		public MyGroupAdapter(Context context, List<Group> groups) {
 			super(context, R.layout.group_item_view, groups);

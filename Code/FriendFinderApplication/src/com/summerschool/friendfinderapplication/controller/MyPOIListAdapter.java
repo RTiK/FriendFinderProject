@@ -18,12 +18,11 @@ import com.summerschool.friendfinderapplication.models.POI;
 public class MyPOIListAdapter extends ArrayAdapter<POI> {
 
 	private Context mContext;
-	private static List<POI> mPOIs;
+	private List<POI> mPOIs;
 	private static final String LOGTAG = "MyPOIListAdapter";
 
 	public MyPOIListAdapter(Context context, List<POI> pois) {
-		
-		super(context, R.layout.poi_item_view);
+		super(context, R.layout.poi_item_view, pois);
 		mContext = context;
 		this.mPOIs = pois;
 	}

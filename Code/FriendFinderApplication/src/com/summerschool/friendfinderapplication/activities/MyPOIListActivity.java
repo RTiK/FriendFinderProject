@@ -52,11 +52,12 @@ public class MyPOIListActivity extends Activity {
 	private void updateEventList() {
 		Log.i(LOGTAG,"updating my poi list");
 		
-		ParseQuery<UserLikesPOI> innerQuery = ParseQuery.getQuery(UserLikesPOI.class);
-		innerQuery.whereEqualTo(UserLikesPOI.USER, ParseUser.getCurrentUser());
+		//ParseQuery<UserLikesPOI> innerQuery = ParseQuery.getQuery(UserLikesPOI.class);
+		//innerQuery.whereEqualTo(UserLikesPOI.USER, ParseUser.getCurrentUser());
 		
 		ParseQuery<POI> query = ParseQuery.getQuery(POI.class);
 		//query.whereMatchesQuery(POI.USER_LIKES_POI, innerQuery);
+		query.whereEqualTo(POI.CREATOR, ParseUser.getCurrentUser());
 		
 		List<POI> pois;
 		try {
