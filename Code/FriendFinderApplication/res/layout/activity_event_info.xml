@@ -17,28 +17,30 @@
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/remove"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/poi_label"
         android:layout_alignParentBottom="true"
-        android:text="Button" />
+        android:onClick="removeUserFromEvent"
+        android:text="remove" />
 
     <Button
         android:id="@+id/add"
         style="@drawable/add_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button3"
-        android:layout_alignBottom="@+id/button3"
+        android:layout_alignBaseline="@+id/remove"
+        android:layout_alignBottom="@+id/remove"
         android:layout_alignParentRight="true"
-        android:text="Button" />
+        android:onClick="addUserToEvent"
+        android:text="add" />
 
     <ListView
         android:id="@+id/listView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button3"
+        android:layout_above="@+id/remove"
         android:layout_alignLeft="@+id/event_description"
         android:layout_below="@+id/event_description"
         android:layout_marginTop="23dp" >

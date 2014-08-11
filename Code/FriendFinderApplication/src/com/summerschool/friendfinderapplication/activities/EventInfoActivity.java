@@ -6,10 +6,12 @@ import java.util.List;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.summerschool.friendfinderapplication.R;
@@ -19,6 +21,7 @@ import com.summerschool.friendfinderapplication.models.EventMember;
 public class EventInfoActivity extends Activity {
 
 	private final static String LOGTAG = "EventInfoActivity";
+	private Event currEvent;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +43,8 @@ public class EventInfoActivity extends Activity {
 					Toast.makeText(EventInfoActivity.this, "multiple Events with that name found??", Toast.LENGTH_SHORT).show();
 				}
 				
-				Event currEvent = events.get(0);
+				currEvent = events.get(0);
+				
 				//TODO show object info
 				
 			}
@@ -62,5 +66,32 @@ public class EventInfoActivity extends Activity {
 			}
 		}
 		return members;
+	}
+	
+	public void addUserToEvent(final View v) {
+		EventMember newEm =  new EventMember();
+		newEm.addMember(ParseUser.getCurrentUser());
+		newEm.addEvent(currEvent);
+		try {
+			newEm.save();
+			Toast.makeText(EventInfoActivity.this, "saved", Toast.LENGTH_SHORT).show();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void removeUserFromEvent(final View v) {
+		ParseQuery<EventMember> query = ParseQuery.getQuery(EventMember.class);
+		query.whereEqualTo(EventMember.EVENT, currEvent);
+		query.whereEqualTo(EventMember.MEMBER, ParseUser.getCurrentUser());
+		try {
+			@SuppressWarnings({ "unchecked", "rawtypes" })
+			List<ParseObject> emList2 = (List) query.find();
+			ParseObject.deleteAll(emList2);
+			
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
 	}
 }
