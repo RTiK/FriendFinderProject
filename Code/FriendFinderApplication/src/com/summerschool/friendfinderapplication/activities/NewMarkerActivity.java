@@ -36,6 +36,8 @@ public class NewMarkerActivity extends Activity {
 		
 		//Intent i = getIntent();
 		
+		
+		
 	}
 
 	@Override
@@ -51,6 +53,7 @@ public class NewMarkerActivity extends Activity {
 		EditText markerName = (EditText) findViewById(R.id.markerName);
 		EditText markerDescription = (EditText) findViewById(R.id.markerDescription);
 		EditText markerGroupName = (EditText) findViewById(R.id.groupName);
+		markerGroupName.setText(getIntent().getStringExtra(EXTRA_GROUPNAME));
 		
 		final String mName = markerName.getText().toString().trim();
 		final String mDescription = markerDescription.getText().toString().trim();
