@@ -3,6 +3,7 @@ package com.summerschool.friendfinderapplication.models;
 import com.parse.ParseClassName;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 @ParseClassName("POI")
 public class POI extends ParseObject {
@@ -33,4 +34,27 @@ public class POI extends ParseObject {
 	public UserLikesPOI getUserLikesPOI() {
 		return (UserLikesPOI) get(USER_LIKES_POI);
 	}
+	
+	//setters
+	public void setName(String name)
+	{
+		put("name", name);
+	}
+	public void setDescription(String description)
+	{
+		put("description", description);
+	}
+	public void setCreator(ParseUser creatorPK)
+	{
+		put("creator", creatorPK);
+	}
+	public void setGPSLocation(ParseGeoPoint gps)
+	{
+		put("location", gps);
+	}
+	public void setGroup(Group g)
+	{
+		put("group", g);
+	}
+	
 }
