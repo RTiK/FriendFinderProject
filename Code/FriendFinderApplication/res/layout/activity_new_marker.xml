@@ -9,8 +9,51 @@
     tools:context="com.summerschool.friendfinderapplication.activities.NewMarkerActivity" >
 
     <TextView
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hello_world" />
+
+    <EditText
+        android:id="@+id/markerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/markerDescription"
+        android:layout_below="@+id/markerDescription"
+        android:layout_marginTop="24dp"
+        android:ems="10" />
+
+    <EditText
+        android:id="@+id/markerDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/textView1"
+        android:ems="10"
+        android:inputType="textMultiLine" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/groupName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/markerName"
+        android:layout_below="@+id/markerName"
+        android:layout_marginTop="31dp"
+        android:ems="10"
+        android:hint="Group Name"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/createMarker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/groupName"
+        android:layout_below="@+id/groupName"
+        android:layout_marginTop="41dp"
+        android:onClick="onClickCreate"
+        android:text="@string/createButton" />
 
 </RelativeLayout>

@@ -1,6 +1,7 @@
 package com.summerschool.friendfinderapplication.models;
 
 import com.parse.ParseClassName;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 

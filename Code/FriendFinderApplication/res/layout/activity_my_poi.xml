@@ -5,17 +5,7 @@
     tools:context="com.summerschool.friendfinderapplication.activities.MyPOIActivity" >
 
    <LinearLayout
-        android:id="@+id/actionBar"
-        style="@style/topMenu"
-        android:weightSum="3" >
-
-
-
-        
-
-    </LinearLayout>
     
-   <RelativeLayout
         android:id="@+id/Content"
         style="@style/content"
         android:layout_alignStart="@+id/BottomMenu"
@@ -43,7 +33,7 @@
 	
 
 
-	</RelativeLayout>
+	</LinearLayout>
     
    
 </RelativeLayout>
