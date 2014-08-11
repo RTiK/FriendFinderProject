@@ -1,34 +1,45 @@
 package com.summerschool.friendfinderapplication;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
+import com.summerschool.friendfinderapplication.models.Event;
 
 public class EventInfoActivity extends Activity {
 
+	private final static String LOGTAG = "EventInfoActivity";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_event_info);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.event_info, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
+		
+		//TODO getExtra from Intent about what POI this is
+		//TODO need group and event identifier
+		
+		final String currentEventName = "";
+		
+		ParseQuery<Event> q1 = ParseQuery.getQuery(Event.class);		
+		q1.whereEqualTo(Event.TITLE, currentEventName);
+		q1.findInBackground(new FindCallback<Event>() {
+			@Override
+			public void done(List<Event> events, ParseException error) {
+				Log.i(LOGTAG, "found " + events.size() + " Events with the name " + currentEventName);
+				if(events.size() > 1) {
+					Toast.makeText(EventInfoActivity.this, "multiple Events with that name found??", Toast.LENGTH_SHORT).show();
+				}
+				
+				Event currEvent = events.get(0);
+				//TODO show object info
+				
+			}
+		});
 	}
 }
