@@ -61,8 +61,13 @@
         </activity>
         <activity
             android:name=".activities.MyEventListActivity"
-            android:label="@string/title_activity_my_event_list"
+            android:label="@string/title_activity_my_event_list" 
             android:parentActivityName=".activities.GroupListActivity" >
+        	<!-- Parent activity meta-data to support API level 7+ -->
+        	<meta-data
+            	android:name="android.support.PARENT_ACTIVITY"
+           		android:value=".activities.GroupListActivity" />
+>>>>>>> origin/master
         </activity>
 
         <!-- Google play stuff -->
