@@ -67,7 +67,6 @@
         	<meta-data
             	android:name="android.support.PARENT_ACTIVITY"
            		android:value=".activities.GroupListActivity" />
->>>>>>> origin/master
         </activity>
 
         <!-- Google play stuff -->
