@@ -1,5 +1,6 @@
 ddms.logcat.automonitor.userprompt=true
 eclipse.preferences.version=1
+logcat.messagelist.max.size=20000
 logcat.view.colsize.Application=157
 logcat.view.colsize.Level=18
 logcat.view.colsize.PID=46
