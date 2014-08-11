@@ -45,7 +45,7 @@ public class MyPOIListActivity extends Activity {
         
 		//TextView Tv = (TextView)findViewById(R.id.helloView);
 		//Tv.setText("MyPOI Avtivity");
-		Log.i(LOGTAG,"Successfully opennned");
+		Log.i(LOGTAG,"Successfully opennned");	
 		
 		adapter = new MyPOIListAdapter(MyPOIListActivity.this, new ArrayList<POI>());
 		updateEventList();

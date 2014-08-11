@@ -39,10 +39,11 @@ public class POIInfoActivity extends Activity {
 				
 				POI currPOI = pois.get(0);
 				
-				
 			}
 		});
 	}
+	
+	
 
 
 	

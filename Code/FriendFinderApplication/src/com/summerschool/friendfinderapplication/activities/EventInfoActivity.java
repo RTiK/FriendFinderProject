@@ -1,5 +1,6 @@
 package com.summerschool.friendfinderapplication.activities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -10,9 +11,10 @@ import android.widget.Toast;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 import com.summerschool.friendfinderapplication.R;
-import com.summerschool.friendfinderapplication.R.layout;
 import com.summerschool.friendfinderapplication.models.Event;
+import com.summerschool.friendfinderapplication.models.EventMember;
 
 public class EventInfoActivity extends Activity {
 
@@ -43,5 +45,22 @@ public class EventInfoActivity extends Activity {
 				
 			}
 		});
+	}
+	
+	private List<ParseUser> getEventMembers(Event e) {
+		List<ParseUser> members = new ArrayList<ParseUser>();
+		if(e!=null) {
+			ParseQuery<EventMember> query = ParseQuery.getQuery(EventMember.class);
+			query.whereEqualTo(EventMember.EVENT, e);
+			try {
+				List<EventMember> eventMembers = query.find();
+				for(EventMember em : eventMembers) {
+					members.add(em.getMember());
+				}
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}
+		}
+		return members;
 	}
 }
