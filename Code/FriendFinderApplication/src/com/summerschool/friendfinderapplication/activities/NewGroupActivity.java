@@ -177,4 +177,18 @@ public class NewGroupActivity extends Activity {
 		}
 		
 	}
+	
+	public void onClickMyEvent(final View v) {
+		//intent to new Group activty		
+		Intent intent = new Intent(NewGroupActivity.this, MyEventListActivity.class);
+		startActivity(intent);
+		finish();		
+	}
+	
+	public void onClickMyPoi(final View v) {
+		//intent to new Group activty		
+		Intent intent = new Intent(NewGroupActivity.this, MyPOIListActivity.class);
+		startActivity(intent);
+		finish();		
+	}
 }

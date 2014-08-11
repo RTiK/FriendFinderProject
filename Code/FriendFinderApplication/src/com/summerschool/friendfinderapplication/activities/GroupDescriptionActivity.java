@@ -46,12 +46,7 @@ public class GroupDescriptionActivity extends Activity {
 		Intent intent = new Intent(GroupDescriptionActivity.this, MyPOIListActivity.class);
 		startActivity(intent);
 	}
-	public void onClickMemberListButton(final View v) {
-		Log.i("Info","go to MemberList");
-		Intent intent = new Intent(GroupDescriptionActivity.this, MemberListActivity.class);
-		intent.putExtra("GroupName", currentGroup.getName());
-		startActivity(intent);
-	}
+
 	public void onClickEventsButton(final View v) {
 		//TODO
 		Intent intent = new Intent(GroupDescriptionActivity.this, MyEventListActivity.class);

@@ -26,7 +26,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".activities.MapActivity"
-            android:label="@string/title_activity_map" >
+            android:label="@string/title_activity_map"
+            android:parentActivityName="com.summerschool.friendfinderapplications.activities.GroupListActivity" >
         </activity>
         <activity
             android:name=".activities.ConnectionActivity"
@@ -42,23 +43,29 @@
         </activity>
         <activity
             android:name=".activities.GroupDescriptionActivity"
-            android:label="@string/title_activity_group_description" >
+            android:label="@string/title_activity_group_description"
+            android:parentActivityName=".activities.GroupListActivity" >
         </activity>
         <activity
             android:name=".activities.NewGroupActivity"
             android:label="@string/title_activity_new_group" >
         </activity>
         <activity
-            android:name=".activities.MemberListActivity"
-            android:label="@string/title_activity_memberlist" >
-        </activity>
-        <activity
-            android:name=".activities.MyPOIActivity"
+            android:name=".activities.MyPOIListActivity"
             android:label="@string/title_activity_my_poi" >
         </activity>
         <activity
-            android:name=".activities.MyEventActivity"
-            android:label="@string/title_activity_my_event" >
+            android:name=".NewMarkerActivity"
+            android:label="@string/title_activity_new_marker" >
+        </activity>
+        <activity
+            android:name=".activities.MyEventListActivity"
+            android:label="@string/title_activity_my_event_list" 
+            android:parentActivityName=".activities.GroupListActivity" >
+        	<!-- Parent activity meta-data to support API level 7+ -->
+        	<meta-data
+            	android:name="android.support.PARENT_ACTIVITY"
+           		android:value=".activities.GroupListActivity" />
         </activity>
 
         <!-- Google play stuff -->
@@ -70,24 +77,12 @@
             android:value="AIzaSyBOJcQWgnhMU5APRLrZGYboqEk1Fj2kwJk" />
 
         <activity
-            android:name=".NewPOIActivity"
-            android:label="@string/title_activity_new_poi" >
-        </activity>
-        <activity
-            android:name=".activities.EventInfoActivity"
-            android:label="@string/title_activity_event_info" >
-        </activity>
-        <activity
             android:name=".activities.POIInfoActivity"
             android:label="@string/title_activity_poiinfo" >
         </activity>
         <activity
-            android:name=".NewMarkerActivity"
-            android:label="@string/title_activity_new_marker" >
-        </activity>
-        <activity
-            android:name="com.summerschool.friendfinderapplication.activities.MyEventListActivity"
-            android:label="@string/title_activity_my_event_list" >
+            android:name=".EventInfoActivity"
+            android:label="@string/title_activity_event_info" >
         </activity>
     </application>
 

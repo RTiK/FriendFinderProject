@@ -37,27 +37,6 @@
 
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/BottomMenu"
-		style="@style/bottomMenu"
-        android:weightSum="3" >
-
-        <ImageButton
-            android:id="@+id/Option_one"
-            style="@style/membersListButton"
-            android:text="@string/button_one"
-            android:onClick="onClickMemberListButton" />
-
-        <ImageButton
-            android:id="@+id/Option_two"
-            style="@style/button"
-            android:text="@string/button_two" />
-
-        <ImageButton
-            android:id="@+id/Option_three"
-            style="@style/button"
-            android:text="@string/button_three" />
-        
-    </LinearLayout>
+   
 
 </RelativeLayout>

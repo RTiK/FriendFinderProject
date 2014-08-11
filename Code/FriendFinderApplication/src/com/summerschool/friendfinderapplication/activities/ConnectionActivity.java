@@ -24,8 +24,12 @@ import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 import com.summerschool.friendfinderapplication.R;
 import com.summerschool.friendfinderapplication.controller.UserLocationListener;
+import com.summerschool.friendfinderapplication.models.Event;
+import com.summerschool.friendfinderapplication.models.EventMember;
 import com.summerschool.friendfinderapplication.models.Group;
 import com.summerschool.friendfinderapplication.models.GroupMember;
+import com.summerschool.friendfinderapplication.models.POI;
+import com.summerschool.friendfinderapplication.models.UserLikesPOI;
 
 public class ConnectionActivity extends Activity {
 
@@ -117,6 +121,10 @@ public class ConnectionActivity extends Activity {
 		
 		ParseObject.registerSubclass(Group.class);
 		ParseObject.registerSubclass(GroupMember.class);
+		ParseObject.registerSubclass(Event.class);
+		ParseObject.registerSubclass(EventMember.class);
+		ParseObject.registerSubclass(POI.class);
+		ParseObject.registerSubclass(UserLikesPOI.class);
 		
 		//Initialize Parse
 		Parse.initialize(this, PARSE_APPLICATION_ID, PARSE_CLIENT_KEY);

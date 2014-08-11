@@ -37,9 +37,9 @@ public class MyPOIListActivity extends Activity {
 		
         // get action bar   
         ActionBar actionBar = getActionBar();
- 
         // Enabling Up / Back navigation
         actionBar.setDisplayHomeAsUpEnabled(true);
+        
 		//TextView Tv = (TextView)findViewById(R.id.helloView);
 		//Tv.setText("MyPOI Avtivity");
 		Log.i("here","Successfully opennned");
