@@ -56,4 +56,26 @@
         android:onClick="onClickCreate"
         android:text="@string/createButton" />
 
+    <RadioGroup
+        android:id="@+id/markerType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/createMarker"
+        android:layout_marginLeft="36dp"
+        android:layout_toRightOf="@+id/createMarker" >
+
+        <RadioButton
+            android:id="@+id/poi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="RadioButton" />
+
+        <RadioButton
+            android:id="@+id/event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RadioButton" />
+    </RadioGroup>
+
 </RelativeLayout>

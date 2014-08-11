@@ -14,10 +14,12 @@ import com.summerschool.friendfinderapplication.models.POI;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract.CommonDataKinds.Event;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 public class NewMarkerActivity extends Activity {
@@ -53,6 +55,14 @@ public class NewMarkerActivity extends Activity {
 
 	public void onClickCreate(final View v)
 	{
+		//What type of marker
+		RadioButton event = (RadioButton) findViewById(R.id.event);
+		Boolean isEvent;
+		if(event.isChecked())
+			isEvent = true;
+		else
+			isEvent = false;
+		
 		//Get data information from the view
 		EditText markerName = (EditText) findViewById(R.id.markerName);
 		EditText markerDescription = (EditText) findViewById(R.id.markerDescription);
@@ -104,42 +114,82 @@ public class NewMarkerActivity extends Activity {
 				
 				if(selectedGroup != null)
 				{
-				
-					ParseQuery<POI> poiQuery = ParseQuery.getQuery(POI.class);
-					poiQuery.whereEqualTo(POI.NAME, mName);
-					poiQuery.whereEqualTo(POI.GROUP, selectedGroup.getObjectId());
-					poiQuery.countInBackground(new CountCallback() {
-						
-						@Override
-						public void done(int c, ParseException err) {
-							// If the marker doesn't already exist
-							if(c == 0)
-							{
-								//Create the element
-								POI p = new POI();
-								p.setName(mName);
-								p.setDescription(mDescription);
-								p.setCreator(ParseUser.getCurrentUser());
-								p.setGPSLocation(gpsLocation);
-								p.setGroup(selectedGroup);
-								
-								//Try to save data in database
-								try
+					if(isEvent)
+					{
+						ParseQuery<com.summerschool.friendfinderapplication.models.Event> eventQuery = ParseQuery.getQuery(com.summerschool.friendfinderapplication.models.Event.class);
+						eventQuery.whereEqualTo(com.summerschool.friendfinderapplication.models.Event.TITLE, mName);
+						eventQuery.countInBackground(new CountCallback() {
+							
+							@Override
+							public void done(int c, ParseException err) {
+								// If the marker doesn't already exist
+								if(c == 0)
 								{
-									p.save();
-									Toast.makeText(getApplicationContext(), "Every thing looks like fine !", Toast.LENGTH_LONG).show();		
+									//Create the element
+									com.summerschool.friendfinderapplication.models.Event e = new com.summerschool.friendfinderapplication.models.Event();
+									e.setTitle(mName);
+									e.setDescription(mDescription);
+									e.setOwner(ParseUser.getCurrentUser());
+									e.setLocation(gpsLocation);
+									e.setGroup(selectedGroup);
+									
+									//Try to save data in database
+									try
+									{
+										e.save();
+										Toast.makeText(getApplicationContext(), "Every thing looks like fine to create an event !", Toast.LENGTH_LONG).show();		
+									}
+									catch(ParseException ex)
+									{
+										Toast.makeText(getApplicationContext(), "Was unable to save", Toast.LENGTH_LONG).show();
+									}
 								}
-								catch(ParseException e)
+								else
+								{
+									Toast.makeText(getApplicationContext(), "Was unable to save", Toast.LENGTH_LONG).show();
+								}
+								
+							}
+						});
+					}
+					else
+					{
+						ParseQuery<POI> poiQuery = ParseQuery.getQuery(POI.class);
+						poiQuery.whereEqualTo(POI.NAME, mName);
+						poiQuery.whereEqualTo(POI.GROUP, selectedGroup.getObjectId());
+						poiQuery.countInBackground(new CountCallback() {
+							
+							@Override
+							public void done(int c, ParseException err) {
+								// If the marker doesn't already exist
+								if(c == 0)
+								{
+									//Create the element
+									POI p = new POI();
+									p.setName(mName);
+									p.setDescription(mDescription);
+									p.setCreator(ParseUser.getCurrentUser());
+									p.setGPSLocation(gpsLocation);
+									p.setGroup(selectedGroup);
+									
+									//Try to save data in database
+									try
+									{
+										p.save();
+										Toast.makeText(getApplicationContext(), "Every thing looks like fine !", Toast.LENGTH_LONG).show();		
+									}
+									catch(ParseException e)
+									{
+										Toast.makeText(getApplicationContext(), "Was unable to save", Toast.LENGTH_LONG).show();
+									}
+								}
+								else
 								{
 									Toast.makeText(getApplicationContext(), "Was unable to save", Toast.LENGTH_LONG).show();
 								}
 							}
-							else
-							{
-								
-							}
-						}
-					});
+						});
+					}
 				}
 				else
 				{
