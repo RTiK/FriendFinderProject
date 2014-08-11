@@ -16,6 +16,7 @@ import android.widget.ToggleButton;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -61,10 +62,7 @@ public class MapActivity extends Activity {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				Log.i(LOGTAG, "Events button pressed");
-				if (isChecked)
-					mGroupPOIHandler.showPOIs();
-				else
-					mGroupPOIHandler.removePOIs();
+				// TODO
 			}
 		});
 		mToggleUsers = (ToggleButton) findViewById(R.id.mapToggleUsers);
@@ -83,8 +81,10 @@ public class MapActivity extends Activity {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				Log.i(LOGTAG, "POI button pressed");
-				// TODO Auto-generated method stub
-				
+				if (isChecked)
+					mGroupPOIHandler.showPOIs();
+				else
+					mGroupPOIHandler.removePOIs();
 			}
 		});
 	}
@@ -115,6 +115,7 @@ public class MapActivity extends Activity {
 					createNewMarker.putExtra(NewMarkerActivity.EXTRA_MARKER_LATITUDE, marker.getPosition().latitude);
 					createNewMarker.putExtra(NewMarkerActivity.EXTRA_MARKER_LONGITUDE, marker.getPosition().longitude);
 					startActivity(createNewMarker);
+					mNewMarker.setVisible(false);
 				} else {
 					// TODO
 //					Intent goToPOIInfo = new Intent(getApplicationContext(), POIInfoActivity);
@@ -131,6 +132,14 @@ public class MapActivity extends Activity {
 				mNewMarker.setVisible(true);
 				mNewMarker.showInfoWindow();
 				Log.i(LOGTAG, mNewMarker + " created");
+			}
+		});
+		
+		mMap.setOnMapClickListener(new OnMapClickListener() {
+			
+			@Override
+			public void onMapClick(LatLng point) {
+				mNewMarker.setVisible(false);
 			}
 		});
 		
