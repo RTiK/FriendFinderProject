@@ -27,7 +27,11 @@
         <activity
             android:name=".activities.MapActivity"
             android:label="@string/title_activity_map"
-            android:parentActivityName="com.summerschool.friendfinderapplications.activities.GroupListActivity" >
+            android:parentActivityName=".activities.GroupListActivity">
+        	<!-- Parent activity meta-data to support API level 7+ -->
+        	<meta-data
+            	android:name="android.support.PARENT_ACTIVITY"
+           		android:value=".activities.GroupListActivity" />
         </activity>
         <activity
             android:name=".activities.ConnectionActivity"
@@ -44,15 +48,29 @@
         <activity
             android:name=".activities.GroupDescriptionActivity"
             android:label="@string/title_activity_group_description"
-            android:parentActivityName=".activities.GroupListActivity" >
+            android:parentActivityName=".activities.GroupListActivity">
+        	<!-- Parent activity meta-data to support API level 7+ -->
+        	<meta-data
+            	android:name="android.support.PARENT_ACTIVITY"
+           		android:value=".activities.GroupListActivity" />
         </activity>
         <activity
             android:name=".activities.NewGroupActivity"
-            android:label="@string/title_activity_new_group" >
+            android:label="@string/title_activity_new_group" 
+            android:parentActivityName=".activities.GroupListActivity">
+        	<!-- Parent activity meta-data to support API level 7+ -->
+        	<meta-data
+            	android:name="android.support.PARENT_ACTIVITY"
+           		android:value=".activities.GroupListActivity" />
         </activity>
         <activity
             android:name=".activities.MyPOIListActivity"
-            android:label="@string/title_activity_my_poi" >
+            android:label="@string/title_activity_my_poi" 
+            android:parentActivityName=".activities.GroupListActivity">
+        	<!-- Parent activity meta-data to support API level 7+ -->
+        	<meta-data
+            	android:name="android.support.PARENT_ACTIVITY"
+           		android:value=".activities.GroupListActivity" />
         </activity>
         <activity
             android:name=".NewMarkerActivity"
@@ -67,15 +85,6 @@
             	android:name="android.support.PARENT_ACTIVITY"
            		android:value=".activities.GroupListActivity" />
         </activity>
-
-        <!-- Google play stuff -->
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-        <meta-data
-            android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyBOJcQWgnhMU5APRLrZGYboqEk1Fj2kwJk" />
-
         <activity
             android:name=".activities.POIInfoActivity"
             android:label="@string/title_activity_poiinfo" >
@@ -84,6 +93,14 @@
             android:name="com.summerschool.friendfinderapplication.activities.EventInfoActivity"
             android:label="@string/title_activity_event_info" >
         </activity>
+        <!-- Google play stuff -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyBOJcQWgnhMU5APRLrZGYboqEk1Fj2kwJk" />
+
     </application>
 
 </manifest>
