@@ -30,7 +30,7 @@
         style="@style/content"
         android:layout_alignStart="@+id/BottomMenu"
         android:layout_below="@+id/actionBar"
-        android:paddingBottom="50dp" >
+        android:paddingBottom="2dp" >
 
 	    <TextView
 	        android:id="@+id/helloView"
@@ -38,17 +38,18 @@
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentLeft="true"
 	        android:layout_alignParentRight="true"
+	        android:background="#F5F5F5"
 	        android:paddingLeft="25dp"
 	        android:text="@string/hello_world"
 	        android:textColor="#003070"
-	        android:background="#F5F5F5"
 	        android:textSize="15sp" />
 	    
 	    <ListView
 	        android:id="@+id/groupListView"
 	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_marginTop="30dp" >
+	        android:layout_height="match_parent"
+	        android:layout_marginTop="30dp" 
+	        android:layout_marginBottom="30dp">
 	    </ListView>
 
 	    <Button
@@ -58,10 +59,9 @@
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentBottom="true"
 	        android:layout_alignParentRight="true"
-	        android:layout_marginBottom="16dp"
-	        android:text="Add group" 
-            android:contentDescription="Add group demo"
-            android:onClick="onClickAddGroup" />
+	        android:contentDescription="Add group demo"
+	        android:onClick="onClickAddGroup"
+	        android:text="Add group" />
 
 	</RelativeLayout>
     
