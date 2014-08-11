@@ -30,7 +30,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.ParseQuery.CachePolicy;
 import com.summerschool.friendfinderapplication.R;
-import com.summerschool.friendfinderapplication.controller.MyGroupAdapter;
+import com.summerschool.friendfinderapplication.controller.MemberListAdapter;
 import com.summerschool.friendfinderapplication.models.Group;
 import com.summerschool.friendfinderapplication.models.GroupMember;
 
@@ -203,41 +203,6 @@ public class GroupDescriptionActivity extends Activity {
 		list.setAdapter(adapter);
 	}	
 
-
-	private class MemberListAdapter extends ArrayAdapter<ParseUser> {
-	
-		private Context mContext;
-		private List<ParseUser> mUsers;
-		
-		public MemberListAdapter(Context context, List<ParseUser> users) {
-			super(GroupDescriptionActivity.this, R.id.memberListView, users);
-			this.mContext = context;
-			this.mUsers = users;
-		}
-	
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			View itemView = convertView;
-			//make sure we have a view (could be null)
-			if(itemView == null) {
-				itemView = getLayoutInflater().inflate(R.layout.member_item_view, parent, false);
-			}
-			
-			final ParseUser currentUser = mUsers.get(position);
-			
-			//Set the text of the TextField to the right name and its onclicklistener
-			TextView textView = (TextView) itemView.findViewById(R.id.item_member_name);
-			textView.setText(currentUser.getUsername());
-			textView.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					Toast.makeText(GroupDescriptionActivity.this, "This is " + currentUser.getUsername(), Toast.LENGTH_SHORT).show();
-				}
-			});			
-						
-			return itemView;
-		}
-	}
 	
 
 	public void onClickMapButton(final View v) {
