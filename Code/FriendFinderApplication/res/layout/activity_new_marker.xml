@@ -30,23 +30,20 @@
 	    <RadioGroup
         	android:id="@+id/markerType"
         	android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:layout_alignTop="@+id/createMarker"
-        	android:layout_marginLeft="36dp"
-        	android:layout_toRightOf="@+id/createMarker" >
+        	android:layout_height="wrap_content" >
 
         	<RadioButton
         	    android:id="@+id/poi"
         	    android:layout_width="wrap_content"
         	    android:layout_height="wrap_content"
            		android:checked="true"
-            	android:text="poi" />
+            	android:text="Point of Interest" />
 
         	<RadioButton
             	android:id="@+id/event"
             	android:layout_width="wrap_content"
             	android:layout_height="wrap_content"
-            	android:text="event" />
+            	android:text="Event" />
     	</RadioGroup>
     	
 	    <Button

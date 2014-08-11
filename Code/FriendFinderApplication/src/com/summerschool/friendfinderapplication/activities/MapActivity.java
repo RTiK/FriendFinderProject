@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -103,21 +105,40 @@ public class MapActivity extends Activity {
 		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 		mNewMarker = mMap.addMarker(new MarkerOptions()
 			.position(new LatLng(0.0, 0.0))
-			.title("Tap to create a new POI")
+			.title("Tap to create a new marker")
 			.draggable(true)
 			.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
 			.visible(false));
 		mMap.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
 			
 			@Override
-			public void onInfoWindowClick(Marker marker) {
+			public void onInfoWindowClick(final Marker marker) {
 				if (marker.equals(mNewMarker)) {
 					Log.i(LOGTAG, "new marker info window tapped");
-					Intent createNewMarker = new Intent(getApplicationContext(), NewMarkerActivity.class);
-					createNewMarker.putExtra(NewMarkerActivity.EXTRA_GROUPNAME, mGroupName);
-					createNewMarker.putExtra(NewMarkerActivity.EXTRA_MARKER_LATITUDE, marker.getPosition().latitude);
-					createNewMarker.putExtra(NewMarkerActivity.EXTRA_MARKER_LONGITUDE, marker.getPosition().longitude);
-					startActivity(createNewMarker);
+
+					AlertDialog.Builder builder = new AlertDialog.Builder(MapActivity.this);
+					builder.setTitle("Select marker type");
+					builder.setPositiveButton("POI", new OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Intent createNewMarker = new Intent(getApplicationContext(), NewMarkerActivity.class);
+							createNewMarker.putExtra(NewMarkerActivity.EXTRA_GROUPNAME, mGroupName);
+							createNewMarker.putExtra(NewMarkerActivity.EXTRA_MARKER_LATITUDE, marker.getPosition().latitude);
+							createNewMarker.putExtra(NewMarkerActivity.EXTRA_MARKER_LONGITUDE, marker.getPosition().longitude);
+							startActivity(createNewMarker);
+						}
+					});
+					builder.setNegativeButton("Event", new OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							// TODO
+							Toast.makeText(getApplicationContext(), "Event", Toast.LENGTH_SHORT).show();
+						}
+					});
+					AlertDialog dialog = builder.create();
+					dialog.show();
 					mNewMarker.setVisible(false);
 				} else {
 					if (mGroupPOIHandler.getMarkers().containsKey(marker)) {
@@ -205,6 +226,27 @@ public class MapActivity extends Activity {
 		
 		mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(focus, zoom));
 
+	}
+	
+	public class SelectMarkerTypeDialog extends DialogFragment {
+	    @Override
+	    public Dialog onCreateDialog(Bundle savedInstanceState) {
+	        // Use the Builder class for convenient dialog construction
+	        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+	        builder.setMessage("What to create?")
+	               .setPositiveButton("Point of Interest", new DialogInterface.OnClickListener() {
+	                   public void onClick(DialogInterface dialog, int id) {
+	                       // FIRE ZE MISSILES!
+	                   }
+	               })
+	               .setNegativeButton("Event", new DialogInterface.OnClickListener() {
+	                   public void onClick(DialogInterface dialog, int id) {
+	                       // User cancelled the dialog
+	                   }
+	               });
+	        // Create the AlertDialog object and return it
+	        return builder.create();
+	    }
 	}
 
 }

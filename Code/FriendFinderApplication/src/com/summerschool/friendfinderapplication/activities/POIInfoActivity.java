@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -30,8 +31,13 @@ public class POIInfoActivity extends Activity {
 		
 		//TODO getExtra from Intent about what POI this is
 		//TODO need group and event identifier
+		Intent i = getIntent();
 		
-		final String currentPOIName = "";
+		final String currentPOIName = i.getStringExtra(EXTRAS_GROUPNAME);
+		
+		getActionBar().setTitle(currentPOIName); // TODO may work
+		
+		Log.i(LOGTAG, "asdf");
 		
 		ParseQuery<POI> q1 = ParseQuery.getQuery(POI.class);		
 		q1.whereEqualTo(POI.NAME, currentPOIName);

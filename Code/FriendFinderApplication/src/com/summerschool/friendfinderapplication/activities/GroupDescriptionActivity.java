@@ -106,6 +106,7 @@ public class GroupDescriptionActivity extends Activity {
 		});
 		
 		//Log.i("grooupName3 =",currentGroup.getName());
+//		getActionBar().setTitle(currentGroup.getName());
 		updateMemberList(groupName);
 		populateListView();
 		
