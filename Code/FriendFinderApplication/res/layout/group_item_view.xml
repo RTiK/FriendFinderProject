@@ -9,13 +9,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/item_group_name"
+        android:layout_alignTop="@+id/item_poi_name"
         android:paddingTop="15dp"
         android:checked="true" 
         android:width="100dp" />
 
     <TextView
-        android:id="@+id/item_group_name"
+        android:id="@+id/item_poi_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"

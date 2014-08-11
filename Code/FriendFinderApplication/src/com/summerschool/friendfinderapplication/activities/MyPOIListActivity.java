@@ -42,12 +42,9 @@ public class MyPOIListActivity extends Activity {
         ActionBar actionBar = getActionBar();
         // Enabling Up / Back navigation
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        adapter = new MyPOIListAdapter(MyPOIListActivity.this, new ArrayList<POI>());
         
-		//TextView Tv = (TextView)findViewById(R.id.helloView);
-		//Tv.setText("MyPOI Avtivity");
-		Log.i(LOGTAG,"Successfully opennned");	
-		
-		adapter = new MyPOIListAdapter(MyPOIListActivity.this, new ArrayList<POI>());
 		updateEventList();
 		populateEventList();
 	}
@@ -59,16 +56,18 @@ public class MyPOIListActivity extends Activity {
 		innerQuery.whereEqualTo(UserLikesPOI.USER, ParseUser.getCurrentUser());
 		
 		ParseQuery<POI> query = ParseQuery.getQuery(POI.class);
-		query.whereMatchesQuery(POI.USER_LIKES_POI, innerQuery);
+		//query.whereMatchesQuery(POI.USER_LIKES_POI, innerQuery);
 		
-		query.findInBackground(new FindCallback<POI>() {
-			@Override
-			public void done(List<POI> pois, ParseException error) {
-				Log.i(LOGTAG,"found " + pois.size() + " pois I liked or created");
-				adapter.clear();
-				adapter.addAll(pois);
-			}
-		});
+		List<POI> pois;
+		try {
+			pois = query.find();
+			Log.i(LOGTAG,"found " + pois.size() + " pois I liked or created");
+			adapter.clear();
+			adapter.addAll(pois);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
 	}
 	
 	private void populateEventList() {
@@ -79,10 +78,8 @@ public class MyPOIListActivity extends Activity {
 
 	
 	public void onClickGroupsButton(final View v) {
-		// intent to main activity
 		Intent intent = new Intent(MyPOIListActivity.this, GroupListActivity.class);
 		startActivity(intent);
-	
 	}
 
 

@@ -125,9 +125,7 @@ public class GroupListActivity extends Activity {
 //			}
 //		});
 		
-		//add both list to my adapter
 		adapter.clear();
-		//adapter.addAll(myCreatedGroups);
 		adapter.addAll(myJoinedGroups);
 	}
 	
