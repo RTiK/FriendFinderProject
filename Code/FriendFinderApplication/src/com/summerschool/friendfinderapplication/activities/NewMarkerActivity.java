@@ -26,7 +26,7 @@ public class NewMarkerActivity extends Activity {
 	public static final String EXTRA_MARKER_LONGITUDE = "LONGITUDE";
 
 	private ParseGeoPoint gpsLocation;
-=======
+	
 	public static final String EXTRA_GROUPNAME = "GROUPNAME";
 
 	private Group selectedGroup;
