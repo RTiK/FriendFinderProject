@@ -1,5 +1,6 @@
 package com.summerschool.friendfinderapplication.activities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -10,8 +11,10 @@ import android.widget.Toast;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 import com.summerschool.friendfinderapplication.R;
 import com.summerschool.friendfinderapplication.models.POI;
+import com.summerschool.friendfinderapplication.models.UserLikesPOI;
 
 public class POIInfoActivity extends Activity {
 	
@@ -43,8 +46,21 @@ public class POIInfoActivity extends Activity {
 		});
 	}
 	
-	
-
-
+	private List<ParseUser> getUsersWithPOIlikes(POI e) {
+		List<ParseUser> users = new ArrayList<ParseUser>();
+		if(e!=null) {
+			ParseQuery<UserLikesPOI> query = ParseQuery.getQuery(UserLikesPOI.class);
+			query.whereEqualTo(UserLikesPOI.POI, e);
+			try {
+				List<UserLikesPOI> poiMembers = query.find();
+				for(UserLikesPOI em : poiMembers) {
+					users.add(em.getUser());
+				}
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}
+		}
+		return users;
+	}
 	
 }
