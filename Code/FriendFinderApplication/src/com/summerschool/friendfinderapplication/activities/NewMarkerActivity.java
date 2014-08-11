@@ -39,7 +39,8 @@ public class NewMarkerActivity extends Activity {
 		Intent i = getIntent();
 		gpsLocation = new ParseGeoPoint(new Double(i.getDoubleExtra(EXTRA_MARKER_LATITUDE, 0.0)), new Double(i.getDoubleExtra(EXTRA_MARKER_LONGITUDE, 0.0)));
 		
-		
+		EditText inputGroupName = (EditText) findViewById(R.id.groupName);
+		inputGroupName.setText(i.getStringExtra(EXTRA_GROUPNAME));
 		
 	}
 
