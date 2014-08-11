@@ -11,19 +11,22 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.ParseUser;
 import com.summerschool.friendfinderapplication.R;
+import com.summerschool.friendfinderapplication.activities.EventInfoActivity;
 import com.summerschool.friendfinderapplication.activities.MyEventListActivity;
 import com.summerschool.friendfinderapplication.models.Event;
+import com.summerschool.friendfinderapplication.models.EventMember;
 
-public class MyEventListAdapter extends ArrayAdapter<Event>{
+public class EventParticipantAdapter extends ArrayAdapter<ParseUser> {
 
 	private Context mContext;
-	private static List<Event> mEvents;
+	private static List<ParseUser> mParticipants;
 	
-	public MyEventListAdapter(Context context, List<Event> events) {
-		super(context, R.layout.event_item_view,events);
+	public EventParticipantAdapter(Context context, List<ParseUser> participants) {
+		super(context, R.layout.activity_event_info);
 		this.mContext = context;
-		this.mEvents = events;
+		this.mParticipants = participants;
 	}
 	
 	@Override
@@ -32,22 +35,25 @@ public class MyEventListAdapter extends ArrayAdapter<Event>{
 		
 		if(itemView == null) {
 			LayoutInflater mLayoutInflater = LayoutInflater.from(mContext);
-			itemView = mLayoutInflater.inflate(R.layout.event_item_view, parent, false);
+			itemView = mLayoutInflater.inflate(R.layout.group_item_view, parent, false);
 		}
 		
-		final Event currentEvent = mEvents.get(position);
+		final ParseUser currentParticipant = mParticipants.get(position);
 		
-		TextView tv = (TextView) itemView.findViewById(R.id.item_event_name);
-		tv.setText(currentEvent.getTitle());
+		TextView tv = (TextView) itemView.findViewById(R.layout.activity_event_info);
+		tv.setText(currentParticipant.getUsername());
+		/*
 		tv.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				//TODO Make intent to MapActivity to show position of this event
-				Toast.makeText(mContext, "Event for " + currentEvent.getDate(), Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, "Username: " + currentEventParticipant.getUsername(), Toast.LENGTH_SHORT).show();
 			}
-		});
+		}); */
 		
 		return itemView;
 	}
-
+	
+	
+	
 }

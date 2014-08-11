@@ -3,6 +3,7 @@ package com.summerschool.friendfinderapplication.controller;
 import java.util.List;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,12 +18,13 @@ import com.summerschool.friendfinderapplication.models.POI;
 public class MyPOIListAdapter extends ArrayAdapter<POI> {
 
 	private Context mContext;
-	private static List<POI> mPOIs;
-	
+	private List<POI> mPOIs;
+	private static final String LOGTAG = "MyPOIListAdapter";
+
 	public MyPOIListAdapter(Context context, List<POI> pois) {
-		super(context, R.layout.poi_item_view);
+		super(context, R.layout.poi_item_view, pois);
 		mContext = context;
-		mPOIs = pois;
+		this.mPOIs = pois;
 	}
 	
 	@Override
@@ -31,20 +33,23 @@ public class MyPOIListAdapter extends ArrayAdapter<POI> {
 		
 		if(itemView == null) {
 			LayoutInflater mLayoutInflater = LayoutInflater.from(mContext);
-			itemView = mLayoutInflater.inflate(R.layout.group_item_view, parent, false);
+			itemView = mLayoutInflater.inflate(R.layout.poi_item_view, parent, false);
 		}
 		
-		final POI currentPOI = mPOIs.get(position);
+		Log.i(LOGTAG, "mPois size: " + mPOIs.size());
 		
-		TextView tv = (TextView) itemView.findViewById(R.id.item_event_name);
-		tv.setText(currentPOI.getName());
-		tv.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				//TODO Make intent to MapActivity to show position of this event
-				Toast.makeText(mContext, "Event at " + currentPOI.getLocation(), Toast.LENGTH_SHORT).show();
-			}
-		});
+		if(mPOIs.size() > 0) {
+			final POI currentPOI = mPOIs.get(position);
+			TextView tv = (TextView) itemView.findViewById(R.id.item_poi_name);
+			tv.setText(currentPOI.getName());
+			tv.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					//TODO Make intent to MapActivity to show position of this event
+					Toast.makeText(mContext, "Event at " + currentPOI.getLocation(), Toast.LENGTH_SHORT).show();
+				}
+			});
+		}
 		
 		return itemView;
 	}

@@ -23,7 +23,7 @@ import com.summerschool.friendfinderapplication.models.Group;
 public class MyGroupAdapter extends ArrayAdapter<Group> {
 
 		private Context mContext;
-		private static List<Group> mGroups;
+		private List<Group> mGroups;
 		
 		public MyGroupAdapter(Context context, List<Group> groups) {
 			super(context, R.layout.group_item_view, groups);
@@ -43,9 +43,8 @@ public class MyGroupAdapter extends ArrayAdapter<Group> {
 			//find the group to work with
 			final Group currentGroup = mGroups.get(position);
 			
-			//final Group currentGroup = new Group();
 			//Set the text of the TextField to the right name and its onclicklistener
-			TextView textView = (TextView) itemView.findViewById(R.id.item_group_name);
+			TextView textView = (TextView) itemView.findViewById(R.id.item_poi_name);
 			textView.setText(currentGroup.getName());
 			textView.setOnClickListener(new OnClickListener() {
 				@Override

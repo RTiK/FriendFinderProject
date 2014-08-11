@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 public class NewMarkerActivity extends Activity {
@@ -27,14 +28,14 @@ public class NewMarkerActivity extends Activity {
 	private final static String LOGTAG = "NEW_MARKER";
 	
 	public static final String EXTRA_MARKER_LATITUDE = "LATITUDE";
-	public static final String EXTRA_MARKER_LONGITUDE = "LONGITUDE";
+	public static final String EXTRA_MARKER_LONGITUDE = "LONGITUDE";	
 	public static final String EXTRA_GROUPNAME = "GROUPNAME";
 
 	private String mGroupName;
 	private LatLng mLocation;
 	private Group mCurrentGroup;
-	
-	@Override
+	private Group selectedGroup;
+
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_marker);
@@ -59,8 +60,15 @@ public class NewMarkerActivity extends Activity {
 		return true;
 	}
 
-	public void onClickCreate(final View v)
-	{
+	public void onClickCreate(final View v) {
+		//What type of marker
+		RadioButton event = (RadioButton) findViewById(R.id.event);
+		Boolean isEvent;
+		if(event.isChecked())
+			isEvent = true;
+		else
+			isEvent = false;
+		
 		//Get data information from the view
 		EditText markerName = (EditText) findViewById(R.id.markerName);
 		EditText markerDescription = (EditText) findViewById(R.id.markerDescription);
@@ -76,6 +84,7 @@ public class NewMarkerActivity extends Activity {
 			Log.e(LOGTAG, "Marker description is empty");
 			Toast.makeText(getApplicationContext(), "Please enter POI decription", Toast.LENGTH_LONG).show();
 		} else {
+
 			//Look for the group
 			ParseQuery<Group> findGroupName = ParseQuery.getQuery(Group.class);
 			findGroupName.whereEqualTo("name", mGroupName);
@@ -87,39 +96,66 @@ public class NewMarkerActivity extends Activity {
 			}
 			
 			if(mCurrentGroup != null) {
-			
-				ParseQuery<POI> poiQuery = ParseQuery.getQuery(POI.class);
-				poiQuery.whereEqualTo(POI.NAME, mName);
-				poiQuery.countInBackground(new CountCallback() {
-					
-					@Override
-					public void done(int c, ParseException err) {
-						// If the marker doesn't already exist
-						if(c == 0) {
-							//Create the element
-							POI p = new POI();
-							p.setName(mName);
-							p.setDescription(mDescription);
-							p.setCreator(ParseUser.getCurrentUser());
-							p.setGPSLocation(new ParseGeoPoint(mLocation.latitude, mLocation.longitude));
-							p.setGroup(mCurrentGroup);
-							
-							//Try to save data in database
-							try {
-								p.save();
-								Toast.makeText(getApplicationContext(), "POI created", Toast.LENGTH_LONG).show();		
-							} catch(ParseException e) {
-								Log.e(LOGTAG, "POI could not be created");
+				
+				if (!isEvent) {
+					ParseQuery<POI> poiQuery = ParseQuery.getQuery(POI.class);
+					poiQuery.whereEqualTo(POI.NAME, mName);
+					poiQuery.countInBackground(new CountCallback() {
+						
+						@Override
+						public void done(int c, ParseException err) {
+							// If the marker doesn't already exist
+							if(c == 0) {
+								//Create the element
+								POI p = new POI();
+								p.setName(mName);
+								p.setDescription(mDescription);
+								p.setCreator(ParseUser.getCurrentUser());
+								p.setGPSLocation(new ParseGeoPoint(mLocation.latitude, mLocation.longitude));
+								p.setGroup(mCurrentGroup);
+								
+								//Try to save data in database
+								try {
+									p.save();
+									Toast.makeText(getApplicationContext(), "POI created", Toast.LENGTH_LONG).show();		
+								} catch(ParseException e) {
+									Log.e(LOGTAG, "POI could not be created");
+								}
+								
+								finish();
 							}
-							
-							finish();
 						}
-					}
-				});
-			}
-			else
-			{
-				Toast.makeText(getApplicationContext(), "We can't find the group", Toast.LENGTH_LONG).show();
+					});
+				} else {
+					ParseQuery<POI> poiQuery = ParseQuery.getQuery(POI.class);
+					poiQuery.whereEqualTo(POI.NAME, mName);
+					poiQuery.whereEqualTo(POI.GROUP, selectedGroup.getObjectId());
+					poiQuery.countInBackground(new CountCallback() {
+						
+						@Override
+						public void done(int c, ParseException err) {
+							// If the marker doesn't already exist
+							if(c == 0) {
+								//Create the element
+								POI p = new POI();
+								p.setName(mName);
+								p.setDescription(mDescription);
+								p.setCreator(ParseUser.getCurrentUser());
+								p.setGPSLocation(new ParseGeoPoint(mLocation.latitude, mLocation.longitude));
+								p.setGroup(selectedGroup);
+								
+								//Try to save data in database
+								try {
+									p.save();
+									Toast.makeText(getApplicationContext(), "Event created", Toast.LENGTH_LONG).show();		
+								} catch(ParseException e) {
+									Toast.makeText(getApplicationContext(), "Event could not be created", Toast.LENGTH_LONG).show();
+								}
+								finish();
+							}
+						}
+					});
+				}
 			}
 		}
 	}

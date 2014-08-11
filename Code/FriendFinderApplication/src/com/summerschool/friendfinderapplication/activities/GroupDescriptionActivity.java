@@ -10,6 +10,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
@@ -19,14 +22,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.google.android.maps.MapActivity;
+import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.ParseQuery.CachePolicy;
 import com.summerschool.friendfinderapplication.R;
-import com.summerschool.friendfinderapplication.controller.MyGroupAdapter;
+import com.summerschool.friendfinderapplication.controller.MemberListAdapter;
 import com.summerschool.friendfinderapplication.models.Group;
 import com.summerschool.friendfinderapplication.models.GroupMember;
 
@@ -43,40 +48,18 @@ public class GroupDescriptionActivity extends Activity {
 	private Group currentGroup;
 	private MemberListAdapter adapter;
 	
-	public void onClickHomeButton(final View v) {
-		//TODO
-		Intent intent = new Intent(GroupDescriptionActivity.this, MapActivity.class);
-		startActivity(intent);
-	}
-	public void onClickMyEventButton(final View v) {
-		//TODO
-		Intent intent = new Intent(GroupDescriptionActivity.this, MyEventListActivity.class);
-		startActivity(intent);
-	}
-	public void onClickMyPOIButton(final View v) {
-		//TODO
-		Intent intent = new Intent(GroupDescriptionActivity.this, MyPOIListActivity.class);
-		startActivity(intent);
-	}
-
-	public void onClickEventsButton(final View v) {
-		//TODO
-		Intent intent = new Intent(GroupDescriptionActivity.this, MyEventListActivity.class);
-		startActivity(intent);
-	}
-	public void onClickMapButton(final View v) {
-		//TODO
-		Intent intent = new Intent(GroupDescriptionActivity.this, MapActivity.class);
-		startActivity(intent);
-	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_group_description);
+		
 		Log.i("Creation of the view","creation OK");
         // get action bar   
         ActionBar actionBar = getActionBar();
+        // Enabling Up / Back navigation
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        
         Log.i("ActionBar","OK");
         // Enabling Up / Back navigation
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -128,9 +111,90 @@ public class GroupDescriptionActivity extends Activity {
 		
 	}
 	
-	
-	
-private void updateMemberList(final String groupName) {
+   @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+    	MenuInflater inflater= getMenuInflater();
+    	inflater.inflate(R.menu.activity_main_actions, menu);
+    	
+    	return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+    	
+    	// Take appropriate action for each action item click
+        switch (item.getItemId()) {
+        case R.id.action_leaveGroup:
+            // search action
+        	ActionLeaveGroup(getIntent().getStringExtra("groupName"));
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
+ 
+	/**
+     * Launching new activity
+     * */	
+    private void ActionLeaveGroup(String groupName) {
+    	
+    	 //TODO Leave group when here !
+    	
+    	final boolean alone = false;
+		//The group is known
+		Log.i("groupName",groupName);
+		//the userName too
+		Log.i("username", ParseUser.getCurrentUser().toString());
+		
+		
+		//Find the user entity in the Parse database
+		ParseQuery<GroupMember> userInfo = ParseQuery.getQuery(GroupMember.class);
+		//find specific user
+		userInfo.whereEqualTo("Member",ParseUser.getCurrentUser().toString());
+		//in a specific group
+		userInfo.whereEqualTo("Group",groupName);
+		userInfo.setCachePolicy(CachePolicy.CACHE_THEN_NETWORK);
+		//find the group member list that matches the request
+		userInfo.findInBackground(new FindCallback<GroupMember>() {
+			public void done(List<GroupMember> users, ParseException error) {
+				if(users != null) { //you are at least in the chosen group
+					if(users.size() > 1) { //Your are registered twice in the group
+						Log.i("Error","too muche members : " + users.size());
+					} 
+					else { //There is only one line that matches
+						Log.i("error","Only  one line matches");
+						users.get(0).deleteInBackground(new DeleteCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                // TODO Auto-generated method stub
+                                if(e==null)
+                                {
+                                    Toast.makeText(getBaseContext(),"Deleted Successfully!", Toast.LENGTH_LONG).show();
+                                }
+                                else
+                                {
+                                    Toast.makeText(getBaseContext(),"Cant Delete Tickle!"+e.toString(), Toast.LENGTH_LONG).show();
+                                }
+                            }
+						}); 
+					}
+				} else {
+					//you are not in the group
+					Toast.makeText(getApplicationContext(), "You are not in the group !", Toast.LENGTH_SHORT);
+				}
+			}
+		});
+		
+        Intent i = new Intent(GroupDescriptionActivity.this, GroupListActivity.class);
+        startActivity(i);
+       
+ 	}
+   
+	private void updateMemberList(final String groupName) {
 		
 		Log.i("Info","Find group " + groupName);
 		
@@ -179,47 +243,16 @@ private void updateMemberList(final String groupName) {
 	}
 
 
-private void populateListView() {
-	ListView list = (ListView) findViewById(R.id.memberListView);
-	list.setAdapter(adapter);
-}	
+	private void populateListView() {
+		ListView list = (ListView) findViewById(R.id.memberListView);
+		list.setAdapter(adapter);
+	}	
 
-
-
-
-
-private class MemberListAdapter extends ArrayAdapter<ParseUser> {
-
-	private Context mContext;
-	private List<ParseUser> mUsers;
 	
-	public MemberListAdapter(Context context, List<ParseUser> users) {
-		super(GroupDescriptionActivity.this, R.id.memberListView, users);
-		this.mContext = context;
-		this.mUsers = users;
-	}
 
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		View itemView = convertView;
-		//make sure we have a view (could be null)
-		if(itemView == null) {
-			itemView = getLayoutInflater().inflate(R.layout.member_item_view, parent, false);
-		}
-		
-		final ParseUser currentUser = mUsers.get(position);
-		
-		//Set the text of the TextField to the right name and its onclicklistener
-		TextView textView = (TextView) itemView.findViewById(R.id.item_member_name);
-		textView.setText(currentUser.getUsername());
-		textView.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Toast.makeText(GroupDescriptionActivity.this, "This is " + currentUser.getUsername(), Toast.LENGTH_SHORT).show();
-			}
-		});			
-					
-		return itemView;
+	public void onClickMapButton(final View v) {
+		//TODO
+		Intent intent = new Intent(GroupDescriptionActivity.this, MapActivity.class);
+		startActivity(intent);
 	}
-}
 }

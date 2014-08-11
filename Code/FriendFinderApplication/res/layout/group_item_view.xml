@@ -9,17 +9,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/item_group_name"
+        android:layout_alignTop="@+id/item_poi_name"
         android:paddingTop="15dp"
         android:checked="true" 
         android:width="100dp" />
 
     <TextView
-        android:id="@+id/item_group_name"
+        android:id="@+id/item_poi_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/item_group_info"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/item_group_info"
         android:ems="8"
         android:paddingTop="10dp"
         android:text="Group" >
@@ -32,6 +34,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_marginRight="14dp"
+        android:layout_marginTop="14dp"
         android:layout_toLeftOf="@+id/item_group_switch"
         android:background="@android:color/transparent"
         android:baselineAlignBottom="false"
@@ -39,6 +43,6 @@
         android:fitsSystemWindows="false"
         android:maxHeight="40dp"
         android:maxWidth="40dp"
-        android:src="@drawable/inf_button" />
+        android:src="@drawable/ic_information38" />
 
 </RelativeLayout>

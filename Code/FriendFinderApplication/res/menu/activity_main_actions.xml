@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <!-- Action leave group -->
+    <item android:id="@+id/action_leaveGroup"
+          android:icon="@drawable/ic_recycling"
+          android:title="test1"
+          android:showAsAction="always"/>
+    	
+</menu>
