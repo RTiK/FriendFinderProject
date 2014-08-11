@@ -140,9 +140,13 @@ public class GroupDescriptionActivity extends Activity {
      * Launching new activity
      * */	
     private void ActionLeaveGroup() {
-        Intent i = new Intent(GroupDescriptionActivity.this, MyEventListActivity.class);
+    	
+    	 //TODO Leave group when here !
+    	
+    	
+        Intent i = new Intent(GroupDescriptionActivity.this, GroupListActivity.class);
         startActivity(i);
-        //TODO Leave group when here !
+       
  	}
    
 	private void updateMemberList(final String groupName) {
