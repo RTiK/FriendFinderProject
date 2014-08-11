@@ -30,16 +30,16 @@
 	        android:orientation="horizontal" >
 
 	           <TextView
-	               android:id="@+id/leg1"
-	               android:layout_width="150dp"
-	               android:layout_height="wrap_content"
-	               android:text="Name" />
+               android:id="@+id/leg1"
+               android:layout_width="150dp"
+               android:layout_height="wrap_content"
+               android:text="Name" />
 
 		       <TextView
-			       android:id="@+id/leg2"
-			       android:layout_width="match_parent"
-			       android:layout_height="wrap_content"
-			       android:text="Date" />
+		       android:id="@+id/leg2"
+		       android:layout_width="match_parent"
+		       android:layout_height="wrap_content"
+		       android:text="Date" />
 	       </LinearLayout>
 
 	    </LinearLayout>
@@ -52,7 +52,6 @@
 	        android:layout_alignParentLeft="true"
 	        android:layout_alignParentRight="true"
 	        android:layout_alignParentTop="true" >
-	
 	    </ListView>
 	</LinearLayout>
 </RelativeLayout>

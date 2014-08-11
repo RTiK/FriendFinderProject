@@ -224,37 +224,28 @@ public class GroupDescriptionActivity extends Activity {
 								List<ParseUser> members = new LinkedList<ParseUser>();
 								//Log.i("Info","Toto is part of group ? " + groupMembers.get(0).toString());
 								for(GroupMember gm : groupMembers) {
-									
 									//Log.i("Info","Toto is part of group ? " + gm.containsKey("toto"));
 									members.add(gm.getMember());
 									//Log.i("Member = ",gm.getMember().getUsername());
-								}
-								
+								}	
 								adapter.clear();
-								adapter.addAll(members);
-								
+								adapter.addAll(members);							
 							} else {
 								Log.i("Error","GroupMember returned null");
 							}
 						}
 					});
-					
 				} else {
 					Log.i("Error", "No group found or mutliple groups found");
-				}
-				
-				
+				}	
 			}
 		});		
 	}
-
 
 	private void populateListView() {
 		ListView list = (ListView) findViewById(R.id.memberListView);
 		list.setAdapter(adapter);
 	}	
-
-	
 
 	public void onClickMapButton(final View v) {
 		//TODO

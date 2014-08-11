@@ -4,15 +4,15 @@
     android:layout_height="match_parent"
     tools:context="com.summerschool.friendfinderapplication.activities.NewGroupActivity" >
 	
-
-    
-    <LinearLayout 
+    <LinearLayout
         android:id="@+id/titleDiv"
         style="@style/content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:paddingLeft="@dimen/activity_horizontal_margin"
-	    android:paddingRight="@dimen/activity_horizontal_margin">
+        android:paddingRight="@dimen/activity_horizontal_margin" >
 
         <TextView
             android:id="@+id/helloView"
@@ -22,16 +22,6 @@
             android:text="@string/newGroup_title"
             android:textSize="20sp" />
 
-    </LinearLayout >
-    
-    <RelativeLayout
-        android:id="@+id/editTextDiv"
-        style="@style/content"
-        android:layout_below="@+id/titleDiv"
-        android:layout_marginTop="10dp"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-	    android:paddingRight="@dimen/activity_horizontal_margin">
-
 	    <EditText
 	        android:id="@+id/group_name"
 	        android:layout_width="fill_parent"
@@ -39,13 +29,20 @@
 	        android:ems="10"
 	        android:hint="@string/newGroup_editText"
 	        android:inputType="textPersonName" />
-
-	</RelativeLayout>
+	    <EditText
+	        android:id="@+id/group_desc"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:ems="100"
+	        android:hint="Enter its description"
+	        android:inputType="textPersonName" />
+	    </LinearLayout>
+	
     
 	<RelativeLayout
 	    android:id="@+id/buttonsDiv"
 	    style="@style/content"
-	    android:layout_below="@+id/editTextDiv"
+	    android:layout_below="@+id/titleDiv"
 	    android:layout_marginTop="10dp"
 	    android:paddingLeft="@dimen/activity_horizontal_margin"
 	    android:paddingRight="@dimen/activity_horizontal_margin">
