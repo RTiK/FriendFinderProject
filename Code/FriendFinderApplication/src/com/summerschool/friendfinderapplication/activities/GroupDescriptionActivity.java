@@ -10,6 +10,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
@@ -18,6 +21,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import com.google.android.maps.MapActivity;
 import com.parse.FindCallback;
@@ -106,8 +110,41 @@ public class GroupDescriptionActivity extends Activity {
 		
 	}
 	
-	
-	
+   @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+    	MenuInflater inflater= getMenuInflater();
+    	inflater.inflate(R.menu.activity_main_actions, menu);
+    	
+    	return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+    	
+    	// Take appropriate action for each action item click
+        switch (item.getItemId()) {
+        case R.id.action_leaveGroup:
+            // search action
+        	ActionLeaveGroup();
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
+ 
+	/**
+     * Launching new activity
+     * */	
+    private void ActionLeaveGroup() {
+        Intent i = new Intent(GroupDescriptionActivity.this, MyEventListActivity.class);
+        startActivity(i);
+        //TODO Leave group when here !
+ 	}
+   
 	private void updateMemberList(final String groupName) {
 		
 		Log.i("Info","Find group " + groupName);

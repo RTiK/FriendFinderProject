@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <!-- Action leave group -->
+    <item android:id="@+id/action_leaveGroup"
+          android:icon="@drawable/ic_launcher"
+          android:title="test1"
+          android:showAsAction="always"/>
+     
+    <!-- Location Found -->
+    <item android:id="@+id/action_location_found"
+          android:icon="@drawable/ic_action_location_found"
+          android:title="test2"
+          android:showAsAction="ifRoom" />
+     
+    <!-- Refresh -->
+    <item android:id="@+id/action_refresh"
+          android:icon="@drawable/ic_action_refresh"
+          android:title="test3"
+          android:showAsAction="ifRoom" />
+     
+    <!-- Help -->
+    <item android:id="@+id/action_help"
+          android:icon="@drawable/ic_action_next_item"
+          android:title="test4"
+          android:showAsAction="ifRoom"/>
+     
+    <!-- Check updates -->
+    <item android:id="@+id/action_check_updates"
+          android:icon="@drawable/ic_action_refresh"
+          android:title="test5"
+          android:showAsAction="never" />
+    	
+</menu>

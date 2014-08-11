@@ -79,7 +79,7 @@
 		       android:layout_alignParentLeft="true"
 		       android:layout_alignParentRight="true"
 		       android:layout_alignParentTop="true"
-		       android:text="Group Members"
+		       android:text="Group POI"
 		       android:textAppearance="?android:attr/textAppearanceLarge" />
 		      
 		       <ListView
@@ -104,7 +104,7 @@
 		       android:layout_alignParentLeft="true"
 		       android:layout_alignParentRight="true"
 		       android:layout_alignParentTop="true"
-		       android:text="Group POI"
+		       android:text="Group Members"
 		       android:textAppearance="?android:attr/textAppearanceLarge" />
 		      
 		       <ListView
