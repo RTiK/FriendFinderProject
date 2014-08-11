@@ -27,6 +27,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class NewMarkerActivity extends Activity {
+	
+	public static final String EXTRA_MARKER_LATITUDE = "LATITUDE";
+	public static final String EXTRA_MARKER_LONGITUDE = "LONGITUDE";
 
 	final String GPS_DATA = "";
 	private Group selectedGroup;

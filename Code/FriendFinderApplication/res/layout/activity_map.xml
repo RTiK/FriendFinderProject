@@ -21,10 +21,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="onClick_mapToggleUsers"
             android:text="@string/mapUsersToggle"
-            android:textOn="@string/mapUsersToggle"
             android:textOff="@string/mapUsersToggle"
-            android:onClick="onClick_mapToggleUsers" />
+            android:textOn="@string/mapUsersToggle" />
 
         <ToggleButton
             android:id="@+id/mapToggleEvents"
