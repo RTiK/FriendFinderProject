@@ -3,7 +3,6 @@ package com.summerschool.friendfinderapplication.activities;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,15 +18,13 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.parse.Parse;
-import com.parse.ParseAnalytics;
 import com.parse.ParseUser;
 import com.summerschool.friendfinderapplication.R;
+import com.summerschool.friendfinderapplication.handlers.GroupPOIHandler;
 import com.summerschool.friendfinderapplication.handlers.GroupUserHandler;
 
 
@@ -54,7 +51,8 @@ public class MapActivity extends Activity {
 	private ToggleButton mToggleEvents;
 	private ToggleButton mTogglePOIs;
 	private GroupUserHandler mGroupUserHandler;
-	
+	private GroupPOIHandler mGroupPOIHandler;
+	private String mGroupName;
 	private static Marker mNewMarker;
 	
 	private void initToggles() {
@@ -62,16 +60,18 @@ public class MapActivity extends Activity {
 		mToggleEvents.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				Log.i("MAP", "Events button pressed");
-				// TODO Auto-generated method stub
-				
+				Log.i(LOGTAG, "Events button pressed");
+				if (isChecked)
+					mGroupPOIHandler.showPOIs();
+				else
+					mGroupPOIHandler.removePOIs();
 			}
 		});
 		mToggleUsers = (ToggleButton) findViewById(R.id.mapToggleUsers);
 		mToggleUsers.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				Log.i("MAP", "Users button pressed");
+				Log.i(LOGTAG, "Users button pressed");
 				if (isChecked)
 					mGroupUserHandler.showActiveUsers();
 				else
@@ -82,7 +82,7 @@ public class MapActivity extends Activity {
 		mTogglePOIs.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				Log.i("MAP", "POI button pressed");
+				Log.i(LOGTAG, "POI button pressed");
 				// TODO Auto-generated method stub
 				
 			}
@@ -111,10 +111,15 @@ public class MapActivity extends Activity {
 				if (marker.equals(mNewMarker)) {
 					Log.i(LOGTAG, "new marker info window tapped");
 					Intent createNewMarker = new Intent(getApplicationContext(), NewMarkerActivity.class);
+					createNewMarker.putExtra(NewMarkerActivity.EXTRA_GROUPNAME, mGroupName);
 					createNewMarker.putExtra(NewMarkerActivity.EXTRA_MARKER_LATITUDE, marker.getPosition().latitude);
 					createNewMarker.putExtra(NewMarkerActivity.EXTRA_MARKER_LONGITUDE, marker.getPosition().longitude);
 					startActivity(createNewMarker);
-					finish();
+				} else {
+					// TODO
+//					Intent goToPOIInfo = new Intent(getApplicationContext(), POIInfoActivity);
+//					goToPOIInfo.putExtra("TODO", marker.getTitle());	// TODO
+//					startActivity(goToPOIInfo);
 				}
 			}
 		});
@@ -130,33 +135,33 @@ public class MapActivity extends Activity {
 		});
 		
 		Intent i = getIntent();
-		mGroupUserHandler = new GroupUserHandler(mMap, i.getStringExtra(EXTRA_GROUPNAME));
+		mGroupName = i.getStringExtra(EXTRA_GROUPNAME);
+		mGroupUserHandler = new GroupUserHandler(mMap, mGroupName);
+		mGroupPOIHandler = new GroupPOIHandler(mMap, mGroupName);
 		
 		if (i.getBooleanExtra(EXTRA_USERS, true)) {
-			Log.i("MAP", "Users enbled");
+			Log.i(LOGTAG, "Users enbled");
 			mToggleUsers.setChecked(true);
 		} else {
-			Log.i("MAP", "Users disabled");
+			Log.i(LOGTAG, "Users disabled");
 			mToggleUsers.setChecked(false);
 		}
 		
 		if (i.getBooleanExtra(EXTRA_EVENTS, true)) {
-			Log.i("MAP", "Events enbled");
+			Log.i(LOGTAG, "Events enbled");
 			mToggleEvents.setChecked(true);
 			Toast.makeText(getApplicationContext(), "Function not yet implemented", Toast.LENGTH_LONG).show();
 			// TODO
 		} else {
-			Log.i("MAP", "Events disabled");
+			Log.i(LOGTAG, "Events disabled");
 			mToggleEvents.setChecked(false);
 		}
 		
 		if (i.getBooleanExtra(EXTRA_POIS, true)) {
-			Log.i("MAP", "POIs enbled");
+			Log.i(LOGTAG, "POIs enbled");
 			mTogglePOIs.setChecked(true);
-			Toast.makeText(getApplicationContext(), "Function not yet implemented", Toast.LENGTH_LONG).show();
-			// TODO
 		} else {
-			Log.i("MAP", "POIs disabled");
+			Log.i(LOGTAG, "POIs disabled");
 			mTogglePOIs.setChecked(false);
 		}
 		
@@ -189,14 +194,14 @@ public class MapActivity extends Activity {
 	
 	// TODO we may not need these functions
 	public void onClick_mapToggleUsers(View v) {
-		Log.i("MAP", "Users toggle pressed");
+		Log.i(LOGTAG, "Users toggle pressed");
 	}
 	
 	public void onClick_mapToggleEvents(View v) {
-		Log.i("MAP", "Events toggle pressed");
+		Log.i(LOGTAG, "Events toggle pressed");
 	}
 	
 	public void onClick_mapTogglePOIs(View v) {
-		Log.i("MAP", "POIs toggle pressed");
+		Log.i(LOGTAG, "POIs toggle pressed");
 	}
 }

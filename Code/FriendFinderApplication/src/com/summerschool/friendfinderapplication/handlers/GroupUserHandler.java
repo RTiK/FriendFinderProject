@@ -46,14 +46,11 @@ public class GroupUserHandler {
 	private void getUsersOfGroup() {
 		if (mGroupName != null && !mGroupName.equals("")) {
 			Log.i("LOCATION", mGroupName);
-
-			// TODO register subclasses earlier
-			ParseObject.registerSubclass(Group.class);
-			ParseObject.registerSubclass(GroupMember.class);
 			
 			ParseQuery<Group> groupQuery = ParseQuery.getQuery(Group.class);
 			groupQuery.whereEqualTo("name", mGroupName);
 			groupQuery.findInBackground(new FindCallback<Group>() {
+				
 				@Override
 				public void done(List<Group> groups, ParseException error) {
 					Log.i("LOCATION", "groups found " + groups.size());

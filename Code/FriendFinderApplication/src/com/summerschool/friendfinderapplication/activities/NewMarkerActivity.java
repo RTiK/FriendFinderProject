@@ -1,9 +1,6 @@
 package com.summerschool.friendfinderapplication.activities;
 
 import com.summerschool.friendfinderapplication.R;
-import com.summerschool.friendfinderapplication.R.id;
-import com.summerschool.friendfinderapplication.R.layout;
-import com.summerschool.friendfinderapplication.R.menu;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -14,6 +11,7 @@ public class NewMarkerActivity extends Activity {
 	
 	public static final String EXTRA_MARKER_LATITUDE = "LATITUDE";
 	public static final String EXTRA_MARKER_LONGITUDE = "LONGITUDE";
+	public static final String EXTRA_GROUPNAME = "GROUPNAME";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
