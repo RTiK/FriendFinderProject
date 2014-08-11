@@ -16,10 +16,29 @@
             android:id="@+id/testTextView"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:text="..." />
+            android:text="Description" />
 
     </RelativeLayout>
 
-   
+   <RelativeLayout
+        android:id="@+id/Content2"
+        style="@style/content"
+        android:layout_alignStart="@+id/BottomMenu"
+        android:layout_below="@+id/actionBar"
+        android:paddingBottom="50dp" >
+
+	    
+	    
+	    <ListView
+	        android:id="@+id/memberListView"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="30dp" >
+	    </ListView>
+	
+
+
+	</RelativeLayout>
+
 
 </RelativeLayout>
