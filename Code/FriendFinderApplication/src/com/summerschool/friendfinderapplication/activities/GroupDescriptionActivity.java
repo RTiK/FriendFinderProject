@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 
 import com.google.android.maps.MapActivity;
+import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -129,7 +130,7 @@ public class GroupDescriptionActivity extends Activity {
         switch (item.getItemId()) {
         case R.id.action_leaveGroup:
             // search action
-        	ActionLeaveGroup();
+        	ActionLeaveGroup(getIntent().getStringExtra("groupName"));
             return true;
         default:
             return super.onOptionsItemSelected(item);
@@ -139,11 +140,57 @@ public class GroupDescriptionActivity extends Activity {
 	/**
      * Launching new activity
      * */	
-    private void ActionLeaveGroup() {
+    private void ActionLeaveGroup(String groupName) {
     	
     	 //TODO Leave group when here !
     	
-    	
+    	final boolean alone = false;
+		//The group is known
+		Log.i("groupName",groupName);
+		//the userName too
+		Log.i("username", ParseUser.getCurrentUser().toString());
+		
+		
+		//Find the user entity in the Parse database
+		ParseQuery<GroupMember> userInfo = ParseQuery.getQuery(GroupMember.class);
+		//find specific user
+		userInfo.whereEqualTo("Member",ParseUser.getCurrentUser().toString());
+		//in a specific group
+		userInfo.whereEqualTo("Group",groupName);
+		userInfo.setCachePolicy(CachePolicy.CACHE_THEN_NETWORK);
+		//find the group member list that matches the request
+		userInfo.findInBackground(new FindCallback<GroupMember>() {
+			public void done(List<GroupMember> users, ParseException error) {
+				if(users != null) { //you are at least in the chosen group
+					if(users.size() > 1) { //Your are registered twice in the group
+						Log.i("Error","too muche members : " + users.size());
+					} 
+					else { //There is only one line that matches
+						Log.i("error","Only  one line matches");
+						users.get(0).deleteInBackground(new DeleteCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                // TODO Auto-generated method stub
+                                if(e==null)
+                                {
+                                    Toast.makeText(getBaseContext(),"Deleted Successfully!", Toast.LENGTH_LONG).show();
+                                }
+                                else
+                                {
+                                    Toast.makeText(getBaseContext(),"Cant Delete Tickle!"+e.toString(), Toast.LENGTH_LONG).show();
+                                }
+                            }
+						}); 
+					}
+				} else {
+					//you are not in the group
+					Toast.makeText(getApplicationContext(), "You are not in the group !", Toast.LENGTH_SHORT);
+				}
+			}
+		});
+		
+		
+
         Intent i = new Intent(GroupDescriptionActivity.this, GroupListActivity.class);
         startActivity(i);
        
