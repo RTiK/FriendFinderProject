@@ -53,7 +53,7 @@ public class MyEventListActivity extends Activity {
 		ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
 		//query.whereMatchesQuery(Event.EVENTMEMBER, innerQuery);
 		query.whereEqualTo(Event.OWNER, ParseUser.getCurrentUser());
-		
+		query.include(Event.GROUP);
 		query.findInBackground(new FindCallback<Event>() {
 			@Override
 			public void done(List<Event> events, ParseException error) {
