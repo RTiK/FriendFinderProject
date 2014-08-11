@@ -30,8 +30,8 @@ public class NewMarkerActivity extends Activity {
 	
 	public static final String EXTRA_MARKER_LATITUDE = "LATITUDE";
 	public static final String EXTRA_MARKER_LONGITUDE = "LONGITUDE";
-
-	final String GPS_DATA = "";
+	
+	private ParseGeoPoint gpsLocation;
 	private Group selectedGroup;
 	
 	@Override
@@ -39,8 +39,8 @@ public class NewMarkerActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_marker);
 		
-		//Intent i = getIntent();
-		
+		Intent i = getIntent();
+		gpsLocation = new ParseGeoPoint(new Double(i.getDoubleExtra(EXTRA_MARKER_LATITUDE, 0.0)), new Double(i.getDoubleExtra(EXTRA_MARKER_LONGITUDE, 0.0)));
 	}
 
 	@Override
@@ -105,6 +105,7 @@ public class NewMarkerActivity extends Activity {
 				
 					ParseQuery<POI> poiQuery = ParseQuery.getQuery(POI.class);
 					poiQuery.whereEqualTo(POI.NAME, mName);
+					poiQuery.whereEqualTo(POI.GROUP, selectedGroup.getObjectId());
 					poiQuery.countInBackground(new CountCallback() {
 						
 						@Override
@@ -117,7 +118,7 @@ public class NewMarkerActivity extends Activity {
 								p.setName(mName);
 								p.setDescription(mDescription);
 								p.setCreator(ParseUser.getCurrentUser());
-								p.setGPSLocation(new ParseGeoPoint());
+								p.setGPSLocation(gpsLocation);
 								p.setGroup(selectedGroup);
 								
 								//Try to save data in database
