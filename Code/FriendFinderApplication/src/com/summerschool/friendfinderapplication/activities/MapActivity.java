@@ -2,6 +2,9 @@ package com.summerschool.friendfinderapplication.activities;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -117,10 +120,13 @@ public class MapActivity extends Activity {
 					startActivity(createNewMarker);
 					mNewMarker.setVisible(false);
 				} else {
-					// TODO
-//					Intent goToPOIInfo = new Intent(getApplicationContext(), POIInfoActivity);
-//					goToPOIInfo.putExtra("TODO", marker.getTitle());	// TODO
-//					startActivity(goToPOIInfo);
+					if (mGroupPOIHandler.getMarkers().containsKey(marker)) {
+						String id = mGroupPOIHandler.getMarkers().get(marker);
+						Intent goToPOIInfo = new Intent(getApplicationContext(), POIInfoActivity.class);
+						goToPOIInfo.putExtra(POIInfoActivity.EXTRAS_GROUPNAME, mGroupName);
+						goToPOIInfo.putExtra(POIInfoActivity.EXTRAS_MARKER_ID, id);
+						startActivity(goToPOIInfo);
+					}
 				}
 			}
 		});
@@ -200,17 +206,5 @@ public class MapActivity extends Activity {
 		mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(focus, zoom));
 
 	}
-	
-	// TODO we may not need these functions
-	public void onClick_mapToggleUsers(View v) {
-		Log.i(LOGTAG, "Users toggle pressed");
-	}
-	
-	public void onClick_mapToggleEvents(View v) {
-		Log.i(LOGTAG, "Events toggle pressed");
-	}
-	
-	public void onClick_mapTogglePOIs(View v) {
-		Log.i(LOGTAG, "POIs toggle pressed");
-	}
+
 }

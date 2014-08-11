@@ -20,6 +20,9 @@ public class POIInfoActivity extends Activity {
 	
 	private final static String LOGTAG = "POIInfoActivity";
 	
+	public final static String EXTRAS_GROUPNAME = "GROUPNAME";
+	public final static String EXTRAS_MARKER_ID = "MARKER_ID";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
