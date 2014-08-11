@@ -189,8 +189,6 @@ public class GroupDescriptionActivity extends Activity {
 			}
 		});
 		
-		
-
         Intent i = new Intent(GroupDescriptionActivity.this, GroupListActivity.class);
         startActivity(i);
        
