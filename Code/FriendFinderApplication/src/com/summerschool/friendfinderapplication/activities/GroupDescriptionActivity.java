@@ -1,5 +1,6 @@
 package com.summerschool.friendfinderapplication.activities;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +26,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.ParseQuery.CachePolicy;
 import com.summerschool.friendfinderapplication.R;
+import com.summerschool.friendfinderapplication.controller.MyGroupAdapter;
 import com.summerschool.friendfinderapplication.models.Group;
 import com.summerschool.friendfinderapplication.models.GroupMember;
 
@@ -71,23 +74,32 @@ public class GroupDescriptionActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_group_description);
-		
+		Log.i("Creation of the view","creation OK");
         // get action bar   
         ActionBar actionBar = getActionBar();
- 
+        Log.i("ActionBar","OK");
         // Enabling Up / Back navigation
         actionBar.setDisplayHomeAsUpEnabled(true);
-
+        Log.i("ActionBar displayed","OK");
 		String groupName = getIntent().getStringExtra("GroupName");
+		Log.i("groupName imported","OK");
 		final TextView tv = (TextView) findViewById(R.id.testTextView);
+		Log.i("textView found","OK");
 		tv.setText("this is group: " + groupName);
+		Log.i("groupName ecrit","OK");
 		
+		adapter = new MemberListAdapter(GroupDescriptionActivity.this,new ArrayList<ParseUser>());
+		
+		Log.i("adapter correctly instantiated","OK");
+		//looking for the group 
 		ParseQuery<Group> getGroupInfo = ParseQuery.getQuery(Group.class);
+		Log.i("groupName",groupName);
 		getGroupInfo.whereEqualTo("name", groupName);
 		getGroupInfo.setCachePolicy(CachePolicy.CACHE_THEN_NETWORK);
 		getGroupInfo.findInBackground(new FindCallback<Group>() {
 			@Override
 			public void done(List<Group> groups, ParseException error) {
+				Log.i("request done","OK");
 				if(groups != null) {
 					if(groups.size() > 1) {
 						Log.i("Error", "Multiple Groups with the same name found");
@@ -106,13 +118,13 @@ public class GroupDescriptionActivity extends Activity {
 					//groups was null
 					Log.i("ERROR", "Group List returned was null ??");
 				}
-				Log.i("grooupName3 =",currentGroup.getName());
-				updateMemberList(currentGroup.getName());
+				
 			}
 		});
 		
-		//Log.i("Avant Update, groupName",currentGroup.getName());
-		//updateMemberList();
+		//Log.i("grooupName3 =",currentGroup.getName());
+		updateMemberList(groupName);
+		populateListView();
 		
 	}
 	
@@ -148,8 +160,8 @@ private void updateMemberList(final String groupName) {
 									//Log.i("Member = ",gm.getMember().getUsername());
 								}
 								
-								//adapter.clear();
-								//adapter.addAll(members);
+								adapter.clear();
+								adapter.addAll(members);
 								
 							} else {
 								Log.i("Error","GroupMember returned null");
@@ -167,7 +179,10 @@ private void updateMemberList(final String groupName) {
 	}
 
 
-
+private void populateListView() {
+	ListView list = (ListView) findViewById(R.id.memberListView);
+	list.setAdapter(adapter);
+}	
 
 
 
