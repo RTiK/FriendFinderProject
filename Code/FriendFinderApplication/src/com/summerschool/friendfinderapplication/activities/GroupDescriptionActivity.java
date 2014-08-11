@@ -143,10 +143,10 @@ public class GroupDescriptionActivity extends Activity {
     private void ActionLeaveGroup(String groupName) {
     	
     	 //TODO Leave group when here !
-    	
+    	Log.i("Enter into button","OK");
     	final boolean alone = false;
 		//The group is known
-		Log.i("groupName",groupName);
+		Log.i("groupName",currentGroup.getName());
 		//the userName too
 		Log.i("username", ParseUser.getCurrentUser().toString());
 		
@@ -154,23 +154,26 @@ public class GroupDescriptionActivity extends Activity {
 		//Find the user entity in the Parse database
 		ParseQuery<GroupMember> userInfo = ParseQuery.getQuery(GroupMember.class);
 		//find specific user
-		userInfo.whereEqualTo("Member",ParseUser.getCurrentUser().toString());
+		userInfo.whereEqualTo("Member",ParseUser.getCurrentUser());
 		//in a specific group
-		userInfo.whereEqualTo("Group",groupName);
+		Log.i("groupname =",""+ currentGroup);
+		userInfo.whereEqualTo("Group",currentGroup);
 		userInfo.setCachePolicy(CachePolicy.CACHE_THEN_NETWORK);
 		//find the group member list that matches the request
 		userInfo.findInBackground(new FindCallback<GroupMember>() {
 			public void done(List<GroupMember> users, ParseException error) {
 				if(users != null) { //you are at least in the chosen group
 					if(users.size() > 1) { //Your are registered twice in the group
-						Log.i("Error","too muche members : " + users.size());
+						Log.i("Error","too much members : " + users.size());
 					} 
-					else { //There is only one line that matches
-						Log.i("error","Only  one line matches");
+					else if (users.size() ==1){ //There is only one line that matches
+						Log.i("Only  one line matches","OK");
+						Log.i("users.size()= ",""+users.size());
 						users.get(0).deleteInBackground(new DeleteCallback() {
                             @Override
                             public void done(ParseException e) {
                                 // TODO Auto-generated method stub
+                            	
                                 if(e==null)
                                 {
                                     Toast.makeText(getBaseContext(),"Deleted Successfully!", Toast.LENGTH_LONG).show();
@@ -181,6 +184,9 @@ public class GroupDescriptionActivity extends Activity {
                                 }
                             }
 						}); 
+					}
+					else{
+						Log.i("ERROR","No group found");
 					}
 				} else {
 					//you are not in the group
