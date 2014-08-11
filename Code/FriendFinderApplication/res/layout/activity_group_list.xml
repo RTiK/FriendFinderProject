@@ -50,7 +50,18 @@
 	        android:layout_height="wrap_content"
 	        android:layout_marginTop="30dp" >
 	    </ListView>
-	
+
+	    <Button
+	        android:id="@+id/button1"
+	        style="?android:attr/buttonStyleSmall"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentBottom="true"
+	        android:layout_alignParentRight="true"
+	        android:layout_marginBottom="16dp"
+	        android:text="Button" 
+            android:contentDescription="Add group demo"
+            android:onClick="onClickAddGroup" />
 
 	</RelativeLayout>
     
