@@ -31,6 +31,7 @@ public class MyPOIListActivity extends Activity {
 	protected Button mGroupsButton;
 	
 	private MyPOIListAdapter adapter;
+	private static final String LOGTAG = "MyPOIList";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,7 @@ public class MyPOIListActivity extends Activity {
         
 		//TextView Tv = (TextView)findViewById(R.id.helloView);
 		//Tv.setText("MyPOI Avtivity");
-		Log.i("here","Successfully opennned");
+		Log.i(LOGTAG,"Successfully opennned");
 		
 		adapter = new MyPOIListAdapter(MyPOIListActivity.this, new ArrayList<POI>());
 		updateEventList();
@@ -52,7 +53,7 @@ public class MyPOIListActivity extends Activity {
 	}
 	
 	private void updateEventList() {
-		Log.i("MyPOIList","updating my poi list");
+		Log.i(LOGTAG,"updating my poi list");
 		
 		ParseQuery<UserLikesPOI> innerQuery = ParseQuery.getQuery(UserLikesPOI.class);
 		innerQuery.whereEqualTo(UserLikesPOI.USER, ParseUser.getCurrentUser());
@@ -63,7 +64,7 @@ public class MyPOIListActivity extends Activity {
 		query.findInBackground(new FindCallback<POI>() {
 			@Override
 			public void done(List<POI> pois, ParseException error) {
-				Log.i("MyEventList","found " + pois.size() + " events I attend.");
+				Log.i(LOGTAG,"found " + pois.size() + " pois I liked or created");
 				adapter.clear();
 				adapter.addAll(pois);
 			}
