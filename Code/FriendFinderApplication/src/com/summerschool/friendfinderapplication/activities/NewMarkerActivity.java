@@ -3,23 +3,17 @@ package com.summerschool.friendfinderapplication.activities;
 import java.util.List;
 
 import com.parse.CountCallback;
-import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseQuery;
-import com.parse.ParseQuery.CachePolicy;
 import com.parse.ParseUser;
 import com.summerschool.friendfinderapplication.R;
-import com.summerschool.friendfinderapplication.R.id;
-import com.summerschool.friendfinderapplication.R.layout;
-import com.summerschool.friendfinderapplication.R.menu;
 import com.summerschool.friendfinderapplication.models.Group;
 import com.summerschool.friendfinderapplication.models.POI;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,8 +24,11 @@ public class NewMarkerActivity extends Activity {
 	
 	public static final String EXTRA_MARKER_LATITUDE = "LATITUDE";
 	public static final String EXTRA_MARKER_LONGITUDE = "LONGITUDE";
-	
+
 	private ParseGeoPoint gpsLocation;
+=======
+	public static final String EXTRA_GROUPNAME = "GROUPNAME";
+
 	private Group selectedGroup;
 	
 	@Override
@@ -41,6 +38,9 @@ public class NewMarkerActivity extends Activity {
 		
 		Intent i = getIntent();
 		gpsLocation = new ParseGeoPoint(new Double(i.getDoubleExtra(EXTRA_MARKER_LATITUDE, 0.0)), new Double(i.getDoubleExtra(EXTRA_MARKER_LONGITUDE, 0.0)));
+		
+		
+		
 	}
 
 	@Override
@@ -56,6 +56,7 @@ public class NewMarkerActivity extends Activity {
 		EditText markerName = (EditText) findViewById(R.id.markerName);
 		EditText markerDescription = (EditText) findViewById(R.id.markerDescription);
 		EditText markerGroupName = (EditText) findViewById(R.id.groupName);
+		markerGroupName.setText(getIntent().getStringExtra(EXTRA_GROUPNAME));
 		
 		final String mName = markerName.getText().toString().trim();
 		final String mDescription = markerDescription.getText().toString().trim();

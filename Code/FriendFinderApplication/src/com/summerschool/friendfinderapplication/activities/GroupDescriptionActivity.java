@@ -43,40 +43,18 @@ public class GroupDescriptionActivity extends Activity {
 	private Group currentGroup;
 	private MemberListAdapter adapter;
 	
-	public void onClickHomeButton(final View v) {
-		//TODO
-		Intent intent = new Intent(GroupDescriptionActivity.this, MapActivity.class);
-		startActivity(intent);
-	}
-	public void onClickMyEventButton(final View v) {
-		//TODO
-		Intent intent = new Intent(GroupDescriptionActivity.this, MyEventListActivity.class);
-		startActivity(intent);
-	}
-	public void onClickMyPOIButton(final View v) {
-		//TODO
-		Intent intent = new Intent(GroupDescriptionActivity.this, MyPOIListActivity.class);
-		startActivity(intent);
-	}
-
-	public void onClickEventsButton(final View v) {
-		//TODO
-		Intent intent = new Intent(GroupDescriptionActivity.this, MyEventListActivity.class);
-		startActivity(intent);
-	}
-	public void onClickMapButton(final View v) {
-		//TODO
-		Intent intent = new Intent(GroupDescriptionActivity.this, MapActivity.class);
-		startActivity(intent);
-	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_group_description);
+		
 		Log.i("Creation of the view","creation OK");
         // get action bar   
         ActionBar actionBar = getActionBar();
+        // Enabling Up / Back navigation
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        
         Log.i("ActionBar","OK");
         // Enabling Up / Back navigation
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -130,7 +108,7 @@ public class GroupDescriptionActivity extends Activity {
 	
 	
 	
-private void updateMemberList(final String groupName) {
+	private void updateMemberList(final String groupName) {
 		
 		Log.i("Info","Find group " + groupName);
 		
@@ -179,47 +157,51 @@ private void updateMemberList(final String groupName) {
 	}
 
 
-private void populateListView() {
-	ListView list = (ListView) findViewById(R.id.memberListView);
-	list.setAdapter(adapter);
-}	
+	private void populateListView() {
+		ListView list = (ListView) findViewById(R.id.memberListView);
+		list.setAdapter(adapter);
+	}	
 
 
-
-
-
-private class MemberListAdapter extends ArrayAdapter<ParseUser> {
-
-	private Context mContext;
-	private List<ParseUser> mUsers;
+	private class MemberListAdapter extends ArrayAdapter<ParseUser> {
 	
-	public MemberListAdapter(Context context, List<ParseUser> users) {
-		super(GroupDescriptionActivity.this, R.id.memberListView, users);
-		this.mContext = context;
-		this.mUsers = users;
-	}
-
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		View itemView = convertView;
-		//make sure we have a view (could be null)
-		if(itemView == null) {
-			itemView = getLayoutInflater().inflate(R.layout.member_item_view, parent, false);
+		private Context mContext;
+		private List<ParseUser> mUsers;
+		
+		public MemberListAdapter(Context context, List<ParseUser> users) {
+			super(GroupDescriptionActivity.this, R.id.memberListView, users);
+			this.mContext = context;
+			this.mUsers = users;
 		}
-		
-		final ParseUser currentUser = mUsers.get(position);
-		
-		//Set the text of the TextField to the right name and its onclicklistener
-		TextView textView = (TextView) itemView.findViewById(R.id.item_member_name);
-		textView.setText(currentUser.getUsername());
-		textView.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Toast.makeText(GroupDescriptionActivity.this, "This is " + currentUser.getUsername(), Toast.LENGTH_SHORT).show();
+	
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			View itemView = convertView;
+			//make sure we have a view (could be null)
+			if(itemView == null) {
+				itemView = getLayoutInflater().inflate(R.layout.member_item_view, parent, false);
 			}
-		});			
-					
-		return itemView;
+			
+			final ParseUser currentUser = mUsers.get(position);
+			
+			//Set the text of the TextField to the right name and its onclicklistener
+			TextView textView = (TextView) itemView.findViewById(R.id.item_member_name);
+			textView.setText(currentUser.getUsername());
+			textView.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Toast.makeText(GroupDescriptionActivity.this, "This is " + currentUser.getUsername(), Toast.LENGTH_SHORT).show();
+				}
+			});			
+						
+			return itemView;
+		}
 	}
-}
+	
+
+	public void onClickMapButton(final View v) {
+		//TODO
+		Intent intent = new Intent(GroupDescriptionActivity.this, MapActivity.class);
+		startActivity(intent);
+	}
 }
