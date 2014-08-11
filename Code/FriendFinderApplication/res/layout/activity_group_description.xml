@@ -4,24 +4,7 @@
     android:layout_height="match_parent"
     tools:context="com.summerschool.friendfinderapplication.activity.GroupDescriptionActivity" >
 	
-	<LinearLayout
-        android:id="@+id/actionBar"
-		style="@style/topMenu"
-        android:weightSum="3" >
 
-        <Button
-            android:id="@+id/topButton_two"
-            style="@style/eventButton"
-            android:contentDescription="To Event view" 
-            android:onClick="onClickMyEvent"/>
-
-        <Button
-            android:id="@+id/topButton_three"
-            style="@style/poiButton"
-            android:contentDescription="To POI view"
-            android:onClick="onClickMyPoi" />
-
-    </LinearLayout>
     
     <RelativeLayout
         android:id="@+id/Content"

@@ -7,7 +7,9 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -73,39 +75,17 @@ public class MyPOIListActivity extends Activity {
 		list.setAdapter(adapter);
 	}
 	
-	public void onClickHome(final View v) {
-		//intent to new Group activty		
-		Intent intent = new Intent(MyPOIListActivity.this, MapActivity.class);
-		startActivity(intent);
-		finish();		
-	}
+
 	
 	public void onClickGroupsButton(final View v) {
 		// intent to main activity
 		Intent intent = new Intent(MyPOIListActivity.this, GroupListActivity.class);
 		startActivity(intent);
-		finish();
-	}
-
-	public void onClickMyEventButton(final View v) {
-		// TODO
-		Log.i("button","Clicked");
-		Intent intent = new Intent(MyPOIListActivity.this, MyEventListActivity.class);
-		Log.i("button","instantiation of Intent");
-		startActivity(intent);
-		finish();
-	}
-
-	public void onClickMyPOIButton(final View v) {
-		// TODO
-		Log.i("button","Clicked");
-		Intent intent = new Intent(MyPOIListActivity.this, MyPOIListActivity.class);
-		Log.i("button","instantiation of Intent");
-		startActivity(intent);
-		Log.i("button","start !");
-		finish();
-	}
 	
-	
+	}
 
+
+
+
+	
 }

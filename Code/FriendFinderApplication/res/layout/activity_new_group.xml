@@ -4,30 +4,12 @@
     android:layout_height="match_parent"
     tools:context="com.summerschool.friendfinderapplication.activities.NewGroupActivity" >
 	
-    <LinearLayout
-        android:id="@+id/actionBar"
-        style="@style/topMenu"
-        android:weightSum="3" >
 
-        <Button
-            android:id="@+id/topButton_two"
-            style="@style/eventButton"
-            android:contentDescription="To Event view" 
-            android:onClick="onClickMyEvent" />
-
-        <Button
-            android:id="@+id/topButton_three"
-            style="@style/poiButton"
-		    android:contentDescription="To POI view" 
-		    android:onClick="onClickMyPoi" />
-
-    </LinearLayout>
     
-    <RelativeLayout 
+    <LinearLayout 
         android:id="@+id/titleDiv"
         style="@style/content"
         android:orientation="horizontal"
-        android:layout_below="@+id/actionBar"
         android:layout_marginTop="10dp"
         android:paddingLeft="@dimen/activity_horizontal_margin"
 	    android:paddingRight="@dimen/activity_horizontal_margin">
@@ -40,7 +22,7 @@
             android:text="@string/newGroup_title"
             android:textSize="20sp" />
 
-    </RelativeLayout >
+    </LinearLayout >
     
     <RelativeLayout
         android:id="@+id/editTextDiv"
