@@ -11,6 +11,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class NewMarkerActivity extends Activity {
+	
+	public static final String EXTRA_MARKER_LATITUDE = "LATITUDE";
+	public static final String EXTRA_MARKER_LONGITUDE = "LONGITUDE";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

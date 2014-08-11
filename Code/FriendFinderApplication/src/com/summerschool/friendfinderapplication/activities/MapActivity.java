@@ -1,9 +1,9 @@
 package com.summerschool.friendfinderapplication.activities;
 
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,8 +16,14 @@ import android.widget.ToggleButton;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
 import com.parse.ParseUser;
@@ -48,6 +54,8 @@ public class MapActivity extends Activity {
 	private ToggleButton mToggleEvents;
 	private ToggleButton mTogglePOIs;
 	private GroupUserHandler mGroupUserHandler;
+	
+	private static Marker mNewMarker;
 	
 	private void initToggles() {
 		mToggleEvents = (ToggleButton) findViewById(R.id.mapToggleEvents);
@@ -86,18 +94,43 @@ public class MapActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_map);
 		
-		// TODO Initialize Parse only for debug, delete after testing
-		Parse.initialize(this, "rU3OkVyuuIgA17MsCPBgspurzhM00QOSxIaXvzsI", "Vw4U1lSXshwY9Nia14KV1MpGxJht8S3Q9H1N7TVP");
-		ParseAnalytics.trackAppOpened(getIntent());
-		
 		initToggles();
 
-		Log.i("LOCATION", "map loaded");
+		Log.i(LOGTAG, "map loaded");
 		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+		mNewMarker = mMap.addMarker(new MarkerOptions()
+			.position(new LatLng(0.0, 0.0))
+			.title("Tap to create a new POI")
+			.draggable(true)
+			.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+			.visible(false));
+		mMap.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
+			
+			@Override
+			public void onInfoWindowClick(Marker marker) {
+				if (marker.equals(mNewMarker)) {
+					Log.i(LOGTAG, "new marker info window tapped");
+					Intent createNewMarker = new Intent(getApplicationContext(), NewMarkerActivity.class);
+					createNewMarker.putExtra(NewMarkerActivity.EXTRA_MARKER_LATITUDE, marker.getPosition().latitude);
+					createNewMarker.putExtra(NewMarkerActivity.EXTRA_MARKER_LONGITUDE, marker.getPosition().longitude);
+					startActivity(createNewMarker);
+					finish();
+				}
+			}
+		});
+		mMap.setOnMapLongClickListener(new OnMapLongClickListener() {
+			
+			@Override
+			public void onMapLongClick(LatLng point) {
+				mNewMarker.setPosition(point);
+				mNewMarker.setVisible(true);
+				mNewMarker.showInfoWindow();
+				Log.i(LOGTAG, mNewMarker + " created");
+			}
+		});
 		
 		Intent i = getIntent();
-//		groupName = i.getStringExtra("GROUPNAME");
-		mGroupUserHandler = new GroupUserHandler(mMap, "MobileProgramming"); // TODO hardcoded groupname
+		mGroupUserHandler = new GroupUserHandler(mMap, i.getStringExtra(EXTRA_GROUPNAME));
 		
 		if (i.getBooleanExtra(EXTRA_USERS, true)) {
 			Log.i("MAP", "Users enbled");
