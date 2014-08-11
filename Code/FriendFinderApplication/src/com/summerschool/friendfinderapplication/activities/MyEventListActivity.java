@@ -32,7 +32,7 @@ public class MyEventListActivity extends Activity {
 		updateEventList();
 		populateEventList();
 
-        // get action bar   
+        // get action bar      
         ActionBar actionBar = getActionBar();
  
         // Enabling Up / Back navigation

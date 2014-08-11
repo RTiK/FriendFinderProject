@@ -9,22 +9,17 @@
         style="@style/topMenu"
         android:weightSum="3" >
 
-       <Button
-		    android:id="@+id/topButton_one"
-		    style="@style/homeButton"
-		    android:contentDescription="To main map view" 
-		    android:onClick="onClickHome" />
-		<Button
-		    android:id="@+id/topButton_two"
-		    style="@style/groupButton"
-		    android:contentDescription="To group list view" 
-		    android:onClick="onClickGroupsButton" />
+        <Button
+            android:id="@+id/topButton_two"
+            style="@style/eventButton"
+            android:contentDescription="To Event view" 
+            android:onClick="onClickMyEvent"/>
 
         <Button
             android:id="@+id/topButton_three"
-            style="@style/eventButton"
-            android:contentDescription="To Event view" 
-            android:onClick="onClickMyEventButton"/>
+            style="@style/poiButton"
+            android:contentDescription="To POI view"
+            android:onClick="onClickMyPoi" />
 
         
 
@@ -60,32 +55,5 @@
 
 	</RelativeLayout>
     
-    <!-- bottom buttons -->
-	<LinearLayout
-        android:id="@+id/BottomMenu"
-		style="@style/bottomMenu"
-        android:weightSum="3" >
-
-        <Button
-            android:id="@+id/Option_one"
-            style="@style/button"
-            android:onClick="onClickGroupMap"
-            android:text="@string/button_one"
-            android:textColor="#FFFFFF" />
-
-        <Button
-            android:id="@+id/Option_two"
-            style="@style/button"
-            android:text="@string/button_two"
-            android:textColor="#FFFFFF" />
-
-        <Button
-            android:id="@+id/Option_three"
-            style="@style/button"
-            android:onClick="onClickAddPOI"
-            android:text="@string/add"
-            android:textColor="#FFFFFF" />
-        
-    </LinearLayout>
-
+   
 </RelativeLayout>
