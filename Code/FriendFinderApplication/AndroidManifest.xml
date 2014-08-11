@@ -81,7 +81,7 @@
             android:label="@string/title_activity_poiinfo" >
         </activity>
         <activity
-            android:name=".EventInfoActivity"
+            android:name="com.summerschool.friendfinderapplication.activities.EventInfoActivity"
             android:label="@string/title_activity_event_info" >
         </activity>
     </application>

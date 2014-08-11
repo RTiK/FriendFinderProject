@@ -1,4 +1,4 @@
-package com.summerschool.friendfinderapplication;
+package com.summerschool.friendfinderapplication.activities;
 
 import java.util.List;
 
@@ -10,6 +10,8 @@ import android.widget.Toast;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.summerschool.friendfinderapplication.R;
+import com.summerschool.friendfinderapplication.R.layout;
 import com.summerschool.friendfinderapplication.models.Event;
 
 public class EventInfoActivity extends Activity {
