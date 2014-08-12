@@ -5,9 +5,11 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +51,78 @@ public class POIInfoActivity extends Activity {
 			title.setText(currPOI.getName());
 			desc.setText(currPOI.getDescription());
 		}
+		
+		//Buttons enabling in fonction of the user
+		Button blike = (Button) findViewById(R.id.poiLike);
+		Button bdislike = (Button) findViewById(R.id.poiDislike);
+		Button bdelete = (Button) findViewById(R.id.poiDelete);
+		if(isCreator()){
+			
+		}
+		
+		
+		
+		
+		
+		 Button bjoin = (Button) findViewById(R.id.join_grou_button);
+	        Button bcreate = (Button) findViewById(R.id.create_group_button);
+	        
+
+	        String s1 = editText1.getText().toString();
+	        String s2 = editText2.getText().toString();
+	        if(s2.equals("") )
+	        {
+	            bjoin.setEnabled(true);
+	            bjoin.setBackground(this.getResources().getDrawable(R.drawable.buttonsaction));
+	        }
+	        	
+	        else
+	        {
+	            bjoin.setEnabled(false);
+	            bjoin.setBackgroundColor(Color.GRAY);
+	        }
+
+
+	        
+	        
+	        
+	        if(s1.equals("") && s2.equals(""))
+	        {
+	            bjoin.setEnabled(false);
+	            bjoin.setBackgroundColor(Color.GRAY);
+	            bcreate.setEnabled(false);
+	            bcreate.setBackgroundColor(Color.GRAY);
+	        }
+
+	        else if(!s1.equals("")&&s2.equals("")){
+	            bcreate.setEnabled(false);
+	            bcreate.setBackgroundColor(Color.GRAY);
+	        	bjoin.setEnabled(true);
+	            bjoin.setBackground(this.getResources().getDrawable(R.drawable.buttonsaction));
+	        }
+
+	        else if(s1.equals("")&&!s2.equals(""))
+	        {
+	            bjoin.setEnabled(false);
+	            bjoin.setBackgroundColor(Color.GRAY);
+	            bcreate.setEnabled(false);
+	            bcreate.setBackgroundColor(Color.GRAY);
+	        }
+
+	        else
+	        {
+	            bjoin.setEnabled(false);
+	            bjoin.setBackgroundColor(Color.GRAY);
+	            bcreate.setEnabled(true);
+	            bcreate.setBackground(this.getResources().getDrawable(R.drawable.buttonsaction));
+	        }
+		
+		
+		
+		
+		
+		
+		
 	}
 	
 	private boolean isCreator() {

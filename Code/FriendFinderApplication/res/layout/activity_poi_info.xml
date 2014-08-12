@@ -61,7 +61,7 @@
 	 </LinearLayout>
 
 	    <Button
-	        android:id="@+id/like"
+	        android:id="@+id/poiLike"
 	        style="@drawable/add_button"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
 	        android:text="Like" />
 
 	    <Button
-	        android:id="@+id/dislike"
+	        android:id="@+id/poiDislike"
 	        style="@drawable/add_button"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
 	        android:text="Delete" />
 	    
 	  	<Button
-	        android:id="@+id/delete"
+	        android:id="@+id/poiDelete"
 	        style="@drawable/add_button"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
