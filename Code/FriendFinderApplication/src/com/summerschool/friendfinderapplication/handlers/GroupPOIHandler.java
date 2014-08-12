@@ -47,6 +47,10 @@ public class GroupPOIHandler {
 			marker.getKey().setVisible(false);
 	}
 	
+	public void reload() {
+		getPOIsOfGroup();
+	}
+	
 	private void getPOIsOfGroup() {
 		if (mGroupName != null && !mGroupName.equals("")) {
 			Log.i(LOGTAG, mGroupName);

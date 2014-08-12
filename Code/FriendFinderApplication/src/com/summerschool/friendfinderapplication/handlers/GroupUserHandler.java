@@ -10,10 +10,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.FindCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.summerschool.friendfinderapplication.models.Group;
@@ -41,6 +39,10 @@ public class GroupUserHandler {
 		Log.i(GroupUserHandler.class.getName(), "Removing " + mMarkers.size() + " users");
 		for (Marker marker : mMarkers)
 			marker.setVisible(false);
+	}
+	
+	public void reload() {
+		getUsersOfGroup();
 	}
 	
 	private void getUsersOfGroup() {

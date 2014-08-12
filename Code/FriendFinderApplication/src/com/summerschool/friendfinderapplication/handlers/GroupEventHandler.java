@@ -47,6 +47,10 @@ public class GroupEventHandler {
 			marker.getKey().setVisible(false);
 	}
 	
+	public void reload() {
+		getEventsOfGroup();
+	}
+	
 	private void getEventsOfGroup() {
 		if (mGroupName != null && !mGroupName.equals("")) {
 			Log.i(LOGTAG, mGroupName);

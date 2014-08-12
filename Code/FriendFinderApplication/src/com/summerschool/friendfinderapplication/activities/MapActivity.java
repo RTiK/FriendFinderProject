@@ -64,8 +64,6 @@ public class MapActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_map);
-		
-		initToggles();
 
 		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 		
@@ -77,13 +75,15 @@ public class MapActivity extends Activity {
 			.visible(false));
 
 		initMap();
+		initToggles();
 		
+		//Disassemble intent
 		Intent i = getIntent();
-		
-		placeMarkersOnMap(i);
-		
+		mGroupName = i.getStringExtra(EXTRA_GROUPNAME);
+		mGroupUserHandler = new GroupUserHandler(mMap, mGroupName);
+		mGroupPOIHandler = new GroupPOIHandler(mMap, mGroupName);
+		mGroupEventHandler = new GroupEventHandler(mMap, mGroupName);
 		setToggleButtons(i);
-		
 		setMapCamera(i);
 
 	}
@@ -93,7 +93,9 @@ public class MapActivity extends Activity {
 		super.onResume();
 		mNewMarker.setVisible(false);
 		// reload markers on activity resume
-		placeMarkersOnMap(getIntent());
+		mGroupEventHandler.reload();
+		mGroupPOIHandler.reload();
+		mGroupUserHandler.reload();
 	}
 	
 	private void initToggles() {
@@ -203,13 +205,6 @@ public class MapActivity extends Activity {
 				mNewMarker.setVisible(false);
 			}
 		});
-	}
-	
-	private void placeMarkersOnMap(Intent intent) {
-		mGroupName = intent.getStringExtra(EXTRA_GROUPNAME);
-		mGroupUserHandler = new GroupUserHandler(mMap, mGroupName);
-		mGroupPOIHandler = new GroupPOIHandler(mMap, mGroupName);
-		mGroupEventHandler = new GroupEventHandler(mMap, mGroupName);
 	}
 	
 	private void setToggleButtons(Intent intent) {
