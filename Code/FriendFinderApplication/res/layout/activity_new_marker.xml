@@ -8,51 +8,74 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.summerschool.friendfinderapplication.activities.NewMarkerActivity" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_world" />
 
-        <EditText
-            android:id="@+id/markerName"
+    <EditText
+        android:id="@+id/markerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/markerDescription"
+        android:layout_below="@+id/markerDescription"
+        android:layout_marginTop="24dp"
+        android:ems="10" />
+
+    <EditText
+        android:id="@+id/markerDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/textView1"
+        android:ems="10"
+        android:inputType="textMultiLine" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/groupName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/markerName"
+        android:layout_below="@+id/markerName"
+        android:layout_marginTop="31dp"
+        android:ems="10"
+        android:hint="Group Name"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/createMarker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/groupName"
+        android:layout_below="@+id/groupName"
+        android:layout_marginTop="41dp"
+        android:onClick="onClickCreate"
+        android:text="@string/createButton" />
+
+    <RadioGroup
+        android:id="@+id/markerType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/createMarker"
+        android:layout_marginLeft="36dp"
+        android:layout_toRightOf="@+id/createMarker" >
+
+        <RadioButton
+            android:id="@+id/poi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="POI Name"
-            android:inputType="text" />
-	
-	    <EditText
-	        android:id="@+id/markerDescription"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	       	android:hint="POI Description"
-	        android:inputType="textMultiLine" />
-    
-	    <RadioGroup
-        	android:id="@+id/markerType"
-        	android:layout_width="wrap_content"
-        	android:layout_height="wrap_content" >
+            android:checked="true"
+            android:text="poi" />
 
-        	<RadioButton
-        	    android:id="@+id/poi"
-        	    android:layout_width="wrap_content"
-        	    android:layout_height="wrap_content"
-           		android:checked="true"
-            	android:text="Point of Interest" />
-
-        	<RadioButton
-            	android:id="@+id/event"
-            	android:layout_width="wrap_content"
-            	android:layout_height="wrap_content"
-            	android:text="Event" />
-    	</RadioGroup>
-    	
-	    <Button
-	        android:id="@+id/createMarker"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:onClick="onClickCreate"
-	        android:text="@string/createButton" />
-	    
-    </LinearLayout>
+        <RadioButton
+            android:id="@+id/event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="event" />
+    </RadioGroup>
 
 </RelativeLayout>

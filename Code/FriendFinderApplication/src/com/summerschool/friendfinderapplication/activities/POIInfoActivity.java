@@ -21,7 +21,6 @@ import com.summerschool.friendfinderapplication.models.UserLikesPOI;
 public class POIInfoActivity extends Activity {
 	
 	private final static String LOGTAG = "POIInfoActivity";
-	
 	public final static String EXTRAS_GROUPNAME = "GROUPNAME";
 	public final static String EXTRAS_MARKER_ID = "MARKER_ID";
 	
@@ -30,7 +29,7 @@ public class POIInfoActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_poi_info);
 		Log.i(LOGTAG, "started");
-		
+
 		Intent i = getIntent();
 		final String poiObjID = i.getStringExtra(POIInfoActivity.EXTRAS_MARKER_ID);
 		

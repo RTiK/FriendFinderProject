@@ -2,11 +2,6 @@ package com.summerschool.friendfinderapplication.activities;
 
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,7 +16,6 @@ import android.widget.ToggleButton;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
-import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -67,7 +61,10 @@ public class MapActivity extends Activity {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				Log.i(LOGTAG, "Events button pressed");
-				// TODO
+				if (isChecked)
+					mGroupPOIHandler.showPOIs();
+				else
+					mGroupPOIHandler.removePOIs();
 			}
 		});
 		mToggleUsers = (ToggleButton) findViewById(R.id.mapToggleUsers);
@@ -86,10 +83,8 @@ public class MapActivity extends Activity {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				Log.i(LOGTAG, "POI button pressed");
-				if (isChecked)
-					mGroupPOIHandler.showPOIs();
-				else
-					mGroupPOIHandler.removePOIs();
+				// TODO Auto-generated method stub
+				
 			}
 		});
 	}
@@ -105,49 +100,26 @@ public class MapActivity extends Activity {
 		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 		mNewMarker = mMap.addMarker(new MarkerOptions()
 			.position(new LatLng(0.0, 0.0))
-			.title("Tap to create a new marker")
+			.title("Tap to create a new POI")
 			.draggable(true)
 			.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
 			.visible(false));
 		mMap.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
 			
 			@Override
-			public void onInfoWindowClick(final Marker marker) {
+			public void onInfoWindowClick(Marker marker) {
 				if (marker.equals(mNewMarker)) {
 					Log.i(LOGTAG, "new marker info window tapped");
-
-					AlertDialog.Builder builder = new AlertDialog.Builder(MapActivity.this);
-					builder.setTitle("Select marker type");
-					builder.setPositiveButton("POI", new OnClickListener() {
-						
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							Intent createNewMarker = new Intent(getApplicationContext(), NewMarkerActivity.class);
-							createNewMarker.putExtra(NewMarkerActivity.EXTRA_GROUPNAME, mGroupName);
-							createNewMarker.putExtra(NewMarkerActivity.EXTRA_MARKER_LATITUDE, marker.getPosition().latitude);
-							createNewMarker.putExtra(NewMarkerActivity.EXTRA_MARKER_LONGITUDE, marker.getPosition().longitude);
-							startActivity(createNewMarker);
-						}
-					});
-					builder.setNegativeButton("Event", new OnClickListener() {
-						
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							// TODO
-							Toast.makeText(getApplicationContext(), "Event", Toast.LENGTH_SHORT).show();
-						}
-					});
-					AlertDialog dialog = builder.create();
-					dialog.show();
-					mNewMarker.setVisible(false);
+					Intent createNewMarker = new Intent(getApplicationContext(), NewMarkerActivity.class);
+					createNewMarker.putExtra(NewMarkerActivity.EXTRA_GROUPNAME, mGroupName);
+					createNewMarker.putExtra(NewMarkerActivity.EXTRA_MARKER_LATITUDE, marker.getPosition().latitude);
+					createNewMarker.putExtra(NewMarkerActivity.EXTRA_MARKER_LONGITUDE, marker.getPosition().longitude);
+					startActivity(createNewMarker);
 				} else {
-					if (mGroupPOIHandler.getMarkers().containsKey(marker)) {
-						String id = mGroupPOIHandler.getMarkers().get(marker);
-						Intent goToPOIInfo = new Intent(getApplicationContext(), POIInfoActivity.class);
-						goToPOIInfo.putExtra(POIInfoActivity.EXTRAS_GROUPNAME, mGroupName);
-						goToPOIInfo.putExtra(POIInfoActivity.EXTRAS_MARKER_ID, id);
-						startActivity(goToPOIInfo);
-					}
+					// TODO
+//					Intent goToPOIInfo = new Intent(getApplicationContext(), POIInfoActivity);
+//					goToPOIInfo.putExtra("TODO", marker.getTitle());	// TODO
+//					startActivity(goToPOIInfo);
 				}
 			}
 		});
@@ -159,14 +131,6 @@ public class MapActivity extends Activity {
 				mNewMarker.setVisible(true);
 				mNewMarker.showInfoWindow();
 				Log.i(LOGTAG, mNewMarker + " created");
-			}
-		});
-		
-		mMap.setOnMapClickListener(new OnMapClickListener() {
-			
-			@Override
-			public void onMapClick(LatLng point) {
-				mNewMarker.setVisible(false);
 			}
 		});
 		
@@ -228,25 +192,16 @@ public class MapActivity extends Activity {
 
 	}
 	
-	public class SelectMarkerTypeDialog extends DialogFragment {
-	    @Override
-	    public Dialog onCreateDialog(Bundle savedInstanceState) {
-	        // Use the Builder class for convenient dialog construction
-	        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-	        builder.setMessage("What to create?")
-	               .setPositiveButton("Point of Interest", new DialogInterface.OnClickListener() {
-	                   public void onClick(DialogInterface dialog, int id) {
-	                       // FIRE ZE MISSILES!
-	                   }
-	               })
-	               .setNegativeButton("Event", new DialogInterface.OnClickListener() {
-	                   public void onClick(DialogInterface dialog, int id) {
-	                       // User cancelled the dialog
-	                   }
-	               });
-	        // Create the AlertDialog object and return it
-	        return builder.create();
-	    }
+	// TODO we may not need these functions
+	public void onClick_mapToggleUsers(View v) {
+		Log.i(LOGTAG, "Users toggle pressed");
 	}
-
+	
+	public void onClick_mapToggleEvents(View v) {
+		Log.i(LOGTAG, "Events toggle pressed");
+	}
+	
+	public void onClick_mapTogglePOIs(View v) {
+		Log.i(LOGTAG, "POIs toggle pressed");
+	}
 }

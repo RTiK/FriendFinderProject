@@ -2,7 +2,6 @@ package com.summerschool.friendfinderapplication.activities;
 
 import java.util.List;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.parse.CountCallback;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
@@ -15,7 +14,7 @@ import com.summerschool.friendfinderapplication.models.POI;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.provider.ContactsContract.CommonDataKinds.Event;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,32 +24,26 @@ import android.widget.Toast;
 
 public class NewMarkerActivity extends Activity {
 	
-	private final static String LOGTAG = "NEW_MARKER";
-	
 	public static final String EXTRA_MARKER_LATITUDE = "LATITUDE";
-	public static final String EXTRA_MARKER_LONGITUDE = "LONGITUDE";	
+	public static final String EXTRA_MARKER_LONGITUDE = "LONGITUDE";
+
+	private ParseGeoPoint gpsLocation;
+	
 	public static final String EXTRA_GROUPNAME = "GROUPNAME";
 
-	private String mGroupName;
-	private LatLng mLocation;
-	private Group mCurrentGroup;
 	private Group selectedGroup;
-
+	
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_marker);
 		
 		Intent i = getIntent();
+		gpsLocation = new ParseGeoPoint(new Double(i.getDoubleExtra(EXTRA_MARKER_LATITUDE, 0.0)), new Double(i.getDoubleExtra(EXTRA_MARKER_LONGITUDE, 0.0)));
 		
-		if (i.hasExtra(EXTRA_MARKER_LATITUDE) && i.hasExtra(EXTRA_MARKER_LONGITUDE) && i.hasExtra(EXTRA_GROUPNAME)) {
-			mGroupName = i.getStringExtra(EXTRA_GROUPNAME);
-			mLocation = new LatLng(i.getDoubleExtra(EXTRA_MARKER_LATITUDE, Double.NaN),
-					i.getDoubleExtra(EXTRA_MARKER_LONGITUDE, Double.NaN));
-		} else {
-			Toast.makeText(getApplicationContext(), "Invalid data provided", Toast.LENGTH_LONG).show();
-			Log.e(LOGTAG, "Invalid coordinates or groupname");
-			finish();
-		}
+		EditText inputGroupName = (EditText) findViewById(R.id.groupName);
+		inputGroupName.setText(i.getStringExtra(EXTRA_GROUPNAME));
+		
 	}
 
 	@Override
@@ -60,7 +53,8 @@ public class NewMarkerActivity extends Activity {
 		return true;
 	}
 
-	public void onClickCreate(final View v) {
+	public void onClickCreate(final View v)
+	{
 		//What type of marker
 		RadioButton event = (RadioButton) findViewById(R.id.event);
 		Boolean isEvent;
@@ -72,92 +66,138 @@ public class NewMarkerActivity extends Activity {
 		//Get data information from the view
 		EditText markerName = (EditText) findViewById(R.id.markerName);
 		EditText markerDescription = (EditText) findViewById(R.id.markerDescription);
+		EditText markerGroupName = (EditText) findViewById(R.id.groupName);
+		markerGroupName.setText(getIntent().getStringExtra(EXTRA_GROUPNAME));
 		
 		final String mName = markerName.getText().toString().trim();
 		final String mDescription = markerDescription.getText().toString().trim();
-
-		//marker must have a name
-		if(mName.length() < 1) {
-			Log.e(LOGTAG, "Marker name is empty");
-			Toast.makeText(getApplicationContext(), "Please enter POI name", Toast.LENGTH_LONG).show();
-		} else if (mDescription.length() < 1) {
-			Log.e(LOGTAG, "Marker description is empty");
-			Toast.makeText(getApplicationContext(), "Please enter POI decription", Toast.LENGTH_LONG).show();
-		} else {
-
-			//Look for the group
-			ParseQuery<Group> findGroupName = ParseQuery.getQuery(Group.class);
-			findGroupName.whereEqualTo("name", mGroupName);
-			try {
-				List<Group> g = findGroupName.find();
-				mCurrentGroup = g.get(0);	
-			} catch(ParseException e) {
-				Log.e(LOGTAG, "Group not found");
+		final String mGroupName = markerGroupName.getText().toString().trim();
+		
+		ParseUser currentUser = ParseUser.getCurrentUser();
+		
+		//user has to be connected to create a new marker
+		if(currentUser == null)
+		{
+			Intent intent = new Intent(this, ConnectionActivity.class);
+			startActivity(intent);
+		}
+		else
+		{
+			//marker must have a name
+			if(markerName == null || markerName.length() < 1)
+			{
+				Toast.makeText(getApplicationContext(), "Marker name can't be empty", Toast.LENGTH_LONG).show();
 			}
-			
-			if(mCurrentGroup != null) {
+			else
+			{
+				//Look for the group
+				ParseQuery<Group> findGroupName = ParseQuery.getQuery(Group.class);
+				findGroupName.whereEqualTo("name", mGroupName);
+				try
+				{
+					List<Group> g = findGroupName.find();
+
+					if(g == null)
+					{
+						Toast.makeText(getApplicationContext(), "We can't find this group", Toast.LENGTH_LONG).show();
+					}
+					else
+					{
+						//We find a group with this name
+						selectedGroup = g.get(0);	
+					}
+				}
+				catch(ParseException e)
+				{
+					Toast.makeText(getApplicationContext(), "Was unable to execue : " + e, Toast.LENGTH_LONG).show();
+				}
 				
-				if (!isEvent) {
-					ParseQuery<POI> poiQuery = ParseQuery.getQuery(POI.class);
-					poiQuery.whereEqualTo(POI.NAME, mName);
-					poiQuery.countInBackground(new CountCallback() {
-						
-						@Override
-						public void done(int c, ParseException err) {
-							// If the marker doesn't already exist
-							if(c == 0) {
-								//Create the element
-								POI p = new POI();
-								p.setName(mName);
-								p.setDescription(mDescription);
-								p.setCreator(ParseUser.getCurrentUser());
-								p.setGPSLocation(new ParseGeoPoint(mLocation.latitude, mLocation.longitude));
-								p.setGroup(mCurrentGroup);
-								
-								//Try to save data in database
-								try {
-									p.save();
-									Toast.makeText(getApplicationContext(), "POI created", Toast.LENGTH_LONG).show();		
-								} catch(ParseException e) {
-									Log.e(LOGTAG, "POI could not be created");
+				if(selectedGroup != null)
+				{
+					if(isEvent)
+					{
+						ParseQuery<com.summerschool.friendfinderapplication.models.Event> eventQuery = ParseQuery.getQuery(com.summerschool.friendfinderapplication.models.Event.class);
+						eventQuery.whereEqualTo(com.summerschool.friendfinderapplication.models.Event.TITLE, mName);
+						eventQuery.countInBackground(new CountCallback() {
+							
+							@Override
+							public void done(int c, ParseException err) {
+								// If the marker doesn't already exist
+								if(c == 0)
+								{
+									//Create the element
+									com.summerschool.friendfinderapplication.models.Event e = new com.summerschool.friendfinderapplication.models.Event();
+									e.setTitle(mName);
+									e.setDescription(mDescription);
+									e.setOwner(ParseUser.getCurrentUser());
+									e.setLocation(gpsLocation);
+									e.setGroup(selectedGroup);
+									
+									//Try to save data in database
+									try
+									{
+										e.save();
+										Toast.makeText(getApplicationContext(), "Every thing looks like fine to create an event !", Toast.LENGTH_LONG).show();		
+									}
+									catch(ParseException ex)
+									{
+										Toast.makeText(getApplicationContext(), "Was unable to save", Toast.LENGTH_LONG).show();
+									}
+								}
+								else
+								{
+									Toast.makeText(getApplicationContext(), "Was unable to save", Toast.LENGTH_LONG).show();
 								}
 								
-								finish();
 							}
-						}
-					});
-				} else {
-					ParseQuery<POI> poiQuery = ParseQuery.getQuery(POI.class);
-					poiQuery.whereEqualTo(POI.NAME, mName);
-					poiQuery.whereEqualTo(POI.GROUP, selectedGroup.getObjectId());
-					poiQuery.countInBackground(new CountCallback() {
-						
-						@Override
-						public void done(int c, ParseException err) {
-							// If the marker doesn't already exist
-							if(c == 0) {
-								//Create the element
-								POI p = new POI();
-								p.setName(mName);
-								p.setDescription(mDescription);
-								p.setCreator(ParseUser.getCurrentUser());
-								p.setGPSLocation(new ParseGeoPoint(mLocation.latitude, mLocation.longitude));
-								p.setGroup(selectedGroup);
-								
-								//Try to save data in database
-								try {
-									p.save();
-									Toast.makeText(getApplicationContext(), "Event created", Toast.LENGTH_LONG).show();		
-								} catch(ParseException e) {
-									Toast.makeText(getApplicationContext(), "Event could not be created", Toast.LENGTH_LONG).show();
+						});
+					}
+					else
+					{
+						ParseQuery<POI> poiQuery = ParseQuery.getQuery(POI.class);
+						poiQuery.whereEqualTo(POI.NAME, mName);
+						poiQuery.whereEqualTo(POI.GROUP, selectedGroup.getObjectId());
+						poiQuery.countInBackground(new CountCallback() {
+							
+							@Override
+							public void done(int c, ParseException err) {
+								// If the marker doesn't already exist
+								if(c == 0)
+								{
+									//Create the element
+									POI p = new POI();
+									p.setName(mName);
+									p.setDescription(mDescription);
+									p.setCreator(ParseUser.getCurrentUser());
+									p.setGPSLocation(gpsLocation);
+									p.setGroup(selectedGroup);
+									
+									//Try to save data in database
+									try
+									{
+										p.save();
+										Toast.makeText(getApplicationContext(), "Every thing looks like fine !", Toast.LENGTH_LONG).show();		
+									}
+									catch(ParseException e)
+									{
+										Toast.makeText(getApplicationContext(), "Was unable to save", Toast.LENGTH_LONG).show();
+									}
 								}
-								finish();
+								else
+								{
+									Toast.makeText(getApplicationContext(), "Was unable to save", Toast.LENGTH_LONG).show();
+								}
 							}
-						}
-					});
+						});
+					}
+				}
+				else
+				{
+					Toast.makeText(getApplicationContext(), "We can't find the group", Toast.LENGTH_LONG).show();
 				}
 			}
 		}
+		
 	}
 	
 	@Override

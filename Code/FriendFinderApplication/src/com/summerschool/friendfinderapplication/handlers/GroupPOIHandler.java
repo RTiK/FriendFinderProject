@@ -32,10 +32,6 @@ public class GroupPOIHandler {
 		getPOIsOfGroup();
 	}
 	
-	public HashMap<Marker, String> getMarkers() {
-		return mMarkers;
-	}
-	
 	public void showPOIs() {
 		Log.i(GroupPOIHandler.class.getName(), "Displaying " + mMarkers.size() + " POIs");
 		for (Map.Entry<Marker, String> marker : mMarkers.entrySet())

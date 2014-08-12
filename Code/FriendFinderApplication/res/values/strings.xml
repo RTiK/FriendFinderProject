@@ -20,9 +20,9 @@
     <string name="button_three">Button 3</string>
     <string name="add">+</string>
     <string name="search">Search</string>
-    <string name="title_activity_new_group">Groups</string>
-    <string name="title_activity_my_poi">My POIs</string>
-    <string name="title_activity_my_event">My Events</string>
+    <string name="title_activity_new_group">Friend finder > Groups</string>
+    <string name="title_activity_my_poi">Friend finder > My POI</string>
+    <string name="title_activity_my_event">Friend finder > My Events</string>
     <string name="title_activity_event">EventActivity</string>
 
     <!-- Text for button at the top -->
@@ -41,10 +41,10 @@
     <string name="newGroup_editText">Enter its name</string>
     <string name="createButton">Create</string>
     <string name="joinButton">Join</string>
-    <string name="title_activity_new_poi">New POI</string>
+    <string name="title_activity_new_poi">Friend finder > New POI</string>
     <string name="title_activity_event_info">Friend finder > Event Infos</string>
     <string name="title_activity_poiinfo">Friend finder > POI infos</string>
-    <string name="title_activity_new_marker">New Marker</string>
-    <string name="title_activity_my_event_list">My events</string>
+    <string name="title_activity_new_marker">Friend finder > New Marker</string>
+    <string name="title_activity_my_event_list">Friend finder > My events</string>
 
 </resources>

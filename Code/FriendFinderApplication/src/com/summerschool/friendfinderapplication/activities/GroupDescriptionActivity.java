@@ -106,7 +106,6 @@ public class GroupDescriptionActivity extends Activity {
 		});
 		
 		//Log.i("grooupName3 =",currentGroup.getName());
-//		getActionBar().setTitle(currentGroup.getName());
 		updateMemberList(groupName);
 		populateListView();
 		
@@ -144,10 +143,10 @@ public class GroupDescriptionActivity extends Activity {
     private void ActionLeaveGroup(String groupName) {
     	
     	 //TODO Leave group when here !
-    	Log.i("Enter into button","OK");
+    	
     	final boolean alone = false;
 		//The group is known
-		Log.i("groupName",currentGroup.getName());
+		Log.i("groupName",groupName);
 		//the userName too
 		Log.i("username", ParseUser.getCurrentUser().toString());
 		
@@ -155,26 +154,23 @@ public class GroupDescriptionActivity extends Activity {
 		//Find the user entity in the Parse database
 		ParseQuery<GroupMember> userInfo = ParseQuery.getQuery(GroupMember.class);
 		//find specific user
-		userInfo.whereEqualTo("Member",ParseUser.getCurrentUser());
+		userInfo.whereEqualTo("Member",ParseUser.getCurrentUser().toString());
 		//in a specific group
-		Log.i("groupname =",""+ currentGroup);
-		userInfo.whereEqualTo("Group",currentGroup);
+		userInfo.whereEqualTo("Group",groupName);
 		userInfo.setCachePolicy(CachePolicy.CACHE_THEN_NETWORK);
 		//find the group member list that matches the request
 		userInfo.findInBackground(new FindCallback<GroupMember>() {
 			public void done(List<GroupMember> users, ParseException error) {
 				if(users != null) { //you are at least in the chosen group
 					if(users.size() > 1) { //Your are registered twice in the group
-						Log.i("Error","too much members : " + users.size());
+						Log.i("Error","too muche members : " + users.size());
 					} 
-					else if (users.size() ==1){ //There is only one line that matches
-						Log.i("Only  one line matches","OK");
-						Log.i("users.size()= ",""+users.size());
+					else { //There is only one line that matches
+						Log.i("error","Only  one line matches");
 						users.get(0).deleteInBackground(new DeleteCallback() {
                             @Override
                             public void done(ParseException e) {
                                 // TODO Auto-generated method stub
-                            	
                                 if(e==null)
                                 {
                                     Toast.makeText(getBaseContext(),"Deleted Successfully!", Toast.LENGTH_LONG).show();
@@ -185,9 +181,6 @@ public class GroupDescriptionActivity extends Activity {
                                 }
                             }
 						}); 
-					}
-					else{
-						Log.i("ERROR","No group found");
 					}
 				} else {
 					//you are not in the group
@@ -225,28 +218,37 @@ public class GroupDescriptionActivity extends Activity {
 								List<ParseUser> members = new LinkedList<ParseUser>();
 								//Log.i("Info","Toto is part of group ? " + groupMembers.get(0).toString());
 								for(GroupMember gm : groupMembers) {
+									
 									//Log.i("Info","Toto is part of group ? " + gm.containsKey("toto"));
 									members.add(gm.getMember());
 									//Log.i("Member = ",gm.getMember().getUsername());
-								}	
+								}
+								
 								adapter.clear();
-								adapter.addAll(members);							
+								adapter.addAll(members);
+								
 							} else {
 								Log.i("Error","GroupMember returned null");
 							}
 						}
 					});
+					
 				} else {
 					Log.i("Error", "No group found or mutliple groups found");
-				}	
+				}
+				
+				
 			}
 		});		
 	}
+
 
 	private void populateListView() {
 		ListView list = (ListView) findViewById(R.id.memberListView);
 		list.setAdapter(adapter);
 	}	
+
+	
 
 	public void onClickMapButton(final View v) {
 		//TODO
