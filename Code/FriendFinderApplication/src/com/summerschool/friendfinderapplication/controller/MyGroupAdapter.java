@@ -51,39 +51,32 @@ public class MyGroupAdapter extends ArrayAdapter<Group> {
 			TextView textView = (TextView) itemView.findViewById(R.id.item_poi_name);
 			textView.setText(currentGroup.getName());
 			
-			if(currentGroup.isGPSActive()) {
-				textView.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-	//					Toast.makeText(mContext, "This is " + currentGroup.getName(), Toast.LENGTH_SHORT).show();
-						
+			textView.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+//					Toast.makeText(mContext, "This is " + currentGroup.getName(), Toast.LENGTH_SHORT).show();
+					if(currentGroup.isGPSActive()) {
 						Intent goToMap = new Intent(mContext.getApplicationContext(), MapActivity.class);
 						goToMap.putExtra("GROUPNAME", currentGroup.getString("name"));
 						mContext.startActivity(goToMap);
 						Log.i("TEST", "activity started");
-						
 					}
-				});
-			}else{
-				textView.setOnClickListener(null);
-			}
+				}
+			});
+						
 			ImageButton infButton = (ImageButton) itemView.findViewById(R.id.item_group_info);
-			if(currentGroup.isGPSActive()){
-				//Set onclicklistener for ImageButton
-				infButton.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
+			//Set onclicklistener for ImageButton
+			infButton.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if(currentGroup.isGPSActive()) {
 						Intent intent = new Intent(mContext, GroupDescriptionActivity.class);
 						intent.putExtra("GroupName", currentGroup.getName());
 						mContext.startActivity(intent);					
 						//Toast.makeText(mContext, "This is " + currentGroup.getName(), Toast.LENGTH_SHORT).show();
 					}
-				});
-			}else{
-				infButton.setOnClickListener(null);
-				//infButton.setEnabled(false);
-				//textView.setBackgroundColor(Color.GRAY);
-			}
+				}
+			});
 			
 			//Set onclicklistener for GPS Switch
 			final Switch gpsSwitch = (Switch) itemView.findViewById(R.id.item_group_switch);
