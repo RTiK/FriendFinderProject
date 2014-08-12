@@ -52,21 +52,21 @@
     <style name="homeButton" parent="button">
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1.2</item>
-        <item name="android:background">@drawable/buttonsborders</item>
+        <item name="android:background">@null</item>
         <item name="android:drawableLeft">@drawable/ic_house</item>
         <item name="android:text">@string/home</item>
     </style>
     <style name="groupButton" parent="button">
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1.2</item>
-        <item name="android:background">@drawable/buttonsborders</item>
+        <item name="android:background">@null</item>
         <item name="android:drawableLeft">@drawable/ic_group58</item>
         <item name="android:text">Groups</item>
     </style>    
     <style name="eventButton" parent="button">
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1.5</item>
-        <item name="android:background">@drawable/buttonsborders</item>
+        <item name="android:background">@null</item>
         <item name="android:drawableLeft">@drawable/ic_calendar</item>
         <item name="android:paddingLeft">20dp</item>
         <item name="android:text">Events</item>
@@ -74,7 +74,7 @@
     <style name="poiButton" parent="button">
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1.5</item>
-        <item name="android:background">@drawable/buttonsborders</item>
+        <item name="android:background">@null</item>
         <item name="android:drawableLeft">@drawable/ic_location</item>
         <item name="android:text">POI</item>        
     </style>	
@@ -90,7 +90,7 @@
     <style name="membersListButton" parent="button">
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">0.7</item>
-        <item name="android:background">@drawable/buttonsborders</item>
+        <item name="android:background">@null</item>
         <item name="android:src">@drawable/ic_action_group</item>
     </style>	
 </resources>
