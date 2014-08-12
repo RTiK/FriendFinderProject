@@ -1,6 +1,7 @@
 package com.summerschool.friendfinderapplication.activities;
 
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
 
 import android.app.Activity;
@@ -13,10 +14,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseQuery.CachePolicy;
 import com.parse.ParseUser;
 import com.summerschool.friendfinderapplication.R;
 import com.summerschool.friendfinderapplication.controller.EventParticipantAdapter;
@@ -141,4 +144,78 @@ public class EventInfoActivity extends Activity {
 		}	
 			
 	}
+	
+	private void deleteEvent()
+	{
+		ParseQuery<Event> eventQuery = ParseQuery.getQuery(Event.class);
+		eventQuery.whereEqualTo(Event.TITLE, currEvent.getTitle());
+		eventQuery.whereEqualTo(Event.OWNER, ParseUser.getCurrentUser());
+		eventQuery.findInBackground(new FindCallback<Event>() {
+			public void done(List<Event> e, ParseException err)
+			{
+				if(e != null)
+				{
+					if(e.size() == 1)
+					{
+						e.get(0).deleteInBackground(new DeleteCallback() {
+							
+							@Override
+							public void done(ParseException arg0) {
+								// TODO Auto-generated method stub
+								if(arg0 != null)
+								{
+									Toast.makeText(getApplicationContext(), "We can't delete the association", Toast.LENGTH_LONG).show();
+								}
+								
+							}
+						});
+					}
+				}
+			}
+		});
+		
+	}
+	
+	private void LeaveEvent()
+	{
+		ParseQuery<EventMember> eventMemberQuery = ParseQuery.getQuery(EventMember.class);
+		eventMemberQuery.whereEqualTo(EventMember.MEMBER, ParseUser.getCurrentUser());
+		eventMemberQuery.whereEqualTo(EventMember.EVENT, currEvent);
+		eventMemberQuery.setCachePolicy(CachePolicy.CACHE_THEN_NETWORK);
+		eventMemberQuery.findInBackground(new FindCallback<EventMember>() {
+			public void done(List<EventMember> e, ParseException err)
+			{
+				if(e != null)
+				{
+					if(e.size() == 1)
+					{
+						e.get(0).deleteInBackground(new DeleteCallback() {
+							
+							@Override
+							public void done(ParseException arg0) {
+								// TODO Auto-generated method stub
+								if(arg0 != null)
+								{
+									Toast.makeText(getApplicationContext(), "You leave this Event !", Toast.LENGTH_LONG).show();
+								}
+								else
+								{
+									Toast.makeText(getApplicationContext(), "We can't delete the association", Toast.LENGTH_LONG).show();
+								}
+							}
+						});
+					}
+					else
+					{
+						Toast.makeText(getApplicationContext(), "There is too many association", Toast.LENGTH_LONG).show();
+					}
+				}
+				else
+				{
+					Toast.makeText(getApplicationContext(), "We can't find the association between this group and this user", Toast.LENGTH_LONG).show();
+				}
+			}
+		});
+	}
 }
+
