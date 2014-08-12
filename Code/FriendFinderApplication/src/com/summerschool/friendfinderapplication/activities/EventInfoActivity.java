@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -104,7 +105,33 @@ public class EventInfoActivity extends Activity {
 			
 		} catch (ParseException e) {
 			e.printStackTrace();
-		}
+		}	
+	}
+	
+	public void onEventSubscriptionClicked(View view){
 		
+		Button add = (Button) findViewById(R.id.add);
+		Button remove = (Button) findViewById(R.id.unsubscribe);
+		
+		ParseQuery<EventMember> query = ParseQuery.getQuery(EventMember.class);
+		query.whereEqualTo(EventMember.EVENT, currEvent);
+		query.whereEqualTo(EventMember.MEMBER, ParseUser.getCurrentUser());
+		
+		// participant
+		try {
+			if(query.count() >= 1){
+				add.setVisibility(View.INVISIBLE);
+				remove.setVisibility(View.VISIBLE);
+			}
+			// declined the event
+			else{
+				add.setVisibility(View.VISIBLE);
+				remove.setVisibility(View.INVISIBLE);
+			}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+			
 	}
 }
