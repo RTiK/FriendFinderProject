@@ -76,6 +76,7 @@ public class GroupDescriptionActivity extends Activity {
 		//Log.i("textView found","OK");
 		tv.setText("this is group: " + groupName);
 		//Log.i("groupName ecrit","OK");
+		final TextView tvDesc= (TextView) findViewById(R.id.groupname);
 		
 		adapter = new MemberListAdapter(GroupDescriptionActivity.this,new ArrayList<ParseUser>());
 		POIadapter = new POIListAdapter(GroupDescriptionActivity.this,new ArrayList<POI>());
@@ -102,6 +103,9 @@ public class GroupDescriptionActivity extends Activity {
 						//Log.i("grooupName =",currentGroup.getName());
 						String txt = currentGroup.getDescription() + "\n";
 						tv.setText(txt);
+						String name = currentGroup.getName();
+						tvDesc.setText(name);
+						
 					}
 					//Log.i("grooupName2 =",currentGroup.getName());
 				} else {
@@ -340,11 +344,8 @@ public class GroupDescriptionActivity extends Activity {
 		ListView eventlist = (ListView) findViewById(R.id.eventslistview);
 		memberlist.setAdapter(adapter);
 		poilist.setAdapter(POIadapter);
-<<<<<<< .mine
-		eventlist.setAdapter(Eventadapter);
-=======
 		eventlist.setAdapter(eventAdapter);
->>>>>>> .r271
+
 	}	
 
 	public void onClickMapButton(final View v) {
