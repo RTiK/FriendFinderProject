@@ -122,10 +122,10 @@ public class MapActivity extends Activity {
 						
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							Intent createNewMarker = new Intent(getApplicationContext(), NewMarkerActivity.class);
-							createNewMarker.putExtra(NewMarkerActivity.EXTRA_GROUPNAME, mGroupName);
-							createNewMarker.putExtra(NewMarkerActivity.EXTRA_MARKER_LATITUDE, marker.getPosition().latitude);
-							createNewMarker.putExtra(NewMarkerActivity.EXTRA_MARKER_LONGITUDE, marker.getPosition().longitude);
+							Intent createNewMarker = new Intent(getApplicationContext(), NewPOIActivity.class);
+							createNewMarker.putExtra(NewPOIActivity.EXTRA_GROUPNAME, mGroupName);
+							createNewMarker.putExtra(NewPOIActivity.EXTRA_MARKER_LATITUDE, marker.getPosition().latitude);
+							createNewMarker.putExtra(NewPOIActivity.EXTRA_MARKER_LONGITUDE, marker.getPosition().longitude);
 							startActivity(createNewMarker);
 						}
 					});

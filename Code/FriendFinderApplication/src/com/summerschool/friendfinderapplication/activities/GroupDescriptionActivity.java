@@ -6,7 +6,6 @@ import java.util.List;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,9 +13,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -190,8 +186,7 @@ public class GroupDescriptionActivity extends Activity {
 						Log.i("ERROR","No group found");
 					}
 				} else {
-					//you are not in the group
-					Toast.makeText(getApplicationContext(), "You are not in the group !", Toast.LENGTH_SHORT);
+					Toast.makeText(getApplicationContext(), "You are not in the group !", Toast.LENGTH_SHORT).show();
 				}
 			}
 		});

@@ -23,9 +23,9 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-public class NewMarkerActivity extends Activity {
+public class NewEventActivity extends Activity {
 	
-	private final static String LOGTAG = "NEW_MARKER";
+	private final static String LOGTAG = "NEW_EVENT";
 	
 	public static final String EXTRA_MARKER_LATITUDE = "LATITUDE";
 	public static final String EXTRA_MARKER_LONGITUDE = "LONGITUDE";	
@@ -38,7 +38,7 @@ public class NewMarkerActivity extends Activity {
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_new_marker);
+		setContentView(R.layout.activity_new_event);
 		
 		Intent i = getIntent();
 		
@@ -56,18 +56,11 @@ public class NewMarkerActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.new_marker, menu);
+		getMenuInflater().inflate(R.menu.new_poi, menu);
 		return true;
 	}
 
 	public void onClickCreate(final View v) {
-		//What type of marker
-		RadioButton event = (RadioButton) findViewById(R.id.event);
-		Boolean isEvent;
-		if(event.isChecked())
-			isEvent = true;
-		else
-			isEvent = false;
 		
 		//Get data information from the view
 		EditText markerName = (EditText) findViewById(R.id.markerName);
@@ -97,65 +90,35 @@ public class NewMarkerActivity extends Activity {
 			
 			if(mCurrentGroup != null) {
 				
-				if (!isEvent) {
-					ParseQuery<POI> poiQuery = ParseQuery.getQuery(POI.class);
-					poiQuery.whereEqualTo(POI.NAME, mName);
-					poiQuery.countInBackground(new CountCallback() {
-						
-						@Override
-						public void done(int c, ParseException err) {
-							// If the marker doesn't already exist
-							if(c == 0) {
-								//Create the element
-								POI p = new POI();
-								p.setName(mName);
-								p.setDescription(mDescription);
-								p.setCreator(ParseUser.getCurrentUser());
-								p.setGPSLocation(new ParseGeoPoint(mLocation.latitude, mLocation.longitude));
-								p.setGroup(mCurrentGroup);
-								
-								//Try to save data in database
-								try {
-									p.save();
-									Toast.makeText(getApplicationContext(), "POI created", Toast.LENGTH_LONG).show();		
-								} catch(ParseException e) {
-									Log.e(LOGTAG, "POI could not be created");
-								}
-								
-								finish();
+				ParseQuery<POI> poiQuery = ParseQuery.getQuery(POI.class);
+				poiQuery.whereEqualTo(POI.NAME, mName);
+				poiQuery.whereEqualTo(POI.GROUP, selectedGroup.getObjectId());
+				poiQuery.countInBackground(new CountCallback() {
+					
+					@Override
+					public void done(int c, ParseException err) {
+						// If the marker doesn't already exist
+						if(c == 0) {
+							//Create the element
+							POI p = new POI();
+							p.setName(mName);
+							p.setDescription(mDescription);
+							p.setCreator(ParseUser.getCurrentUser());
+							p.setGPSLocation(new ParseGeoPoint(mLocation.latitude, mLocation.longitude));
+							p.setGroup(selectedGroup);
+							
+							//Try to save data in database
+							try {
+								p.save();
+								Toast.makeText(getApplicationContext(), "Event created", Toast.LENGTH_LONG).show();		
+							} catch(ParseException e) {
+								Toast.makeText(getApplicationContext(), "Event could not be created", Toast.LENGTH_LONG).show();
 							}
+							finish();
 						}
-					});
-				} else {
-					ParseQuery<POI> poiQuery = ParseQuery.getQuery(POI.class);
-					poiQuery.whereEqualTo(POI.NAME, mName);
-					poiQuery.whereEqualTo(POI.GROUP, selectedGroup.getObjectId());
-					poiQuery.countInBackground(new CountCallback() {
-						
-						@Override
-						public void done(int c, ParseException err) {
-							// If the marker doesn't already exist
-							if(c == 0) {
-								//Create the element
-								POI p = new POI();
-								p.setName(mName);
-								p.setDescription(mDescription);
-								p.setCreator(ParseUser.getCurrentUser());
-								p.setGPSLocation(new ParseGeoPoint(mLocation.latitude, mLocation.longitude));
-								p.setGroup(selectedGroup);
-								
-								//Try to save data in database
-								try {
-									p.save();
-									Toast.makeText(getApplicationContext(), "Event created", Toast.LENGTH_LONG).show();		
-								} catch(ParseException e) {
-									Toast.makeText(getApplicationContext(), "Event could not be created", Toast.LENGTH_LONG).show();
-								}
-								finish();
-							}
-						}
-					});
-				}
+					}
+				});
+				
 			}
 		}
 	}
