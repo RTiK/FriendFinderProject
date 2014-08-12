@@ -3,6 +3,7 @@ package com.summerschool.friendfinderapplication.controller;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +13,9 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.ParseGeoPoint;
 import com.summerschool.friendfinderapplication.R;
+import com.summerschool.friendfinderapplication.activities.MapActivity;
 import com.summerschool.friendfinderapplication.models.POI;
 
 public class MyPOIListAdapter extends ArrayAdapter<POI> {
@@ -45,8 +48,12 @@ public class MyPOIListAdapter extends ArrayAdapter<POI> {
 			tv.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					//TODO Make intent to MapActivity to show position of this event
-					Toast.makeText(mContext, "Event at " + currentPOI.getLocation(), Toast.LENGTH_SHORT).show();
+					ParseGeoPoint p = currentPOI.getLocation();
+					Intent goToMap = new Intent(mContext.getApplicationContext(), MapActivity.class);
+					goToMap.putExtra(MapActivity.EXTRA_FOCUS_LATITUDE, p.getLatitude());
+					goToMap.putExtra(MapActivity.EXTRA_FOCUS_LONGITUDE, p.getLongitude());
+					goToMap.putExtra(MapActivity.EXTRA_GROUPNAME, currentPOI.getGroup().getName());
+					mContext.startActivity(goToMap);
 				}
 			});
 		}

@@ -3,6 +3,7 @@ package com.summerschool.friendfinderapplication.controller;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -11,7 +12,9 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.ParseGeoPoint;
 import com.summerschool.friendfinderapplication.R;
+import com.summerschool.friendfinderapplication.activities.MapActivity;
 import com.summerschool.friendfinderapplication.activities.MyEventListActivity;
 import com.summerschool.friendfinderapplication.models.Event;
 
@@ -42,8 +45,12 @@ public class MyEventListAdapter extends ArrayAdapter<Event>{
 		tv.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				//TODO Make intent to MapActivity to show position of this event
-				Toast.makeText(mContext, "Event for " + currentEvent.getDate(), Toast.LENGTH_SHORT).show();
+				ParseGeoPoint p = currentEvent.getLocation();
+				Intent goToMap = new Intent(mContext.getApplicationContext(), MapActivity.class);
+				goToMap.putExtra(MapActivity.EXTRA_FOCUS_LATITUDE, p.getLatitude());
+				goToMap.putExtra(MapActivity.EXTRA_FOCUS_LONGITUDE, p.getLongitude());
+				goToMap.putExtra(MapActivity.EXTRA_GROUPNAME, currentEvent.getGroup().getName());
+				mContext.startActivity(goToMap);
 			}
 		});
 		

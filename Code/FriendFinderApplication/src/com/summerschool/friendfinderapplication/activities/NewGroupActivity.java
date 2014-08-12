@@ -103,7 +103,7 @@ public class NewGroupActivity extends Activity {
 						g.setOwner(ParseUser.getCurrentUser());
 						g.setName(newGroupName);
 						g.setDescription("Dummy Description");
-						g.setGPS(false);
+						g.setGPSActive(true);
 						try {
 							g.save();
 							//intent back to group list view

@@ -8,9 +8,32 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.summerschool.friendfinderapplication.NewPOIActivity" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/markerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="POI Name"
+            android:inputType="text" />
+	
+	    <EditText
+	        android:id="@+id/markerDescription"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	       	android:hint="POI Description"
+	        android:inputType="textMultiLine" />
+    	
+	    <Button
+	        android:id="@+id/createMarker"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:onClick="onClickCreate"
+	        android:text="@string/createButton" />
+	    
+    </LinearLayout>
 
 </RelativeLayout>

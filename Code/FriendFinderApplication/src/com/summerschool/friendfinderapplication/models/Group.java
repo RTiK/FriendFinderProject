@@ -1,7 +1,6 @@
 package com.summerschool.friendfinderapplication.models;
 
 import com.parse.ParseClassName;
-import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
@@ -19,7 +18,7 @@ public class Group extends ParseObject {
 	public String getDescription() {
 		return getString("description");
 	}
-	public boolean getGPS(){
+	public boolean isGPSActive(){
 		return getBoolean("GPSActive");
 	}
 	
@@ -30,7 +29,7 @@ public class Group extends ParseObject {
 	public void setDescription(String description) {
 		put("description",description);
 	}
-	public void setGPS(boolean gpsActive){
+	public void setGPSActive(boolean gpsActive){
 		put("GPSActive",gpsActive);
 	}
 	public void setOwner(ParseUser currentUser) {
