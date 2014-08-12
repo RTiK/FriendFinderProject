@@ -55,11 +55,21 @@ public class MyPOIListActivity extends Activity {
 		ParseQuery<UserLikesPOI> q = ParseQuery.getQuery(UserLikesPOI.class);
 		q.whereEqualTo(UserLikesPOI.USER, ParseUser.getCurrentUser());
 		q.include(UserLikesPOI.POI);
-		q.include(POI.GROUP);
 		List<POI> poiList= new ArrayList<POI>();
+		List<UserLikesPOI> ulpList;
 		try {
-			for(UserLikesPOI poi : q.find()) {
-				poiList.add(poi.getPOI());
+			ulpList  = q.find();
+			for(UserLikesPOI poi : ulpList) {
+				POI tmp = poi.getPOI();
+				if(tmp!=null) {
+					ParseQuery<POI> fq = ParseQuery.getQuery(POI.class);
+					fq.include(POI.GROUP);
+					fq.whereEqualTo("objectId", tmp.getObjectId());
+					List<POI> tmpList2 = fq.find();
+					if(tmpList2.size()>0) {
+						poiList.add(tmpList2.get(0));
+					}
+				}
 			}
 			Log.i(LOGTAG,"found " + poiList.size() + " pois I liked or created");
 			adapter.clear();
