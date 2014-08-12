@@ -36,17 +36,34 @@
         android:onClick="addUserToEvent"
         android:text="add" />
 
-    <ListView
-        android:id="@+id/listView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/unsubscribe"
-        android:layout_alignLeft="@+id/event_description"
-        android:layout_below="@+id/event_description"
-        android:layout_marginTop="23dp" >
+    <!--  Event participant list ======================================= -->
+	    <LinearLayout
+	        android:id="@+id/eventparticipants"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:orientation="vertical" >
+	        
+		       <TextView
+		       android:id="@+id/eventpart"
+		       android:layout_width="wrap_content"
+		       android:layout_height="wrap_content"
+		       android:layout_alignParentLeft="true"
+		       android:layout_alignParentRight="true"
+		       android:layout_alignParentTop="true"
 
-    </ListView>
-
+		       android:textAppearance="?android:attr/textAppearanceLarge" />
+		      
+			<ListView
+        	android:id="@+id/listView1"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_above="@+id/unsubscribe"
+	        android:layout_alignLeft="@+id/event_description"
+	        android:layout_below="@+id/event_description"
+	        android:layout_marginTop="23dp" >	
+	    </ListView>
+    </LinearLayout>
+    
     <TextView
         android:id="@+id/event_description"
         android:layout_width="match_parent"
@@ -76,5 +93,16 @@
         android:layout_marginTop="14dp"
         android:text="Medium Text"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/unsubscribe"
+        android:layout_alignBottom="@+id/unsubscribe"
+        android:layout_toLeftOf="@+id/event_time"
+        android:text="Delete"
+        android:onClick="deleteEvent" />
+    
 
 </RelativeLayout>

@@ -6,7 +6,6 @@ import java.util.List;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,9 +13,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,7 +20,6 @@ import android.widget.Toast;
 
 
 import com.google.android.maps.MapActivity;
-import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -38,6 +33,7 @@ import com.summerschool.friendfinderapplication.models.Event;
 import com.summerschool.friendfinderapplication.models.Group;
 import com.summerschool.friendfinderapplication.models.GroupMember;
 import com.summerschool.friendfinderapplication.models.POI;
+
 
 public class GroupDescriptionActivity extends Activity {
 
@@ -76,6 +72,7 @@ public class GroupDescriptionActivity extends Activity {
 		//Log.i("textView found","OK");
 		tv.setText("this is group: " + groupName);
 		//Log.i("groupName ecrit","OK");
+		final TextView tvDesc= (TextView) findViewById(R.id.groupname);
 		
 		adapter = new MemberListAdapter(GroupDescriptionActivity.this,new ArrayList<ParseUser>());
 		POIadapter = new POIListAdapter(GroupDescriptionActivity.this,new ArrayList<POI>());
@@ -102,6 +99,9 @@ public class GroupDescriptionActivity extends Activity {
 						//Log.i("grooupName =",currentGroup.getName());
 						String txt = currentGroup.getDescription() + "\n";
 						tv.setText(txt);
+						String name = currentGroup.getName();
+						tvDesc.setText(name);
+						
 					}
 					//Log.i("grooupName2 =",currentGroup.getName());
 				} else {

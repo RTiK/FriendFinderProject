@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +18,9 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.summerschool.friendfinderapplication.R;
+import com.summerschool.friendfinderapplication.controller.FanListAdapter;
+import com.summerschool.friendfinderapplication.controller.GroupEventAdapter;
+import com.summerschool.friendfinderapplication.models.Event;
 import com.summerschool.friendfinderapplication.models.POI;
 import com.summerschool.friendfinderapplication.models.UserLikesPOI;
 
@@ -28,6 +32,7 @@ public class POIInfoActivity extends Activity {
 	
 	private POI currPOI;
 	private List<ParseUser> poiFans;
+	private FanListAdapter adapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +41,20 @@ public class POIInfoActivity extends Activity {
 		Log.i(LOGTAG, "started");
 
 		poiFans = new ArrayList<ParseUser>();
+		//instantiation of adapter
+		adapter = new FanListAdapter(POIInfoActivity.this,new ArrayList<ParseUser>());
+		
+		
 		
 		Intent i = getIntent();
 		getCurrentPOI(i.getStringExtra(POIInfoActivity.EXTRAS_MARKER_ID));
 		if(currPOI != null) {
 			getCurrentFans();
+			//update of the list of fans
+			ListView fanlist = (ListView) findViewById(R.id.poiFansListView);
+			fanlist.setAdapter(adapter);
+			
+			
 			getActionBar().setTitle(currPOI.getName());
 			
 			TextView title = (TextView) findViewById(R.id.poi_title);
@@ -48,6 +62,9 @@ public class POIInfoActivity extends Activity {
 			
 			title.setText(currPOI.getName());
 			desc.setText(currPOI.getDescription());
+		}
+		else{
+			Log.i(LOGTAG,"currPOI is null");
 		}
 		
 		//Buttons enabling/disabling in fonction of the user
@@ -100,6 +117,9 @@ public class POIInfoActivity extends Activity {
 			for(UserLikesPOI ulp : q.find()) {
 				poiFans.add(ulp.getUser());
 			}
+			
+			adapter.clear();
+			adapter.addAll(poiFans);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
