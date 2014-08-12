@@ -80,6 +80,8 @@ public class NewGroupActivity extends Activity {
 		//create new group
 		EditText newNameTextField = (EditText) findViewById(R.id.group_name);		
 		final String newGroupName = newNameTextField.getText().toString().trim();
+		EditText newDescTextField = (EditText) findViewById(R.id.group_desc);
+		final String newGroupDesc = newDescTextField.getText().toString().trim();
 		
 		if(newGroupName == null || newGroupName.length() < 1) {
 			Toast.makeText(this, "Group can't be empty", Toast.LENGTH_SHORT).show();
@@ -102,7 +104,7 @@ public class NewGroupActivity extends Activity {
 						Group g = new Group();
 						g.setOwner(ParseUser.getCurrentUser());
 						g.setName(newGroupName);
-						g.setDescription("Dummy Description");
+						g.setDescription(newGroupDesc);
 						g.setGPSActive(true);
 						try {
 							g.save();
