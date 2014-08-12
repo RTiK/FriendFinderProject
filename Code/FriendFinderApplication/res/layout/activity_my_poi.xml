@@ -8,25 +8,24 @@
     
         android:id="@+id/Content"
         style="@style/content"
+        android:orientation="vertical"
         android:layout_alignStart="@+id/BottomMenu"
         android:layout_below="@+id/actionBar"
         android:paddingBottom="50dp" >
 
-	    <TextView
-	        android:id="@+id/helloView"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentLeft="true"
-	        android:layout_alignParentRight="true"
-	        android:paddingLeft="25dp"
-	        android:text="@string/myPoI"
-	        android:textColor="#003070"
-	        android:background="#F5F5F5"
-	        android:textSize="15sp" />
+       <TextView
+       android:id="@+id/helloView"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentLeft="true"
+       android:layout_alignParentRight="true"
+       android:layout_alignParentTop="true"
+       android:text="@string/myPoI"
+       android:textAppearance="?android:attr/textAppearanceLarge" />
 	    
 	    <ListView
 	        android:id="@+id/poiListView"
-	        android:layout_width="match_parent"
+	        android:layout_width="316dp"
 	        android:layout_height="wrap_content"
 	        android:layout_marginTop="30dp" >
 	    </ListView>

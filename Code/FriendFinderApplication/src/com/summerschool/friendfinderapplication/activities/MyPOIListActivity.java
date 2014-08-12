@@ -68,7 +68,6 @@ public class MyPOIListActivity extends Activity {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-
 	}
 	
 	private void populateEventList() {
@@ -76,15 +75,8 @@ public class MyPOIListActivity extends Activity {
 		list.setAdapter(adapter);
 	}
 	
-
-	
 	public void onClickGroupsButton(final View v) {
 		Intent intent = new Intent(MyPOIListActivity.this, GroupListActivity.class);
 		startActivity(intent);
-	}
-
-
-
-
-	
+	}	
 }
