@@ -214,7 +214,7 @@ public class MapActivity extends Activity {
 		}
 		
 		float zoom = i.getFloatExtra(EXTRA_FOCUS_ZOOM, 10);
-		
+		Log.i(LOGTAG,"zoom position is: " + focus.latitude + ", " + focus.longitude);
 		mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(focus, zoom));
 
 	}
