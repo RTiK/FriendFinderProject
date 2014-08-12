@@ -37,14 +37,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical" >
 
    	<!--  Group Events list ======================================= -->
 	    <LinearLayout
 	        android:id="@+id/eventslist"
 	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
+	        android:layout_height="fill_parent"
 	        android:orientation="vertical" 
 	        android:layout_below="@+id/description">
 	        
@@ -68,7 +68,7 @@
 	    <LinearLayout
 	        android:id="@+id/poilist"
 	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
+	        android:layout_height="fill_parent"
 	        android:orientation="vertical" 
 	        android:layout_below="@+id/eventslist">
 	        
@@ -93,7 +93,7 @@
 	    <LinearLayout
 	        android:id="@+id/memberlist"
 	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
+	        android:layout_height="fill_parent"
 	        android:orientation="vertical" 
 	        android:layout_below="@+id/poilist">
 	        

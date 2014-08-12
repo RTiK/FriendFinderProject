@@ -5,7 +5,6 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,7 +17,6 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.ParseQuery.CachePolicy;
 import com.summerschool.friendfinderapplication.R;
 import com.summerschool.friendfinderapplication.controller.FanListAdapter;
 import com.summerschool.friendfinderapplication.controller.GroupEventAdapter;
