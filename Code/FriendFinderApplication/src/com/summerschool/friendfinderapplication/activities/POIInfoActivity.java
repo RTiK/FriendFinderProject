@@ -11,11 +11,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.maps.MapActivity;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.ParseQuery.CachePolicy;
 import com.summerschool.friendfinderapplication.R;
 import com.summerschool.friendfinderapplication.models.POI;
 import com.summerschool.friendfinderapplication.models.UserLikesPOI;
@@ -27,6 +27,7 @@ public class POIInfoActivity extends Activity {
 	public final static String EXTRAS_MARKER_ID = "MARKER_ID";
 	
 	private POI currPOI;
+	private List<ParseUser> poiFans;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +35,12 @@ public class POIInfoActivity extends Activity {
 		setContentView(R.layout.activity_poi_info);
 		Log.i(LOGTAG, "started");
 
+		poiFans = new ArrayList<ParseUser>();
+		
 		Intent i = getIntent();
 		getCurrentPOI(i.getStringExtra(POIInfoActivity.EXTRAS_MARKER_ID));
-		
-		
 		if(currPOI != null) {
+			getCurrentFans();
 			getActionBar().setTitle(currPOI.getName());
 			
 			TextView title = (TextView) findViewById(R.id.poi_title);
@@ -47,8 +49,31 @@ public class POIInfoActivity extends Activity {
 			title.setText(currPOI.getName());
 			desc.setText(currPOI.getDescription());
 		}
+	}
+	
+	private boolean isCreator() {
+		return currPOI.getCreator().equals(ParseUser.getCurrentUser().getUsername());
+	}
+	
+	private boolean isFan() {
+		return poiFans.contains(ParseUser.getCurrentUser());
+	}
+	
+	private void getCurrentFans() {
+		ParseQuery<UserLikesPOI> q = ParseQuery.getQuery(UserLikesPOI.class);
+		q.whereEqualTo(UserLikesPOI.POI, currPOI);
+		q.include(UserLikesPOI.USER);
+		try {
+			poiFans.clear();
+			for(UserLikesPOI ulp : q.find()) {
+				poiFans.add(ulp.getUser());
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		
 	}
+	
 	private void getCurrentPOI(final String poiObjID) {
 		ParseQuery<POI> q1 = ParseQuery.getQuery(POI.class);
 		q1.whereEqualTo("objectId", poiObjID);
