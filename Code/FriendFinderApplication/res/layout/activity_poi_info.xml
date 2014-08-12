@@ -32,9 +32,9 @@
 	        android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
     
-<!--  POI Likers List ======================================= -->
+<!--  POI Fans List ======================================= -->
 	<LinearLayout
-        android:id="@+id/likersList"
+        android:id="@+id/poiFansList"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -42,18 +42,18 @@
         android:layout_marginTop="5dp">
 	   
 	       <TextView
-	       android:id="@+id/likersListTitle"
+	       android:id="@+id/poiFansListTitle"
 	       android:layout_width="wrap_content"
 	       android:layout_height="wrap_content"
 	       android:layout_alignParentLeft="true"
 	       android:layout_alignParentRight="true"
 	       android:layout_alignParentTop="true"
-	       android:text="POI Likers"
+	       android:text="POI fans"
 	       android:textAppearance="?android:attr/textAppearanceMedium"
 	       android:textStyle="bold"/>
 
 	       <ListView
-	           android:id="@+id/likersListView"
+	           android:id="@+id/poiFansListView"
 	           android:layout_width="match_parent"
 	           android:layout_height="match_parent" >
 	       </ListView>
