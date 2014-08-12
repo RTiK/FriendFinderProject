@@ -23,18 +23,20 @@ import com.parse.ParseQuery.CachePolicy;
 import com.parse.ParseUser;
 import com.summerschool.friendfinderapplication.R;
 import com.summerschool.friendfinderapplication.controller.EventParticipantAdapter;
+import com.summerschool.friendfinderapplication.controller.MyPOIListAdapter;
 import com.summerschool.friendfinderapplication.models.Event;
 import com.summerschool.friendfinderapplication.models.EventMember;
+import com.summerschool.friendfinderapplication.models.POI;
 
 public class EventInfoActivity extends Activity {
 
-	private final static String LOGTAG = "EventInfoActivity";
-	public final static String EXTRAS_GROUPNAME = "GROUPNAME";
-	public final static String EXTRAS_MARKER_ID = "MARKER_ID";
+	private static String LOGTAG = "EventInfoActivity";
+	public static String EXTRAS_GROUPNAME = "GROUPNAME";
+	public static String EXTRAS_MARKER_ID = "MARKER_ID";
 	
 	private Event currEvent;
 	private EventParticipantAdapter adapter; 
-	List<Event> events;
+	private List<Event> events;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,8 @@ public class EventInfoActivity extends Activity {
 		Log.i(LOGTAG, "started");
 		ListView listview = (ListView) findViewById(R.id.listView1);
 		
+		adapter = new EventParticipantAdapter(EventInfoActivity.this, new ArrayList<ParseUser>());
+        
 		Intent i = getIntent();
 		final String eventObjID = i.getStringExtra(POIInfoActivity.EXTRAS_MARKER_ID);
 		
@@ -51,6 +55,8 @@ public class EventInfoActivity extends Activity {
 				
 		try {
 			events = q1.find();
+			
+			
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -70,12 +76,17 @@ public class EventInfoActivity extends Activity {
 			title.setText(currEvent.getTitle());
 			desc.setText(currEvent.getDescription());
 			//date.setText(currEvent.getDate().toString());
+			getEventMembers(currEvent);
+			
+			ListView list = (ListView) findViewById(R.id.listView1);
+			list.setAdapter(adapter);
+			
 		}
-		System.out.println("CurrEventMember " + events.size());
-		System.out.println("CurrEventMembers " + getEventMembers(currEvent));
-
-		adapter = new EventParticipantAdapter (EventInfoActivity.this, getEventMembers(currEvent));
-		listview.setAdapter(adapter);
+		
+		//adapter = new EventParticipantAdapter (EventInfoActivity.this, new );
+		//adapter.clear();
+		//adapter.addAll(events);
+		//listview.setAdapter(adapter);
 		
 		
 		/*
@@ -113,7 +124,6 @@ public class EventInfoActivity extends Activity {
 		if(e!=null) {
 			ParseQuery<EventMember> query = ParseQuery.getQuery(EventMember.class);
 			query.whereEqualTo(EventMember.EVENT, e);
-			System.out.println("Query Line117: " + query);
 			query.include("Member");
 			try {
 				List<EventMember> eventMembers = query.find();
@@ -121,6 +131,10 @@ public class EventInfoActivity extends Activity {
 				for(EventMember em : eventMembers) {
 					members.add(em.getMember());
 				}
+				adapter.clear();
+				
+				adapter.addAll(members);
+				
 			} catch (ParseException e1) {
 				e1.printStackTrace();
 			}

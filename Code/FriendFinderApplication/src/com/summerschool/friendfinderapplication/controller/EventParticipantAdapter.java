@@ -22,7 +22,7 @@ import com.summerschool.friendfinderapplication.models.EventMember;
 public class EventParticipantAdapter extends ArrayAdapter<ParseUser> {
 
 	private Context mContext;
-	private static List<ParseUser> mParticipants;
+	private List<ParseUser> mParticipants;
 	
 	public EventParticipantAdapter(Context context, List<ParseUser> participants) {
 		super(context, R.layout.activity_event_info, participants);
@@ -42,11 +42,13 @@ public class EventParticipantAdapter extends ArrayAdapter<ParseUser> {
 		
 		final ParseUser currentParticipant = mParticipants.get(position);
 		
-		TextView tv = (TextView) itemView.findViewById(R.id.eventpart);
+		/*TextView tv = (TextView) itemView.findViewById(R.id.listView1);
+		tv.setText(currentParticipant.getUsername());
 		Log.i("TEST", "test_event5");
+		System.out.println("TV: " + tv);
 		
 		tv.setText(currentParticipant.getUsername());
-		Log.i("TEST", "test_event6");
+		Log.i("TEST", "test_event6");*/
 		
 		return itemView;
 	}
