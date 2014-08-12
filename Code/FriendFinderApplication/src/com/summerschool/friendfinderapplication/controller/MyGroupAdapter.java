@@ -5,6 +5,7 @@ import java.util.List;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.summerschool.friendfinderapplication.R;
+import com.summerschool.friendfinderapplication.R.drawable;
 import com.summerschool.friendfinderapplication.activities.GroupDescriptionActivity;
 import com.summerschool.friendfinderapplication.activities.MapActivity;
 import com.summerschool.friendfinderapplication.models.Group;
@@ -55,15 +57,15 @@ public class MyGroupAdapter extends ArrayAdapter<Group> {
 				@Override
 				public void onClick(View v) {
 //					Toast.makeText(mContext, "This is " + currentGroup.getName(), Toast.LENGTH_SHORT).show();
-					if(currentGroup.isGPSActive()) {
+					//if( currentGroup.isGPSActive()) {
 						Intent goToMap = new Intent(mContext.getApplicationContext(), MapActivity.class);
 						goToMap.putExtra("GROUPNAME", currentGroup.getString("name"));
 						mContext.startActivity(goToMap);
 						Log.i("TEST", "activity started");
-					}else{
+					//}else{
 						//TODO make text color changement 
-						textView.setTextColor(Color.LTGRAY);
-					}
+						
+					//}
 				}
 			});
 						
@@ -72,14 +74,12 @@ public class MyGroupAdapter extends ArrayAdapter<Group> {
 			infButton.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					if(currentGroup.isGPSActive()) {
+					//if(currentGroup.isGPSActive()) {
 						Intent intent = new Intent(mContext, GroupDescriptionActivity.class);
 						intent.putExtra("GroupName", currentGroup.getName());
 						mContext.startActivity(intent);					
 						//Toast.makeText(mContext, "This is " + currentGroup.getName(), Toast.LENGTH_SHORT).show();
-					}else{
-						infButton.setBackgroundColor(Color.LTGRAY);
-					}
+					//}
 				}
 			});
 			
@@ -94,6 +94,16 @@ public class MyGroupAdapter extends ArrayAdapter<Group> {
 				@Override
 				public void onClick(View v) {
 					currentGroup.setGPSActive(!currentGroup.isGPSActive());
+					if(currentGroup.isGPSActive()){
+						textView.setTextColor(Color.BLACK);
+						textView.setEnabled(true);
+						infButton.setEnabled(true);
+						infButton.setBackgroundResource(drawable.ic_information38);	
+					}else{
+						textView.setTextColor(Color.LTGRAY);
+						textView.setEnabled(false);
+						infButton.setBackgroundResource(drawable.ic_action_location_found);
+					}
 					currentGroup.saveEventually();
 					try {
 						currentGroup.fetch();
