@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
@@ -28,29 +29,32 @@ public class POIInfoActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_poi_info);
+		Log.i(LOGTAG, "started");
 		
-		//TODO getExtra from Intent about what POI this is
-		//TODO need group and event identifier
 		Intent i = getIntent();
+		final String poiObjID = i.getStringExtra(POIInfoActivity.EXTRAS_MARKER_ID);
 		
-		final String currentPOIName = i.getStringExtra(EXTRAS_GROUPNAME);
-		
-		getActionBar().setTitle(currentPOIName); // TODO may work
-		
-		Log.i(LOGTAG, "asdf");
-		
-		ParseQuery<POI> q1 = ParseQuery.getQuery(POI.class);		
-		q1.whereEqualTo(POI.NAME, currentPOIName);
+		ParseQuery<POI> q1 = ParseQuery.getQuery(POI.class);
+		q1.whereEqualTo("objectId", poiObjID);
 		q1.findInBackground(new FindCallback<POI>() {
 			@Override
 			public void done(List<POI> pois, ParseException error) {
-				Log.i(LOGTAG, "found " + pois.size() + " POI's with the name " + currentPOIName);
+				Log.i(LOGTAG, "found " + pois.size() + " POI's with the id " + poiObjID);
 				if(pois.size() > 1) {
 					Toast.makeText(POIInfoActivity.this, "multiple POI's with that name found??", Toast.LENGTH_SHORT).show();
 				}
 				
-				POI currPOI = pois.get(0);
-				
+				if(pois.size() > 0) {
+					POI currPOI = pois.get(0);
+					getActionBar().setTitle(currPOI.getName());
+					
+					TextView title = (TextView) findViewById(R.id.poi_title);
+					TextView desc = (TextView) findViewById(R.id.poi_description);
+					
+					title.setText(currPOI.getName());
+					desc.setText(currPOI.getDescription());
+					
+				}
 			}
 		});
 	}
