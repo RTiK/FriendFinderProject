@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Switch;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -144,13 +143,23 @@ public class MapActivity extends Activity {
 					AlertDialog dialog = builder.create();
 					dialog.show();
 				} else {
-					// TODO
-//					Intent goToPOIInfo = new Intent(getApplicationContext(), POIInfoActivity);
-//					goToPOIInfo.putExtra("TODO", marker.getTitle());	// TODO
-//					startActivity(goToPOIInfo);
+					if (mGroupPOIHandler.getMarkers().containsKey(marker)) {
+						Log.i(LOGTAG, "POI tapped, display info");
+						Intent goToPoiInfo = new Intent(getApplicationContext(), POIInfoActivity.class);
+						goToPoiInfo.putExtra(POIInfoActivity.EXTRAS_GROUPNAME, mGroupName);
+						goToPoiInfo.putExtra(POIInfoActivity.EXTRAS_MARKER_ID, mGroupPOIHandler.getMarkers().get(marker));
+						startActivity(goToPoiInfo);
+					} else if (mGroupEventHandler.getMarkers().containsKey(marker)) {
+						Log.i(LOGTAG, "Event tapped, display info");
+						Intent goToEventInfo = new Intent(getApplicationContext(), EventInfoActivity.class);
+						goToEventInfo.putExtra(EventInfoActivity.EXTRAS_GROUPNAME, mGroupName);
+						goToEventInfo.putExtra(EventInfoActivity.EXTRAS_MARKER_ID, mGroupEventHandler.getMarkers().get(marker));
+						startActivity(goToEventInfo);
+					}
 				}
 			}
 		});
+		
 		mMap.setOnMapLongClickListener(new OnMapLongClickListener() {
 			
 			@Override

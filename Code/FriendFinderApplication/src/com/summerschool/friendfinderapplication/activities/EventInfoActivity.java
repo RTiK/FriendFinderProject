@@ -24,6 +24,9 @@ import com.summerschool.friendfinderapplication.models.EventMember;
 public class EventInfoActivity extends Activity {
 
 	private final static String LOGTAG = "EventInfoActivity";
+	public final static String EXTRAS_GROUPNAME = "GROUPNAME";
+	public final static String EXTRAS_MARKER_ID = "MARKER_ID";
+	
 	private Event currEvent;
 	
 	@Override

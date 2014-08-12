@@ -16,7 +16,6 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.summerschool.friendfinderapplication.models.Event;
 import com.summerschool.friendfinderapplication.models.Group;
-import com.summerschool.friendfinderapplication.models.POI;
 
 public class GroupEventHandler {
 	
