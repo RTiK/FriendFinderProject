@@ -1,6 +1,8 @@
 package com.summerschool.friendfinderapplication.activities;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 
@@ -124,6 +126,16 @@ public class GroupListActivity extends Activity {
 //				}
 //			}
 //		});
+		
+		Collections.sort(myJoinedGroups,new Comparator<Group>() {
+			@Override
+			public int compare(Group lhs, Group rhs) {
+				if(lhs.getName().equals(rhs.getName()))
+					return 0;
+				else 
+					return 1;
+			}
+		});
 		
 		adapter.clear();
 		adapter.addAll(myJoinedGroups);

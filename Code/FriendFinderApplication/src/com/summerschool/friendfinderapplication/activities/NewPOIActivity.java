@@ -11,6 +11,7 @@ import com.parse.ParseUser;
 import com.summerschool.friendfinderapplication.R;
 import com.summerschool.friendfinderapplication.models.Group;
 import com.summerschool.friendfinderapplication.models.POI;
+import com.summerschool.friendfinderapplication.models.UserLikesPOI;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -104,12 +105,25 @@ public class NewPOIActivity extends Activity {
 							p.setGPSLocation(new ParseGeoPoint(mLocation.latitude, mLocation.longitude));
 							p.setGroup(mCurrentGroup);
 							
-							//Try to save data in database
+							//save POI
 							try {
 								p.save();
-								Toast.makeText(getApplicationContext(), "POI created", Toast.LENGTH_LONG).show();		
+								Log.i(LOGTAG, "new POI entry created");
+								//Toast.makeText(getApplicationContext(), "POI created", Toast.LENGTH_LONG).show();		
 							} catch(ParseException e) {
 								Log.e(LOGTAG, "POI could not be created");
+							}
+							
+							//save like
+							UserLikesPOI ulp = new UserLikesPOI();
+							ulp.setPOI(p);
+							ulp.setUser(ParseUser.getCurrentUser());
+							try {
+								ulp.save();
+								Log.i(LOGTAG, "new UserLikesPOI entry created");
+								//Toast.makeText(getApplicationContext(), "POI created", Toast.LENGTH_LONG).show();
+							} catch (ParseException e) {
+								e.printStackTrace();
 							}
 							
 							finish();

@@ -47,30 +47,35 @@ public class MyGroupAdapter extends ArrayAdapter<Group> {
 			//Set the text of the TextField to the right name and its onclicklistener
 			TextView textView = (TextView) itemView.findViewById(R.id.item_poi_name);
 			textView.setText(currentGroup.getName());
-			textView.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-//					Toast.makeText(mContext, "This is " + currentGroup.getName(), Toast.LENGTH_SHORT).show();
-					
-					Intent goToMap = new Intent(mContext.getApplicationContext(), MapActivity.class);
-					goToMap.putExtra("GROUPNAME", currentGroup.getString("name"));
-					mContext.startActivity(goToMap);
-					Log.i("TEST", "activity started");
-					
-				}
-			});
 			
-			//Set onclicklistener for ImageButton
-			ImageButton infButton = (ImageButton) itemView.findViewById(R.id.item_group_info);
-			infButton.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					Intent intent = new Intent(mContext, GroupDescriptionActivity.class);
-					intent.putExtra("GroupName", currentGroup.getName());
-					mContext.startActivity(intent);					
-					//Toast.makeText(mContext, "This is " + currentGroup.getName(), Toast.LENGTH_SHORT).show();
-				}
-			});
+			if(currentGroup.isGPSActive()) {
+				textView.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+	//					Toast.makeText(mContext, "This is " + currentGroup.getName(), Toast.LENGTH_SHORT).show();
+						
+						Intent goToMap = new Intent(mContext.getApplicationContext(), MapActivity.class);
+						goToMap.putExtra("GROUPNAME", currentGroup.getString("name"));
+						mContext.startActivity(goToMap);
+						Log.i("TEST", "activity started");
+						
+					}
+				});
+			}
+			
+			if(currentGroup.isGPSActive()){
+				//Set onclicklistener for ImageButton
+				ImageButton infButton = (ImageButton) itemView.findViewById(R.id.item_group_info);
+				infButton.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(mContext, GroupDescriptionActivity.class);
+						intent.putExtra("GroupName", currentGroup.getName());
+						mContext.startActivity(intent);					
+						//Toast.makeText(mContext, "This is " + currentGroup.getName(), Toast.LENGTH_SHORT).show();
+					}
+				});
+			}
 			
 			//Set onclicklistener for GPS Switch
 			final Switch gpsSwitch = (Switch) itemView.findViewById(R.id.item_group_switch);
@@ -89,5 +94,6 @@ public class MyGroupAdapter extends ArrayAdapter<Group> {
 						
 			return itemView;
 		}
+		
 		
 	}
