@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,8 @@ public class POIInfoActivity extends Activity {
 	public final static String EXTRAS_GROUPNAME = "GROUPNAME";
 	public final static String EXTRAS_MARKER_ID = "MARKER_ID";
 	
+	private POI currPOI;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -31,8 +34,21 @@ public class POIInfoActivity extends Activity {
 		Log.i(LOGTAG, "started");
 
 		Intent i = getIntent();
-		final String poiObjID = i.getStringExtra(POIInfoActivity.EXTRAS_MARKER_ID);
+		getCurrentPOI(i.getStringExtra(POIInfoActivity.EXTRAS_MARKER_ID));
 		
+		
+		if(currPOI != null) {
+			getActionBar().setTitle(currPOI.getName());
+			
+			TextView title = (TextView) findViewById(R.id.poi_title);
+			TextView desc = (TextView) findViewById(R.id.poi_description);
+			
+			title.setText(currPOI.getName());
+			desc.setText(currPOI.getDescription());
+		}
+		
+	}
+	private void getCurrentPOI(final String poiObjID) {
 		ParseQuery<POI> q1 = ParseQuery.getQuery(POI.class);
 		q1.whereEqualTo("objectId", poiObjID);
 		q1.findInBackground(new FindCallback<POI>() {
@@ -42,17 +58,8 @@ public class POIInfoActivity extends Activity {
 				if(pois.size() > 1) {
 					Toast.makeText(POIInfoActivity.this, "multiple POI's with that name found??", Toast.LENGTH_SHORT).show();
 				}
-				
 				if(pois.size() > 0) {
-					POI currPOI = pois.get(0);
-					getActionBar().setTitle(currPOI.getName());
-					
-					TextView title = (TextView) findViewById(R.id.poi_title);
-					TextView desc = (TextView) findViewById(R.id.poi_description);
-					
-					title.setText(currPOI.getName());
-					desc.setText(currPOI.getDescription());
-					
+					currPOI = pois.get(0);
 				}
 			}
 		});
@@ -73,6 +80,18 @@ public class POIInfoActivity extends Activity {
 			}
 		}
 		return users;
+	}
+	
+	public void likeCurrPOI(final View v) {
+		//TODO
+	}
+	
+	public void dislikeCurrPOI(final View v) {
+		//TODO
+	}
+	
+	public void deleteCurrPOI(final View v) {
+		//TODO
 	}
 	
 }
