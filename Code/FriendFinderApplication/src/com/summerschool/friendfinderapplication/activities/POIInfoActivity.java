@@ -52,7 +52,7 @@ public class POIInfoActivity extends Activity {
 			desc.setText(currPOI.getDescription());
 		}
 		
-		//Buttons enabling in fonction of the user
+		//Buttons enabling/disabling in fonction of the user
 		Button blike = (Button) findViewById(R.id.poiLike);
 		Button bdislike = (Button) findViewById(R.id.poiDislike);
 		Button bdelete = (Button) findViewById(R.id.poiDelete);
