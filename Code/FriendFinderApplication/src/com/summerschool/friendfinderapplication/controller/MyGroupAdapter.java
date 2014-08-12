@@ -15,6 +15,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.ParseQuery;
 import com.summerschool.friendfinderapplication.R;
 import com.summerschool.friendfinderapplication.activities.GroupDescriptionActivity;
 import com.summerschool.friendfinderapplication.activities.MapActivity;
@@ -72,11 +73,17 @@ public class MyGroupAdapter extends ArrayAdapter<Group> {
 			});
 			
 			//Set onclicklistener for GPS Switch
-			Switch gpsSwitch = (Switch) itemView.findViewById(R.id.item_group_switch);
+			final Switch gpsSwitch = (Switch) itemView.findViewById(R.id.item_group_switch);
+			if(currentGroup.isGPSActive()) {
+				gpsSwitch.setChecked(true);	
+			} else {
+				gpsSwitch.setChecked(false);	
+			}
 			gpsSwitch.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Toast.makeText(mContext, "not implemented yet", Toast.LENGTH_SHORT).show();
+					currentGroup.setGPSActive(!currentGroup.isGPSActive());
+					currentGroup.saveEventually();
 				}
 			});
 						
