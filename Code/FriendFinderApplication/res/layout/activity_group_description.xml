@@ -32,8 +32,9 @@
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/description"> 
+        android:layout_height="match_parent"
+        android:layout_below="@+id/description"
+        android:fillViewport="true"> 
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,7 +45,7 @@
 	    <LinearLayout
 	        android:id="@+id/eventslist"
 	        android:layout_width="fill_parent"
-	        android:layout_height="fill_parent"
+	        android:layout_height="wrap_content"
 	        android:orientation="vertical" 
 	        android:layout_below="@+id/description">
 	        
@@ -61,6 +62,7 @@
 		       <ListView
 	           android:id="@+id/eventslistview"
 	           android:layout_width="match_parent"
+	           android:paddingLeft="10dp"
 	           android:layout_height="110dp" />
 	    </LinearLayout>  
 	      
@@ -68,7 +70,7 @@
 	    <LinearLayout
 	        android:id="@+id/poilist"
 	        android:layout_width="fill_parent"
-	        android:layout_height="fill_parent"
+	        android:layout_height="wrap_content"
 	        android:orientation="vertical" 
 	        android:layout_below="@+id/eventslist">
 	        
@@ -85,7 +87,8 @@
 		       <ListView
 	           android:id="@+id/poiListView"
 	           android:layout_width="match_parent"
-	           android:layout_height="110dp" />
+	           android:layout_height="110dp" 
+	           android:paddingLeft="10dp"/>
 	    </LinearLayout>
 	    
 	    
@@ -93,7 +96,7 @@
 	    <LinearLayout
 	        android:id="@+id/memberlist"
 	        android:layout_width="fill_parent"
-	        android:layout_height="fill_parent"
+	        android:layout_height="wrap_content"
 	        android:orientation="vertical" 
 	        android:layout_below="@+id/poilist">
 	        
@@ -110,7 +113,8 @@
 		       <ListView
 	           android:id="@+id/memberListView"
 	           android:layout_width="match_parent"
-	           android:layout_height="110dp" />
+	           android:paddingLeft="10dp"
+	           android:layout_height="match_parent" />
 	    </LinearLayout>  
     </LinearLayout>  
     </ScrollView>
