@@ -67,7 +67,7 @@ public class POIInfoActivity extends Activity {
 		 Button bjoin = (Button) findViewById(R.id.join_grou_button);
 	        Button bcreate = (Button) findViewById(R.id.create_group_button);
 	        
-
+/*
 	        String s1 = editText1.getText().toString();
 	        String s2 = editText2.getText().toString();
 	        if(s2.equals("") )
@@ -120,7 +120,7 @@ public class POIInfoActivity extends Activity {
 		
 		
 		
-		
+		*/
 		
 		
 	}
