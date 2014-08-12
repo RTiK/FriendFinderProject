@@ -49,6 +49,7 @@ public class MyEventListAdapter extends ArrayAdapter<Event>{
 				Intent goToMap = new Intent(mContext.getApplicationContext(), MapActivity.class);
 				goToMap.putExtra(MapActivity.EXTRA_FOCUS_LATITUDE, p.getLatitude());
 				goToMap.putExtra(MapActivity.EXTRA_FOCUS_LONGITUDE, p.getLongitude());
+				goToMap.putExtra(MapActivity.EXTRA_GROUPNAME, currentEvent.getGroup().getName());
 				mContext.startActivity(goToMap);
 			}
 		});

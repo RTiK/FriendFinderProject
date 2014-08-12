@@ -52,6 +52,7 @@ public class MyPOIListAdapter extends ArrayAdapter<POI> {
 					Intent goToMap = new Intent(mContext.getApplicationContext(), MapActivity.class);
 					goToMap.putExtra(MapActivity.EXTRA_FOCUS_LATITUDE, p.getLatitude());
 					goToMap.putExtra(MapActivity.EXTRA_FOCUS_LONGITUDE, p.getLongitude());
+					goToMap.putExtra(MapActivity.EXTRA_GROUPNAME, currentPOI.getGroup().getName());
 					mContext.startActivity(goToMap);
 				}
 			});

@@ -58,7 +58,7 @@ public class MyPOIListActivity extends Activity {
 		ParseQuery<POI> query = ParseQuery.getQuery(POI.class);
 		//query.whereMatchesQuery(POI.USER_LIKES_POI, innerQuery);
 		query.whereEqualTo(POI.CREATOR, ParseUser.getCurrentUser());
-		
+		query.include(POI.GROUP);
 		List<POI> pois;
 		try {
 			pois = query.find();
