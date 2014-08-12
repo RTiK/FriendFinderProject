@@ -1,5 +1,6 @@
 package com.summerschool.friendfinderapplication.activities;
 
+import java.util.Calendar;
 import java.util.List;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -13,13 +14,19 @@ import com.summerschool.friendfinderapplication.models.Event;
 import com.summerschool.friendfinderapplication.models.Group;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 public class NewEventActivity extends Activity {
@@ -34,12 +41,27 @@ public class NewEventActivity extends Activity {
 	private String mGroupName;
 	private Group mCurrentGroup;
 	
+	private EditText OutputDate;
+	private EditText OutputTime;
+	 
+	private int year;
+    private int month;
+    private int day;
+    
+    private int hour;
+    private int minute;
+    private boolean morning;
+ 
+    static final int DATE_PICKER_ID = 1111; 
+    static final int TIME_PICKER_ID = 2222; 
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_new_poi);	// TODO change to activity_new_event as soon as the file is created
+		setContentView(R.layout.activity_new_event);	// TODO change to activity_new_event as soon as the file is created
 		
 		Intent i = getIntent();
+		
 		if (i.hasExtra(EXTRA_MARKER_LATITUDE) && i.hasExtra(EXTRA_MARKER_LONGITUDE) && i.hasExtra(EXTRA_GROUPNAME)) {
 			mGroupName = i.getStringExtra(EXTRA_GROUPNAME);
 			mLocation = new LatLng(i.getDoubleExtra(EXTRA_MARKER_LATITUDE, 0.0), i.getDoubleExtra(EXTRA_MARKER_LONGITUDE, 0.0));
@@ -48,8 +70,40 @@ public class NewEventActivity extends Activity {
 			Log.e(LOGTAG, "Invalid coordinates or groupname");
 			finish();
 		}
+		
+		OutputDate = (EditText) findViewById(R.id.eventDate);
+		OutputTime = (EditText) findViewById(R.id.eventTime);
+	 
+        // Get current date by calender
+        final Calendar c = Calendar.getInstance();
+        year  = c.get(Calendar.YEAR);
+        month = c.get(Calendar.MONTH);
+        day   = c.get(Calendar.DAY_OF_MONTH);
+        hour  = c.get(Calendar.HOUR_OF_DAY);
+        minute= c.get(Calendar.MINUTE);
+ 
+        // Show current date
+         
+        OutputDate.setText(new StringBuilder()
+                // Month is 0 based, just add 1
+                .append(month + 1).append("-").append(day).append("-")
+                .append(year).append(" "));
+        
+        OutputTime.setText(new StringBuilder()
+            .append(hour).append(":").append(minute));
+				
 	}
-
+	
+	public void onClickDate(final View v)
+	{
+		showDialog(DATE_PICKER_ID);
+	}
+	
+	public void onClickTime(final View v)
+	{
+		showDialog(TIME_PICKER_ID);
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -160,4 +214,51 @@ public class NewEventActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	@Override
+    protected Dialog onCreateDialog(int id) {
+        switch (id) {
+        case DATE_PICKER_ID:
+             
+            // open datepicker dialog. 
+            // set date picker for current date 
+            // add pickerListener listner to date picker
+            return new DatePickerDialog(this, pickerListener, year, month,day);
+        case TIME_PICKER_ID:
+        	return new TimePickerDialog(this, timePickerListener, hour, minute, morning);
+        }
+        return null;
+    }
+	
+	private DatePickerDialog.OnDateSetListener pickerListener = new DatePickerDialog.OnDateSetListener() {
+		 
+		// when dialog box is closed, below method will be called.
+        @Override
+        public void onDateSet(DatePicker view, int selectedYear,
+                int selectedMonth, int selectedDay) {
+             
+            year  = selectedYear;
+            month = selectedMonth;
+            day   = selectedDay;
+ 
+            // Show selected date 
+        OutputDate.setText(new StringBuilder().append(month + 1)
+                .append("-").append(day).append("-").append(year)
+                .append(" "));
+ 
+       }
+    };
+    
+    private TimePickerDialog.OnTimeSetListener timePickerListener = new TimePickerDialog.OnTimeSetListener() {
+		
+		@Override
+		public void onTimeSet(TimePicker view, int hourOfDay, int selectedMinute) {
+			// TODO Auto-generated method stub
+			hour = hourOfDay;
+			minute = selectedMinute;
+			
+			OutputTime.setText(hour + ":" + minute);
+			
+		}
+    };
 }

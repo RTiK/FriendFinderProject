@@ -206,8 +206,8 @@ public class MapActivity extends Activity {
 		if (i.hasExtra(EXTRA_FOCUS_LATITUDE) && i.hasExtra(EXTRA_FOCUS_LONGITUDE)) {
 			Log.i(LOGTAG, "Zoom position provided by intent");
 			focus = new LatLng(
-					i.getFloatExtra(EXTRA_FOCUS_LATITUDE, 0),
-					i.getFloatExtra(EXTRA_FOCUS_LONGITUDE, 0));
+					i.getDoubleExtra(EXTRA_FOCUS_LATITUDE, 0),
+					i.getDoubleExtra(EXTRA_FOCUS_LONGITUDE, 0));
 		} else {
 			Log.i(LOGTAG, "Zoom position not provided");
 			ParseUser user = ParseUser.getCurrentUser();

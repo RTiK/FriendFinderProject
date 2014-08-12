@@ -58,7 +58,7 @@ public class MyPOIListActivity extends Activity {
 		ParseQuery<POI> query = ParseQuery.getQuery(POI.class);
 		//query.whereMatchesQuery(POI.USER_LIKES_POI, innerQuery);
 		query.whereEqualTo(POI.CREATOR, ParseUser.getCurrentUser());
-		
+		query.include(POI.GROUP);
 		List<POI> pois;
 		try {
 			pois = query.find();
@@ -68,7 +68,6 @@ public class MyPOIListActivity extends Activity {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-
 	}
 	
 	private void populateEventList() {
@@ -76,15 +75,8 @@ public class MyPOIListActivity extends Activity {
 		list.setAdapter(adapter);
 	}
 	
-
-	
 	public void onClickGroupsButton(final View v) {
 		Intent intent = new Intent(MyPOIListActivity.this, GroupListActivity.class);
 		startActivity(intent);
-	}
-
-
-
-
-	
+	}	
 }

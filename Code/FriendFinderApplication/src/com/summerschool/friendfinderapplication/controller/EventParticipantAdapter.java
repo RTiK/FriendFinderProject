@@ -42,14 +42,6 @@ public class EventParticipantAdapter extends ArrayAdapter<ParseUser> {
 		
 		TextView tv = (TextView) itemView.findViewById(R.layout.activity_event_info);
 		tv.setText(currentParticipant.getUsername());
-		/*
-		tv.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				//TODO Make intent to MapActivity to show position of this event
-				Toast.makeText(mContext, "Username: " + currentEventParticipant.getUsername(), Toast.LENGTH_SHORT).show();
-			}
-		}); */
 		
 		return itemView;
 	}

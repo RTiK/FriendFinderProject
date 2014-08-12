@@ -2,13 +2,20 @@ package com.summerschool.friendfinderapplication.activities;
 
 import java.util.List;
 
+import android.R.drawable;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.CountCallback;
@@ -23,7 +30,32 @@ import com.summerschool.friendfinderapplication.models.Group;
 import com.summerschool.friendfinderapplication.models.GroupMember;
 
 public class NewGroupActivity extends Activity {
+	
+	
+    private EditText editText1;
+    private EditText editText2;
 
+
+    //TextWatcher
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3)
+       {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            checkFieldsForEmptyValues();
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+        	
+        }
+    
+    };
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -33,6 +65,14 @@ public class NewGroupActivity extends Activity {
  
         // Enabling Up / Back navigation
         actionBar.setDisplayHomeAsUpEnabled(true);
+        editText1 = (EditText) findViewById(R.id.group_name);
+        editText2 = (EditText) findViewById(R.id.group_desc);
+        //set listeners
+        editText1.addTextChangedListener(textWatcher);
+        editText2.addTextChangedListener(textWatcher);
+
+        // run once to disable if empty
+        checkFieldsForEmptyValues();
 	}
 	
 	public void onClickCreateGroupButton(final View v) {
@@ -40,6 +80,8 @@ public class NewGroupActivity extends Activity {
 		//create new group
 		EditText newNameTextField = (EditText) findViewById(R.id.group_name);		
 		final String newGroupName = newNameTextField.getText().toString().trim();
+		EditText newDescTextField = (EditText) findViewById(R.id.group_desc);
+		final String newGroupDesc = newDescTextField.getText().toString().trim();
 		
 		if(newGroupName == null || newGroupName.length() < 1) {
 			Toast.makeText(this, "Group can't be empty", Toast.LENGTH_SHORT).show();
@@ -62,7 +104,7 @@ public class NewGroupActivity extends Activity {
 						Group g = new Group();
 						g.setOwner(ParseUser.getCurrentUser());
 						g.setName(newGroupName);
-						g.setDescription("Dummy Description");
+						g.setDescription(newGroupDesc);
 						g.setGPSActive(true);
 						try {
 							g.save();
@@ -197,4 +239,59 @@ public class NewGroupActivity extends Activity {
 		startActivity(intent);
 		finish();		
 	}
+	   
+	private  void checkFieldsForEmptyValues(){
+	        Button bjoin = (Button) findViewById(R.id.join_grou_button);
+	        Button bcreate = (Button) findViewById(R.id.create_group_button);
+	        
+
+	        String s1 = editText1.getText().toString();
+	        String s2 = editText2.getText().toString();
+	        if(s2.equals("") )
+	        {
+	            bjoin.setEnabled(true);
+	            bjoin.setBackground(this.getResources().getDrawable(R.drawable.buttonsaction));
+	        }
+	        	
+	        else
+	        {
+	            bjoin.setEnabled(false);
+	            bjoin.setBackgroundColor(Color.GRAY);
+	        }
+
+
+	        
+	        
+	        
+	        if(s1.equals("") && s2.equals(""))
+	        {
+	            bjoin.setEnabled(false);
+	            bjoin.setBackgroundColor(Color.GRAY);
+	            bcreate.setEnabled(false);
+	            bcreate.setBackgroundColor(Color.GRAY);
+	        }
+
+	        else if(!s1.equals("")&&s2.equals("")){
+	            bcreate.setEnabled(false);
+	            bcreate.setBackgroundColor(Color.GRAY);
+	        	bjoin.setEnabled(true);
+	            bjoin.setBackground(this.getResources().getDrawable(R.drawable.buttonsaction));
+	        }
+
+	        else if(s1.equals("")&&!s2.equals(""))
+	        {
+	            bjoin.setEnabled(false);
+	            bjoin.setBackgroundColor(Color.GRAY);
+	            bcreate.setEnabled(false);
+	            bcreate.setBackgroundColor(Color.GRAY);
+	        }
+
+	        else
+	        {
+	            bjoin.setEnabled(false);
+	            bjoin.setBackgroundColor(Color.GRAY);
+	            bcreate.setEnabled(true);
+	            bcreate.setBackground(this.getResources().getDrawable(R.drawable.buttonsaction));
+	        }
+	    }
 }

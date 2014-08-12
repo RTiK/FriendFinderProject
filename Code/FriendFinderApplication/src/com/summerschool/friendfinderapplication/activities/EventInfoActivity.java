@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.summerschool.friendfinderapplication.R;
+import com.summerschool.friendfinderapplication.controller.EventParticipantAdapter;
 import com.summerschool.friendfinderapplication.models.Event;
 import com.summerschool.friendfinderapplication.models.EventMember;
 
@@ -59,13 +61,15 @@ public class EventInfoActivity extends Activity {
 					desc.setText(currEvent.getDescription());
 					date.setText(currEvent.getDate().toString());
 					
-					//TODO Memberliste anzeigen
-					
-				}
-				
-				
+					//TODO Memberliste anzeigen					
+				}								
 			}
 		});
+		
+		final ListView listview = (ListView) findViewById(R.id.listView1);
+		EventParticipantAdapter adapter = new EventParticipantAdapter (this, getEventMembers(currEvent));
+		listview.setAdapter(adapter);
+
 	}
 	
 	private List<ParseUser> getEventMembers(Event e) {

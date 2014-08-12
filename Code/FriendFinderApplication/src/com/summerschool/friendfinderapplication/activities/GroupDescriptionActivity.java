@@ -57,8 +57,6 @@ public class GroupDescriptionActivity extends Activity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         
         Log.i("ActionBar","OK");
-        // Enabling Up / Back navigation
-        actionBar.setDisplayHomeAsUpEnabled(true);
         Log.i("ActionBar displayed","OK");
 		String groupName = getIntent().getStringExtra("GroupName");
 		Log.i("groupName imported","OK");
@@ -125,7 +123,7 @@ public class GroupDescriptionActivity extends Activity {
     	// Take appropriate action for each action item click
         switch (item.getItemId()) {
         case R.id.action_leaveGroup:
-            // search action
+            // Leave group action
         	ActionLeaveGroup(getIntent().getStringExtra("groupName"));
             return true;
         default:
@@ -138,15 +136,12 @@ public class GroupDescriptionActivity extends Activity {
      * */	
     private void ActionLeaveGroup(String groupName) {
     	
-    	 //TODO Leave group when here !
-    	
     	final boolean alone = false;
 		//The group is known
 		Log.i("groupName",groupName);
 		//the userName too
 		Log.i("username", ParseUser.getCurrentUser().toString());
-		
-		
+	
 		//Find the user entity in the Parse database
 		ParseQuery<GroupMember> userInfo = ParseQuery.getQuery(GroupMember.class);
 		//find specific user
@@ -159,7 +154,7 @@ public class GroupDescriptionActivity extends Activity {
 			public void done(List<GroupMember> users, ParseException error) {
 				if(users != null) { //you are at least in the chosen group
 					if(users.size() > 1) { //Your are registered twice in the group
-						Log.i("Error","too muche members : " + users.size());
+						Log.i("Error","too much members : " + users.size());
 					} 
 					else { //There is only one line that matches
 						Log.i("error","Only  one line matches");
@@ -242,9 +237,7 @@ public class GroupDescriptionActivity extends Activity {
 		ListView list = (ListView) findViewById(R.id.memberListView);
 		list.setAdapter(adapter);
 	}	
-
 	
-
 	public void onClickMapButton(final View v) {
 		//TODO
 		Intent intent = new Intent(GroupDescriptionActivity.this, MapActivity.class);
