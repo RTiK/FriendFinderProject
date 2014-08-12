@@ -38,7 +38,7 @@ public class NewPOIActivity extends Activity {
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_new_event);
+		setContentView(R.layout.activity_my_poi);
 		
 		Intent i = getIntent();
 		
