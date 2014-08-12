@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.maps.MapActivity;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -83,15 +84,37 @@ public class POIInfoActivity extends Activity {
 	}
 	
 	public void likeCurrPOI(final View v) {
-		//TODO
+		UserLikesPOI elp = new UserLikesPOI();
+		elp.put(UserLikesPOI.USER, ParseUser.getCurrentUser());
+		elp.put(UserLikesPOI.POI, currPOI);
+		try {
+			elp.save();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void dislikeCurrPOI(final View v) {
-		//TODO
+		ParseQuery<UserLikesPOI> query = ParseQuery.getQuery(UserLikesPOI.class);
+		query.whereEqualTo(UserLikesPOI.POI, currPOI);
+		query.whereEqualTo(UserLikesPOI.USER, ParseUser.getCurrentUser());
+		try {
+			UserLikesPOI.deleteAll((List) query.find()); 
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void deleteCurrPOI(final View v) {
-		//TODO
+		try {
+			currPOI.delete();
+			//Intent i = new Intent(POIInfoActivity.this, MapActivity.class);
+			//startActivity(i);			
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}		
+		finish();
 	}
 	
 }
