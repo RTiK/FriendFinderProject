@@ -77,4 +77,15 @@
         android:text="Medium Text"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    <Button
+        android:id="@+id/delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/unsubscribe"
+        android:layout_alignBottom="@+id/unsubscribe"
+        android:layout_toLeftOf="@+id/event_time"
+        android:text="Delete"
+        android:onClick="deleteEvent" />
+    
+
 </RelativeLayout>

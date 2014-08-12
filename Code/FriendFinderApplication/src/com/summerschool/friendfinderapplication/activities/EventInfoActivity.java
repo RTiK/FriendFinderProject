@@ -62,7 +62,7 @@ public class EventInfoActivity extends Activity {
 					
 					title.setText(currEvent.getTitle());
 					desc.setText(currEvent.getDescription());
-					date.setText(currEvent.getDate().toString());
+					//date.setText(currEvent.getDate().toString());
 					
 					//TODO Memberliste anzeigen					
 				}								
@@ -72,6 +72,11 @@ public class EventInfoActivity extends Activity {
 		final ListView listview = (ListView) findViewById(R.id.listView1);
 		EventParticipantAdapter adapter = new EventParticipantAdapter (this, getEventMembers(currEvent));
 		listview.setAdapter(adapter);
+		
+		if(ParseUser.getCurrentUser().getObjectId().toString().trim().equals(currEvent.getOwner().getObjectId().toString().trim()))
+		{
+			Toast.makeText(getApplicationContext(), "test", Toast.LENGTH_LONG).show();
+		}
 
 	}
 	
@@ -145,77 +150,54 @@ public class EventInfoActivity extends Activity {
 			
 	}
 	
-	private void deleteEvent()
+	public void deleteEvent(final View v)
 	{
-		ParseQuery<Event> eventQuery = ParseQuery.getQuery(Event.class);
-		eventQuery.whereEqualTo(Event.TITLE, currEvent.getTitle());
-		eventQuery.whereEqualTo(Event.OWNER, ParseUser.getCurrentUser());
-		eventQuery.findInBackground(new FindCallback<Event>() {
-			public void done(List<Event> e, ParseException err)
-			{
-				if(e != null)
+		if(ParseUser.getCurrentUser().getObjectId().toString().trim().equals(currEvent.getOwner().getObjectId().toString().trim()))
+		{	
+			ParseQuery<Event> eventQuery = ParseQuery.getQuery(Event.class);
+			eventQuery.whereEqualTo(Event.TITLE, currEvent.getTitle());
+			eventQuery.whereEqualTo(Event.OWNER, ParseUser.getCurrentUser());
+			eventQuery.findInBackground(new FindCallback<Event>() {
+				public void done(List<Event> e, ParseException err)
 				{
-					if(e.size() == 1)
+					if(e != null)
 					{
-						e.get(0).deleteInBackground(new DeleteCallback() {
-							
-							@Override
-							public void done(ParseException arg0) {
-								// TODO Auto-generated method stub
-								if(arg0 != null)
-								{
-									Toast.makeText(getApplicationContext(), "We can't delete the association", Toast.LENGTH_LONG).show();
-								}
+						if(e.size() == 1)
+						{
+							e.get(0).deleteInBackground(new DeleteCallback() {
 								
-							}
-						});
+								@Override
+								public void done(ParseException arg0) {
+									// TODO Auto-generated method stub
+									if(arg0 != null)
+									{
+										Toast.makeText(getApplicationContext(), "We can't delete the association", Toast.LENGTH_LONG).show();
+									}
+									
+								}
+							});
+						}
 					}
 				}
+			});
+			
+			ParseQuery<EventMember> query = ParseQuery.getQuery(EventMember.class);
+			query.whereEqualTo(EventMember.EVENT, currEvent);
+			try {
+				@SuppressWarnings({ "unchecked", "rawtypes" })
+				List<ParseObject> emList2 = (List) query.find();
+				ParseObject.deleteAll(emList2);
+				
+			} catch (ParseException e) {
+				e.printStackTrace();
 			}
-		});
-		
+		}
+		else
+		{
+			Toast.makeText(getApplicationContext(), "You can't delete a group that you don't own", Toast.LENGTH_SHORT).show();
+		}
 	}
 	
-	private void LeaveEvent()
-	{
-		ParseQuery<EventMember> eventMemberQuery = ParseQuery.getQuery(EventMember.class);
-		eventMemberQuery.whereEqualTo(EventMember.MEMBER, ParseUser.getCurrentUser());
-		eventMemberQuery.whereEqualTo(EventMember.EVENT, currEvent);
-		eventMemberQuery.setCachePolicy(CachePolicy.CACHE_THEN_NETWORK);
-		eventMemberQuery.findInBackground(new FindCallback<EventMember>() {
-			public void done(List<EventMember> e, ParseException err)
-			{
-				if(e != null)
-				{
-					if(e.size() == 1)
-					{
-						e.get(0).deleteInBackground(new DeleteCallback() {
-							
-							@Override
-							public void done(ParseException arg0) {
-								// TODO Auto-generated method stub
-								if(arg0 != null)
-								{
-									Toast.makeText(getApplicationContext(), "You leave this Event !", Toast.LENGTH_LONG).show();
-								}
-								else
-								{
-									Toast.makeText(getApplicationContext(), "We can't delete the association", Toast.LENGTH_LONG).show();
-								}
-							}
-						});
-					}
-					else
-					{
-						Toast.makeText(getApplicationContext(), "There is too many association", Toast.LENGTH_LONG).show();
-					}
-				}
-				else
-				{
-					Toast.makeText(getApplicationContext(), "We can't find the association between this group and this user", Toast.LENGTH_LONG).show();
-				}
-			}
-		});
-	}
+	
 }
 
