@@ -90,8 +90,8 @@ public class NewGroupActivity extends Activity {
 			//save new group in parse				
 			ParseUser currentUser = ParseUser.getCurrentUser();
 			if(currentUser == null){
-				Intent intent = new Intent(this, ConnectionActivity.class);
-				startActivity(intent);
+//				Intent intent = new Intent(this, ConnectionActivity.class);
+//				startActivity(intent);
 				finish();
 			}
 			ParseQuery<Group> validGroupQuery = ParseQuery.getQuery(Group.class);
@@ -109,8 +109,8 @@ public class NewGroupActivity extends Activity {
 						try {
 							g.save();
 							//intent back to group list view
-							Intent i = new Intent(NewGroupActivity.this,GroupListActivity.class);
-							startActivity(i);
+//							Intent i = new Intent(NewGroupActivity.this,GroupListActivity.class);
+//							startActivity(i);
 							finish();
 						} catch (ParseException e) {
 							Toast.makeText(NewGroupActivity.this, "Was not able to save", Toast.LENGTH_SHORT).show();

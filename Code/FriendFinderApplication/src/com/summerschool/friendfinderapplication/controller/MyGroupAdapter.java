@@ -17,6 +17,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.summerschool.friendfinderapplication.R;
 import com.summerschool.friendfinderapplication.activities.GroupDescriptionActivity;
@@ -94,6 +95,11 @@ public class MyGroupAdapter extends ArrayAdapter<Group> {
 				public void onClick(View v) {
 					currentGroup.setGPSActive(!currentGroup.isGPSActive());
 					currentGroup.saveEventually();
+					try {
+						currentGroup.fetch();
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
 				}
 			});
 						
