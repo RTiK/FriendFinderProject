@@ -58,6 +58,9 @@ public class MapActivity extends Activity {
 	private GroupEventHandler mGroupEventHandler;
 	private String mGroupName;
 	private static Marker mNewMarker;
+	
+	private boolean mPOIState;
+	private boolean mEventState;
 
 
 	@Override
@@ -95,12 +98,18 @@ public class MapActivity extends Activity {
 		super.onResume();
 		mNewMarker.setVisible(false);
 		// reload markers on activity resume
-		// TODO
 		mGroupEventHandler.reload();
 		mGroupPOIHandler.reload();
 		mGroupUserHandler.reload();
 		Log.i(LOGTAG, "Markers reloaded");
-		
+		if (mPOIState) {
+			mGroupPOIHandler.showPOIs();
+			Log.i(LOGTAG, "Show POIs");
+		}
+		if (mEventState) {
+			mGroupEventHandler.showEvents();
+			Log.i(LOGTAG, "Show events");
+		}
 	}
 	
 	private void initToggles() {
@@ -109,10 +118,11 @@ public class MapActivity extends Activity {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				Log.i(LOGTAG, "Events button pressed");
-				if (isChecked)
-					mGroupEventHandler.showEvents();
-				else
-					mGroupEventHandler.removeEvents();
+				mEventState = isChecked;
+//				if (isChecked)
+//					mGroupEventHandler.showEvents();
+//				else
+//					mGroupEventHandler.removeEvents();
 			}
 		});
 		mToggleUsers = (ToggleButton) findViewById(R.id.mapToggleUsers);
@@ -131,10 +141,11 @@ public class MapActivity extends Activity {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				Log.i(LOGTAG, "POI button pressed");
-				if (isChecked)
-					mGroupPOIHandler.showPOIs();
-				else
-					mGroupPOIHandler.removePOIs();
+				mPOIState = isChecked;
+//				if (isChecked)
+//					mGroupPOIHandler.showPOIs();
+//				else
+//					mGroupPOIHandler.removePOIs();
 			}
 		});
 	}
