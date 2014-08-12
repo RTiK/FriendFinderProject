@@ -20,7 +20,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.Toast;
 
 public class NewPOIActivity extends Activity {
@@ -40,7 +39,6 @@ public class NewPOIActivity extends Activity {
 		setContentView(R.layout.activity_new_poi);
 		
 		Intent i = getIntent();
-		
 		if (i.hasExtra(EXTRA_MARKER_LATITUDE) && i.hasExtra(EXTRA_MARKER_LONGITUDE) && i.hasExtra(EXTRA_GROUPNAME)) {
 			mGroupName = i.getStringExtra(EXTRA_GROUPNAME);
 			mLocation = new LatLng(i.getDoubleExtra(EXTRA_MARKER_LATITUDE, Double.NaN),
@@ -68,7 +66,7 @@ public class NewPOIActivity extends Activity {
 		final String mName = markerName.getText().toString().trim();
 		final String mDescription = markerDescription.getText().toString().trim();
 
-		//marker must have a name
+		//Check whether all necessary information has been added
 		if(mName.length() < 1) {
 			Log.e(LOGTAG, "Marker name is empty");
 			Toast.makeText(getApplicationContext(), "Please enter POI name", Toast.LENGTH_LONG).show();
