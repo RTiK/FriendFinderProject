@@ -18,7 +18,6 @@ import android.provider.ContactsContract.CommonDataKinds.Event;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
@@ -212,18 +211,4 @@ public class NewMarkerActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
-	public void onRadioButtonClicked(View view) {
-		
-		Button create = (Button) findViewById(R.id.createMarker);
-		RadioButton category_event = (RadioButton) findViewById(R.id.event);
-		RadioButton category_poi = (RadioButton) findViewById(R.id.poi);
-		
-        if(category_event.isChecked()){
-	                create.setVisibility(View.VISIBLE);
-	                }
-        else if(category_poi.isChecked()){
-        			create.setVisibility(View.VISIBLE);
-        			}
-	}  	
 }
