@@ -32,7 +32,7 @@ public class GroupEventHandler {
 	}
 	
 	public HashMap<Marker, String> getMarkers() {
-		return mMarkers;
+		return (HashMap<Marker, String>) mMarkers.clone();
 	}
 	
 	public void showEvents() {
@@ -52,6 +52,7 @@ public class GroupEventHandler {
 	}
 	
 	private void getEventsOfGroup() {
+		mMarkers.clear();
 		if (mGroupName != null && !mGroupName.equals("")) {
 			Log.i(LOGTAG, mGroupName);
 			

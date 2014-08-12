@@ -1,5 +1,6 @@
 package com.summerschool.friendfinderapplication.handlers;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,6 +30,10 @@ public class GroupUserHandler {
 		getUsersOfGroup();
 	}
 	
+	public LinkedList<Marker> getMarkers() {
+		return (LinkedList<Marker>) mMarkers.clone();
+	}
+	
 	public void showActiveUsers() {
 		Log.i(GroupUserHandler.class.getName(), "Displaying " + mMarkers.size() + " users");
 		for (Marker marker : mMarkers)
@@ -46,6 +51,7 @@ public class GroupUserHandler {
 	}
 	
 	private void getUsersOfGroup() {
+		mMarkers.clear();
 		if (mGroupName != null && !mGroupName.equals("")) {
 			Log.i("LOCATION", mGroupName);
 			

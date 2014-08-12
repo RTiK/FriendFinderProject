@@ -32,7 +32,7 @@ public class GroupPOIHandler {
 	}
 	
 	public HashMap<Marker, String> getMarkers() {
-		return mMarkers;
+		return (HashMap<Marker, String>) mMarkers.clone();
 	}
 	
 	public void showPOIs() {
@@ -52,6 +52,7 @@ public class GroupPOIHandler {
 	}
 	
 	private void getPOIsOfGroup() {
+		mMarkers.clear();
 		if (mGroupName != null && !mGroupName.equals("")) {
 			Log.i(LOGTAG, mGroupName);
 			

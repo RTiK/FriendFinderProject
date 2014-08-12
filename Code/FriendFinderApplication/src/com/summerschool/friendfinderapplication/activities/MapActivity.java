@@ -1,6 +1,11 @@
 package com.summerschool.friendfinderapplication.activities;
 
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Map;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -59,8 +64,9 @@ public class MapActivity extends Activity {
 	private String mGroupName;
 	private static Marker mNewMarker;
 	
-	private boolean mPOIState;
-	private boolean mEventState;
+	private boolean mPrevPOIState;
+	private boolean mPrevEventState;
+	private boolean mPrevUsersState;
 
 
 	@Override
@@ -98,18 +104,36 @@ public class MapActivity extends Activity {
 		super.onResume();
 		mNewMarker.setVisible(false);
 		// reload markers on activity resume
+		HashMap<Marker, String> tempEventMarkers = mGroupEventHandler.getMarkers();
+		Log.i(LOGTAG, "Event markers " + tempEventMarkers.size());
+		HashMap<Marker, String> tempPOIMarkers = mGroupPOIHandler.getMarkers();
+		Log.i(LOGTAG, "POI markers " + tempPOIMarkers.size());
+		LinkedList<Marker> tempUserMarkers = mGroupUserHandler.getMarkers();
+		Log.i(LOGTAG, "User markers " + tempUserMarkers.size());
+		
 		mGroupEventHandler.reload();
 		mGroupPOIHandler.reload();
 		mGroupUserHandler.reload();
-		Log.i(LOGTAG, "Markers reloaded");
-		if (mPOIState) {
+
+		if (mPrevEventState)
+			mGroupEventHandler.showEvents();		
+		if (mPrevPOIState)
 			mGroupPOIHandler.showPOIs();
-			Log.i(LOGTAG, "Show POIs");
-		}
-		if (mEventState) {
-			mGroupEventHandler.showEvents();
-			Log.i(LOGTAG, "Show events");
-		}
+		if (mPrevUsersState)
+			mGroupUserHandler.showActiveUsers();
+		
+		for (Map.Entry<Marker, String> marker : tempEventMarkers.entrySet())
+			marker.getKey().setVisible(false);
+		for (Map.Entry<Marker, String> marker : tempPOIMarkers.entrySet())
+			marker.getKey().setVisible(false);
+		for (Marker marker : tempUserMarkers)
+			marker.setVisible(false);
+		
+		Log.i(LOGTAG, "Markers reloaded");
+		Log.i(LOGTAG, "Event markers " + tempEventMarkers.size());
+		Log.i(LOGTAG, "POI markers " + tempPOIMarkers.size());
+		Log.i(LOGTAG, "User markers " + tempUserMarkers.size());
+
 	}
 	
 	private void initToggles() {
@@ -118,11 +142,11 @@ public class MapActivity extends Activity {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				Log.i(LOGTAG, "Events button pressed");
-				mEventState = isChecked;
-//				if (isChecked)
-//					mGroupEventHandler.showEvents();
-//				else
-//					mGroupEventHandler.removeEvents();
+				mPrevEventState = isChecked;
+				if (isChecked)
+					mGroupEventHandler.showEvents();
+				else
+					mGroupEventHandler.removeEvents();
 			}
 		});
 		mToggleUsers = (ToggleButton) findViewById(R.id.mapToggleUsers);
@@ -130,6 +154,7 @@ public class MapActivity extends Activity {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				Log.i(LOGTAG, "Users button pressed");
+				mPrevUsersState = isChecked;
 				if (isChecked)
 					mGroupUserHandler.showActiveUsers();
 				else
@@ -141,11 +166,11 @@ public class MapActivity extends Activity {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				Log.i(LOGTAG, "POI button pressed");
-				mPOIState = isChecked;
-//				if (isChecked)
-//					mGroupPOIHandler.showPOIs();
-//				else
-//					mGroupPOIHandler.removePOIs();
+				mPrevPOIState = isChecked;
+				if (isChecked)
+					mGroupPOIHandler.showPOIs();
+				else
+					mGroupPOIHandler.removePOIs();
 			}
 		});
 	}
