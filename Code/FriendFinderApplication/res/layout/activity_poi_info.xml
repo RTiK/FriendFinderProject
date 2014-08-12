@@ -67,7 +67,7 @@
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentBottom="true"
 	        android:layout_alignRight="@+id/poiFansList"
-	        android:onClick="onClickPoiLike"
+	        android:onClick="likeCurrPOI"
 	        android:text="Like" />
 
 	    <Button
@@ -78,7 +78,7 @@
 	        android:layout_alignBaseline="@+id/like"
 	        android:layout_alignBottom="@+id/like"
 	        android:layout_alignRight="@+id/like"
-	        android:onClick="onClickPoiDelete"
+	        android:onClick="deleteCurrPOI"
 	        android:text="Delete" />
 	    
 	  	<Button
@@ -89,7 +89,7 @@
 	        android:layout_alignBaseline="@+id/like"
 	        android:layout_alignBottom="@+id/like"
 	        android:layout_alignRight="@+id/like"
-	        android:onClick="onClickPoiDislike"
+	        android:onClick="dislikeCurrPOI"
 	        android:text="Dislike" />
 
 </RelativeLayout>

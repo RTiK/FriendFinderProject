@@ -56,73 +56,33 @@ public class POIInfoActivity extends Activity {
 		Button blike = (Button) findViewById(R.id.poiLike);
 		Button bdislike = (Button) findViewById(R.id.poiDislike);
 		Button bdelete = (Button) findViewById(R.id.poiDelete);
+		
 		if(isCreator()){
+			blike.setEnabled(false);
+			bdislike.setEnabled(false);
+			bdelete.setEnabled(true);
 			
-		}
-		
-		
-		
-		
-		
-		 Button bjoin = (Button) findViewById(R.id.join_grou_button);
-	        Button bcreate = (Button) findViewById(R.id.create_group_button);
-	        
-/*
-	        String s1 = editText1.getText().toString();
-	        String s2 = editText2.getText().toString();
-	        if(s2.equals("") )
-	        {
-	            bjoin.setEnabled(true);
-	            bjoin.setBackground(this.getResources().getDrawable(R.drawable.buttonsaction));
-	        }
-	        	
-	        else
-	        {
-	            bjoin.setEnabled(false);
-	            bjoin.setBackgroundColor(Color.GRAY);
-	        }
-
-
-	        
-	        
-	        
-	        if(s1.equals("") && s2.equals(""))
-	        {
-	            bjoin.setEnabled(false);
-	            bjoin.setBackgroundColor(Color.GRAY);
-	            bcreate.setEnabled(false);
-	            bcreate.setBackgroundColor(Color.GRAY);
-	        }
-
-	        else if(!s1.equals("")&&s2.equals("")){
-	            bcreate.setEnabled(false);
-	            bcreate.setBackgroundColor(Color.GRAY);
-	        	bjoin.setEnabled(true);
-	            bjoin.setBackground(this.getResources().getDrawable(R.drawable.buttonsaction));
-	        }
-
-	        else if(s1.equals("")&&!s2.equals(""))
-	        {
-	            bjoin.setEnabled(false);
-	            bjoin.setBackgroundColor(Color.GRAY);
-	            bcreate.setEnabled(false);
-	            bcreate.setBackgroundColor(Color.GRAY);
-	        }
-
-	        else
-	        {
-	            bjoin.setEnabled(false);
-	            bjoin.setBackgroundColor(Color.GRAY);
-	            bcreate.setEnabled(true);
-	            bcreate.setBackground(this.getResources().getDrawable(R.drawable.buttonsaction));
-	        }
-		
-		
-		
-		
-		*/
-		
-		
+			blike.setVisibility(View.GONE);
+			bdislike.setVisibility(View.GONE);
+			bdelete.setVisibility(View.VISIBLE);
+			
+		}else if(isFan()){
+			blike.setEnabled(false);
+			bdislike.setEnabled(true);
+			bdelete.setEnabled(false);
+			
+			blike.setVisibility(View.GONE);
+			bdislike.setVisibility(View.VISIBLE);
+			bdelete.setVisibility(View.GONE);			
+		}else{
+			blike.setEnabled(true);
+			bdislike.setEnabled(false);
+			bdelete.setEnabled(false);
+			
+			blike.setVisibility(View.VISIBLE);
+			bdislike.setVisibility(View.GONE);
+			bdelete.setVisibility(View.GONE);	        
+		}  
 	}
 	
 	private boolean isCreator() {
