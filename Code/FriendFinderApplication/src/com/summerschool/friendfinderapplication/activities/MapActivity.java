@@ -116,7 +116,7 @@ public class MapActivity extends Activity {
 
 					AlertDialog.Builder builder = new AlertDialog.Builder(MapActivity.this);
 					builder.setTitle("Select marker type");
-					builder.setNegativeButton("POI", new OnClickListener() {
+					builder.setPositiveButton("POI", new OnClickListener() {
 						
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
@@ -135,6 +135,8 @@ public class MapActivity extends Activity {
 							Toast.makeText(getApplicationContext(), "Event", Toast.LENGTH_SHORT).show();
 						}
 					});
+					AlertDialog dialog = builder.create();
+					dialog.show();
 				} else {
 					// TODO
 //					Intent goToPOIInfo = new Intent(getApplicationContext(), POIInfoActivity);

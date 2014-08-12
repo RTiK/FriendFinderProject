@@ -73,8 +73,8 @@
            		android:value=".activities.GroupListActivity" />
         </activity>
         <activity
-            android:name=".activities.NewMarkerActivity"
-            android:label="@string/title_activity_new_marker" >
+            android:name=".activities.NewPOIActivity"
+            android:label="@string/title_activity_new_poi" >
         </activity>
         <activity
             android:name=".activities.MyEventListActivity"
