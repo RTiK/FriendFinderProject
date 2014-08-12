@@ -15,7 +15,7 @@ import com.summerschool.friendfinderapplication.models.POI;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.provider.ContactsContract.CommonDataKinds.Event;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,31 +26,25 @@ import android.widget.Toast;
 public class NewEventActivity extends Activity {
 	
 	private final static String LOGTAG = "NEW_EVENT";
-	
 	public static final String EXTRA_MARKER_LATITUDE = "LATITUDE";
-	public static final String EXTRA_MARKER_LONGITUDE = "LONGITUDE";	
+	public static final String EXTRA_MARKER_LONGITUDE = "LONGITUDE";
+
+	private LatLng mLocation;
+	private String mGroupName;
+	
 	public static final String EXTRA_GROUPNAME = "GROUPNAME";
 
-	private String mGroupName;
-	private LatLng mLocation;
-	private Group mCurrentGroup;
 	private Group selectedGroup;
-
+	
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_new_event);
+		setContentView(R.layout.activity_new_poi);	// TODO change to activity_new_event as soon as the file is created
 		
 		Intent i = getIntent();
-		
-		if (i.hasExtra(EXTRA_MARKER_LATITUDE) && i.hasExtra(EXTRA_MARKER_LONGITUDE) && i.hasExtra(EXTRA_GROUPNAME)) {
-			mGroupName = i.getStringExtra(EXTRA_GROUPNAME);
-			mLocation = new LatLng(i.getDoubleExtra(EXTRA_MARKER_LATITUDE, Double.NaN),
-					i.getDoubleExtra(EXTRA_MARKER_LONGITUDE, Double.NaN));
-		} else {
-			Toast.makeText(getApplicationContext(), "Invalid data provided", Toast.LENGTH_LONG).show();
-			Log.e(LOGTAG, "Invalid coordinates or groupname");
-			finish();
-		}
+		mGroupName = i.getStringExtra(EXTRA_GROUPNAME);
+		mLocation = new LatLng(i.getDoubleExtra(EXTRA_MARKER_LATITUDE, 0.0), i.getDoubleExtra(EXTRA_MARKER_LONGITUDE, 0.0));
+				
 	}
 
 	@Override
@@ -68,27 +62,45 @@ public class NewEventActivity extends Activity {
 		
 		final String mName = markerName.getText().toString().trim();
 		final String mDescription = markerDescription.getText().toString().trim();
-
-		//marker must have a name
-		if(mName.length() < 1) {
-			Log.e(LOGTAG, "Marker name is empty");
-			Toast.makeText(getApplicationContext(), "Please enter POI name", Toast.LENGTH_LONG).show();
-		} else if (mDescription.length() < 1) {
-			Log.e(LOGTAG, "Marker description is empty");
-			Toast.makeText(getApplicationContext(), "Please enter POI decription", Toast.LENGTH_LONG).show();
-		} else {
-
-			//Look for the group
-			ParseQuery<Group> findGroupName = ParseQuery.getQuery(Group.class);
-			findGroupName.whereEqualTo("name", mGroupName);
-			try {
-				List<Group> g = findGroupName.find();
-				mCurrentGroup = g.get(0);	
-			} catch(ParseException e) {
-				Log.e(LOGTAG, "Group not found");
+		
+		ParseUser currentUser = ParseUser.getCurrentUser();
+		
+		//user has to be connected to create a new marker
+		if(currentUser == null)
+		{
+			Intent intent = new Intent(this, ConnectionActivity.class);
+			startActivity(intent);
+		}
+		else
+		{
+			//marker must have a name
+			if(markerName == null || markerName.length() < 1)
+			{
+				Toast.makeText(getApplicationContext(), "Marker name can't be empty", Toast.LENGTH_LONG).show();
 			}
-			
-			if(mCurrentGroup != null) {
+			else
+			{
+				//Look for the group
+				ParseQuery<Group> findGroupName = ParseQuery.getQuery(Group.class);
+				findGroupName.whereEqualTo("name", mGroupName);
+				try
+				{
+					List<Group> g = findGroupName.find();
+
+					if(g == null)
+					{
+						Toast.makeText(getApplicationContext(), "We can't find this group", Toast.LENGTH_LONG).show();
+					}
+					else
+					{
+						//We find a group with this name
+						selectedGroup = g.get(0);	
+					}
+				}
+				catch(ParseException e)
+				{
+					Toast.makeText(getApplicationContext(), "Was unable to execue : " + e, Toast.LENGTH_LONG).show();
+				}
 				
 				ParseQuery<POI> poiQuery = ParseQuery.getQuery(POI.class);
 				poiQuery.whereEqualTo(POI.NAME, mName);
@@ -119,8 +131,43 @@ public class NewEventActivity extends Activity {
 					}
 				});
 				
+				if(selectedGroup != null)
+				{
+					ParseQuery<com.summerschool.friendfinderapplication.models.Event> eventQuery = ParseQuery.getQuery(com.summerschool.friendfinderapplication.models.Event.class);
+					eventQuery.whereEqualTo(com.summerschool.friendfinderapplication.models.Event.TITLE, mName);
+					eventQuery.countInBackground(new CountCallback() {
+						
+						@Override
+						public void done(int c, ParseException err) {
+							// If the marker doesn't already exist
+							if(c == 0) {
+								//Create the element
+								com.summerschool.friendfinderapplication.models.Event e = new com.summerschool.friendfinderapplication.models.Event();
+								e.setTitle(mName);
+								e.setDescription(mDescription);
+								e.setOwner(ParseUser.getCurrentUser());
+								e.setLocation(new ParseGeoPoint(mLocation.latitude, mLocation.longitude));
+								e.setGroup(selectedGroup);
+								
+								//Try to save data in database
+								try
+								{
+									e.save();
+									Toast.makeText(getApplicationContext(), "Every thing looks like fine to create an event !", Toast.LENGTH_LONG).show();		
+								}
+								catch(ParseException ex)
+								{
+									Toast.makeText(getApplicationContext(), "Was unable to save", Toast.LENGTH_LONG).show();
+								}
+							} else {
+								Toast.makeText(getApplicationContext(), "Was unable to save", Toast.LENGTH_LONG).show();
+							}
+							
+						}
+					});
+				}
 			}
-		}
+		}	
 	}
 	
 	@Override

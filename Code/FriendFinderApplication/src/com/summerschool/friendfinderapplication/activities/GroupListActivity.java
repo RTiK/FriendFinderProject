@@ -150,7 +150,12 @@ public class GroupListActivity extends Activity {
 		Intent switchToMainView = new Intent(getApplicationContext(), MapActivity.class);
 		startActivity(switchToMainView);
 	}
-
+	
+	public void onClickHome(final View v) {
+		//intent to new Group activty		
+		Intent intent = new Intent(GroupListActivity.this, MapActivity.class);
+		startActivity(intent);	
+	}
 	
 	public void onClickMyEvent(final View v) {
 		//intent to new Group activty		

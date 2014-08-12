@@ -41,9 +41,6 @@ public class NewGroupActivity extends Activity {
 		EditText newNameTextField = (EditText) findViewById(R.id.group_name);		
 		final String newGroupName = newNameTextField.getText().toString().trim();
 		
-		EditText newDescriptionTextField = (EditText) findViewById(R.id.group_desc);
-		final String newGroupDesc = newDescriptionTextField.getText().toString().trim();
-		
 		if(newGroupName == null || newGroupName.length() < 1) {
 			Toast.makeText(this, "Group can't be empty", Toast.LENGTH_SHORT).show();
 		} else {
