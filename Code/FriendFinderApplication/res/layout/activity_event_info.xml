@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--  <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -87,5 +87,89 @@
         android:text="Delete"
         android:onClick="deleteEvent" />
     
+
+</RelativeLayout>
+
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="end"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.summerschool.friendfinderapplication.activities.EventInfoActivity" >
+    
+<!--  Title & desription ======================================= -->
+	<LinearLayout
+        android:id="@+id/titledesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+	    <TextView
+	        android:id="@+id/event_title"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:text="Title"
+	        android:textAppearance="?android:attr/textAppearanceMedium"
+	        android:textStyle="bold" />
+	
+	    <TextView
+	        android:id="@+id/event_description"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:layout_below="@+id/event_title"
+	        android:text="Description   "
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	    <TextView
+	        android:id="@+id/event_date"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:layout_below="@+id/event_title"
+	        android:text="Description   "
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+    </LinearLayout>
+    
+<!--  Event member List ======================================= -->
+	<LinearLayout
+        android:id="@+id/eventMemberList"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/titledesc"
+        android:layout_marginTop="5dp">
+	   
+	       <TextView
+	       android:id="@+id/eventMemberListTitle"
+	       android:layout_width="wrap_content"
+	       android:layout_height="wrap_content"
+	       android:layout_alignParentLeft="true"
+	       android:layout_alignParentRight="true"
+	       android:layout_alignParentTop="true"
+	       android:text="Event member"
+	       android:textAppearance="?android:attr/textAppearanceMedium"
+	       android:textStyle="bold"/>
+
+	       <ListView
+	           android:id="@+id/eventMemberListView"
+	           android:layout_width="match_parent"
+	           android:layout_height="match_parent" >
+	       </ListView>
+
+	 </LinearLayout>
+
+	    <Button
+	        android:id="@+id/eventLike"
+	        style="@drawable/add_button"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentBottom="true"
+	        android:layout_alignRight="@+id/eventMemberList"
+	        android:onClick="likeCurrPOI"
+	        android:text="Like" />
+
+	 
 
 </RelativeLayout>

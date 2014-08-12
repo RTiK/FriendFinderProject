@@ -43,88 +43,58 @@ public class EventInfoActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_event_info);
 		Log.i(LOGTAG, "started");
-		ListView listview = (ListView) findViewById(R.id.listView1);
+		//ListView listview = (ListView) findViewById(R.id.listView1);
 		
 		adapter = new EventParticipantAdapter(EventInfoActivity.this, new ArrayList<ParseUser>());
         
 		Intent i = getIntent();
-		final String eventObjID = i.getStringExtra(POIInfoActivity.EXTRAS_MARKER_ID);
-		
+		final String eventObjID = i.getStringExtra(EventInfoActivity.EXTRAS_MARKER_ID);
+		Log.i("objID",eventObjID);
+		//request for the event info
 		ParseQuery<Event> q1 = ParseQuery.getQuery(Event.class);		
 		q1.whereEqualTo("objectId", eventObjID);
 				
 		try {
 			events = q1.find();
-			
-			
+			if(events.size() > 1) {
+				Toast.makeText(EventInfoActivity.this, "multiple Events with that name found??", Toast.LENGTH_SHORT).show();
+			}
+			if(events.size() > 0) { //only one event found
+				currEvent = events.get(0); //stored in currEvent
+				Log.i("currEvent Name",currEvent.getTitle());
+				getActionBar().setTitle(currEvent.getTitle());
+				
+				TextView title = (TextView) findViewById(R.id.event_title);
+				TextView desc = (TextView) findViewById(R.id.event_description);
+				TextView date = (TextView) findViewById(R.id.event_date);
+				
+				title.setText(currEvent.getTitle());
+				desc.setText(currEvent.getDescription());
+				//date.setText(currEvent.getDate().toString());
+				
+				//set the adapter
+				getEventMembers(currEvent);
+				Log.i("qdqpter",adapter.getItem(0).getClassName());
+				ListView list = (ListView) findViewById(R.id.eventMemberListView);
+				list.setAdapter(adapter);
+			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		if(events.size() > 1) {
-			Toast.makeText(EventInfoActivity.this, "multiple Events with that name found??", Toast.LENGTH_SHORT).show();
-		}
-		if(events.size() > 0) {
-			currEvent = events.get(0);		
-			getActionBar().setTitle(currEvent.getTitle());
-			
-			TextView title = (TextView) findViewById(R.id.event_title);
-			TextView desc = (TextView) findViewById(R.id.event_description);
-			TextView date = (TextView) findViewById(R.id.event_date);
-			
-			title.setText(currEvent.getTitle());
-			desc.setText(currEvent.getDescription());
-			//date.setText(currEvent.getDate().toString());
-			getEventMembers(currEvent);
-			
-			ListView list = (ListView) findViewById(R.id.listView1);
-			list.setAdapter(adapter);
-			
-		}
-		
-		//adapter = new EventParticipantAdapter (EventInfoActivity.this, new );
-		//adapter.clear();
-		//adapter.addAll(events);
-		//listview.setAdapter(adapter);
-		
-		
-		/*
-		q1.findInBackground(new FindCallback<Event>() {
-			@Override
-			public void done(List<Event> events, ParseException error) {
-				Log.i(LOGTAG, "found " + events.size() + " Events with the id " + eventObjID);
-				if(events.size() > 1) {
-					Toast.makeText(EventInfoActivity.this, "multiple Events with that name found??", Toast.LENGTH_SHORT).show();
-				}
-				if(events.size() > 0) {
-					currEvent = events.get(0);
-					System.out.println("Test2 " + currEvent);
-					getActionBar().setTitle(currEvent.getTitle());
-					
-					TextView title = (TextView) findViewById(R.id.event_title);
-					TextView desc = (TextView) findViewById(R.id.event_description);
-					TextView date = (TextView) findViewById(R.id.event_date);
-					
-					title.setText(currEvent.getTitle());
-					desc.setText(currEvent.getDescription());
-					//date.setText(currEvent.getDate().toString());
-					
-				}								
-			}
-		});
-		final ListView listview = (ListView) findViewById(R.id.listView1);
-		EventParticipantAdapter adapter = new EventParticipantAdapter (this, getEventMembers(currEvent));
-		listview.setAdapter(adapter);
-		*/	
 	}
+		
+		
 	
-	private List<ParseUser> getEventMembers(Event e) {		
+	private void getEventMembers(Event e) {	
+		//parseUser Members
 		List<ParseUser> members = new ArrayList<ParseUser>();
+		
 		if(e!=null) {
+			//request for members that participate to the event
 			ParseQuery<EventMember> query = ParseQuery.getQuery(EventMember.class);
 			query.whereEqualTo(EventMember.EVENT, e);
-			query.include("Member");
+			query.include(EventMember.MEMBER);
 			try {
 				List<EventMember> eventMembers = query.find();
 				System.out.println("eventMembers" + eventMembers);
@@ -132,14 +102,13 @@ public class EventInfoActivity extends Activity {
 					members.add(em.getMember());
 				}
 				adapter.clear();
-				
 				adapter.addAll(members);
 				
 			} catch (ParseException e1) {
 				e1.printStackTrace();
 			}
 		}
-		return members;
+		
 	}
 	
 	public void addUserToEvent(final View v) {
@@ -170,8 +139,8 @@ public class EventInfoActivity extends Activity {
 	
 	public void onEventSubscriptionClicked(View view){
 		
-		Button add = (Button) findViewById(R.id.add);
-		Button remove = (Button) findViewById(R.id.unsubscribe);
+		//Button add = (Button) findViewById(R.id.add);
+		//Button remove = (Button) findViewById(R.id.unsubscribe);
 		
 		ParseQuery<EventMember> query = ParseQuery.getQuery(EventMember.class);
 		query.whereEqualTo(EventMember.EVENT, currEvent);
@@ -180,13 +149,13 @@ public class EventInfoActivity extends Activity {
 		// participant
 		try {
 			if(query.count() >= 1){
-				add.setVisibility(View.INVISIBLE);
-				remove.setVisibility(View.VISIBLE);
+			//	add.setVisibility(View.INVISIBLE);
+			//	remove.setVisibility(View.VISIBLE);
 			}
 			// declined the event
 			else{
-				add.setVisibility(View.VISIBLE);
-				remove.setVisibility(View.INVISIBLE);
+				//add.setVisibility(View.VISIBLE);
+				//remove.setVisibility(View.INVISIBLE);
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
