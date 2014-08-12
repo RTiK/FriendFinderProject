@@ -7,18 +7,18 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.parse.ParseGeoPoint;
-import com.parse.ParseUser;
+import com.parse.ParseQuery;
 import com.summerschool.friendfinderapplication.R;
 import com.summerschool.friendfinderapplication.activities.MapActivity;
 import com.summerschool.friendfinderapplication.models.Event;
-import com.summerschool.friendfinderapplication.models.POI;
+import com.summerschool.friendfinderapplication.models.Group;
+import com.summerschool.friendfinderapplication.models.GroupMember;
 
 public class GroupEventAdapter extends ArrayAdapter<Event>{
 
@@ -41,6 +41,8 @@ public class GroupEventAdapter extends ArrayAdapter<Event>{
 		}
 		Log.i("get(position)",mEvent.size()+"/"+position);
 		final Event currentEvent = mEvent.get(position);
+		
+		
 		
 		//Set the text of the TextField to the right name and its onclicklistener
 				TextView textView = (TextView) itemView.findViewById(R.id.item_member_name);
