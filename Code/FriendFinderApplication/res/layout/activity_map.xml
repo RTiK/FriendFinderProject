@@ -20,8 +20,7 @@
             android:id="@+id/mapToggleUsers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="onClick_mapToggleUsers"
+            android:layout_weight="1"   
             android:text="@string/mapUsersToggle"
             android:textOff="@string/mapUsersToggle"
             android:textOn="@string/mapUsersToggle" />
@@ -33,8 +32,7 @@
             android:layout_weight="1"
             android:text="@string/mapEventsToggle"
             android:textOn="@string/mapEventsToggle"
-            android:textOff="@string/mapEventsToggle"
-            android:onClick="onClick_mapToggleEvents" />
+            android:textOff="@string/mapEventsToggle" />
 
         <ToggleButton
             android:id="@+id/mapTogglePOIs"
@@ -43,8 +41,9 @@
             android:layout_weight="1"
             android:text="@string/mapPOIToggle"
             android:textOn="@string/mapPOIToggle"
-            android:textOff="@string/mapPOIToggle"
-            android:onClick="onClick_mapTogglePOIs" />
+            android:textOff="@string/mapPOIToggle" 
+            
+            />
         
     </LinearLayout>
 

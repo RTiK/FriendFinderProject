@@ -7,7 +7,6 @@ import java.util.Map;
 import android.util.Log;
 
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -30,6 +29,10 @@ public class GroupPOIHandler {
 		mMap = map;
 		mGroupName = groupName;
 		getPOIsOfGroup();
+	}
+	
+	public HashMap<Marker, String> getMarkers() {
+		return mMarkers;
 	}
 	
 	public void showPOIs() {
