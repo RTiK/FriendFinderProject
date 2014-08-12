@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
@@ -27,25 +29,36 @@ public class EventInfoActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_event_info);
+		Log.i(LOGTAG, "started");
 		
-		//TODO getExtra from Intent about what POI this is
-		//TODO need group and event identifier
-		
-		final String currentEventName = "";
+		Intent i = getIntent();
+		final String eventObjID = i.getStringExtra(POIInfoActivity.EXTRAS_MARKER_ID);
 		
 		ParseQuery<Event> q1 = ParseQuery.getQuery(Event.class);		
-		q1.whereEqualTo(Event.TITLE, currentEventName);
+		q1.whereEqualTo("objectId", eventObjID);
 		q1.findInBackground(new FindCallback<Event>() {
 			@Override
 			public void done(List<Event> events, ParseException error) {
-				Log.i(LOGTAG, "found " + events.size() + " Events with the name " + currentEventName);
+				Log.i(LOGTAG, "found " + events.size() + " Events with the id " + eventObjID);
 				if(events.size() > 1) {
 					Toast.makeText(EventInfoActivity.this, "multiple Events with that name found??", Toast.LENGTH_SHORT).show();
 				}
+				if(events.size() > 0) {
+					currEvent = events.get(0);
+					getActionBar().setTitle(currEvent.getTitle());
+					
+					TextView title = (TextView) findViewById(R.id.event_title);
+					TextView desc = (TextView) findViewById(R.id.event_description);
+					TextView date = (TextView) findViewById(R.id.event_date);
+					
+					title.setText(currEvent.getTitle());
+					desc.setText(currEvent.getDescription());
+					date.setText(currEvent.getDate().toString());
+					
+					//TODO Memberliste anzeigen
+					
+				}
 				
-				currEvent = events.get(0);
-				
-				//TODO show object info
 				
 			}
 		});

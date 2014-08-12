@@ -17,7 +17,7 @@
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/remove"
+        android:id="@+id/unsubscribe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/poi_label"
@@ -30,8 +30,8 @@
         style="@drawable/add_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/remove"
-        android:layout_alignBottom="@+id/remove"
+        android:layout_alignBaseline="@+id/unsubscribe"
+        android:layout_alignBottom="@+id/unsubscribe"
         android:layout_alignParentRight="true"
         android:onClick="addUserToEvent"
         android:text="add" />
@@ -40,7 +40,7 @@
         android:id="@+id/listView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/remove"
+        android:layout_above="@+id/unsubscribe"
         android:layout_alignLeft="@+id/event_description"
         android:layout_below="@+id/event_description"
         android:layout_marginTop="23dp" >
