@@ -20,7 +20,7 @@
             android:id="@+id/mapToggleUsers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1"   
             android:text="@string/mapUsersToggle"
             android:textOff="@string/mapUsersToggle"
             android:textOn="@string/mapUsersToggle" />
@@ -41,7 +41,9 @@
             android:layout_weight="1"
             android:text="@string/mapPOIToggle"
             android:textOn="@string/mapPOIToggle"
-            android:textOff="@string/mapPOIToggle" />
+            android:textOff="@string/mapPOIToggle" 
+            
+            />
         
     </LinearLayout>
 
