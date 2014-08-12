@@ -12,37 +12,37 @@
         android:id="@+id/poi_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="..."
+        android:text="Title"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="bold" />
-    
-    <Button
-        android:id="@+id/unsubscribe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/poi_label"
-        android:layout_alignParentBottom="true"
-        android:text="unsubscribe" />
-
-    <Button
-        android:id="@+id/subscribe"
-        style="@drawable/add_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/unsubscribe"
-        android:layout_alignBottom="@+id/unsubscribe"
-        android:layout_alignParentRight="true"
-        android:text="subscribe" />
 
     <TextView
         android:id="@+id/poi_description"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/unsubscribe"
-        android:layout_alignLeft="@+id/unsubscribe"
         android:layout_below="@+id/poi_title"
-        android:text="..."
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="bold" />
+        android:text="Description   "
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/dislike"
+        style="@drawable/add_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/poi_description"
+        android:layout_alignRight="@+id/poi_description"
+        android:onClick="onClickPoiDislike"
+        android:text="Dislike" />
+
+    <Button
+        android:id="@+id/like"
+        style="@drawable/add_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/dislike"
+        android:layout_alignBottom="@+id/dislike"
+        android:layout_alignRight="@+id/poi_description"
+        android:onClick="onClickPoiLike"
+        android:text="Like" />
 
 </RelativeLayout>
