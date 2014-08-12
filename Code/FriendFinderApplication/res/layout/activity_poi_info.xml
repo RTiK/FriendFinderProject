@@ -1,48 +1,95 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="end"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.summerschool.friendfinderapplication.activities.POIInfoActivity" >
-
-    <TextView
-        android:id="@+id/poi_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Title"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/poi_description"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/poi_title"
-        android:text="Description   "
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <Button
-        android:id="@+id/dislike"
-        style="@drawable/add_button"
+    
+<!--  Title & desription ======================================= -->
+	<LinearLayout
+        android:id="@+id/titledesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/poi_description"
-        android:layout_alignRight="@+id/poi_description"
-        android:onClick="onClickPoiDislike"
-        android:text="Dislike" />
-
-    <Button
-        android:id="@+id/like"
-        style="@drawable/add_button"
-        android:layout_width="wrap_content"
+        android:orientation="vertical">
+	    <TextView
+	        android:id="@+id/poi_title"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:text="Title"
+	        android:textAppearance="?android:attr/textAppearanceMedium"
+	        android:textStyle="bold" />
+	
+	    <TextView
+	        android:id="@+id/poi_description"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:layout_below="@+id/poi_title"
+	        android:text="Description   "
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+    </LinearLayout>
+    
+<!--  POI Likers List ======================================= -->
+	<LinearLayout
+        android:id="@+id/likersList"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/dislike"
-        android:layout_alignBottom="@+id/dislike"
-        android:layout_alignRight="@+id/poi_description"
-        android:onClick="onClickPoiLike"
-        android:text="Like" />
+        android:orientation="vertical"
+        android:layout_below="@+id/titledesc"
+        android:layout_marginTop="5dp">
+	   
+	       <TextView
+	       android:id="@+id/likersListTitle"
+	       android:layout_width="wrap_content"
+	       android:layout_height="wrap_content"
+	       android:layout_alignParentLeft="true"
+	       android:layout_alignParentRight="true"
+	       android:layout_alignParentTop="true"
+	       android:text="POI Likers"
+	       android:textAppearance="?android:attr/textAppearanceMedium"
+	       android:textStyle="bold"/>
+
+	       <ListView
+	           android:id="@+id/likersListView"
+	           android:layout_width="match_parent"
+	           android:layout_height="match_parent" >
+	       </ListView>
+
+	 </LinearLayout>
+
+	    <Button
+	        android:id="@+id/like"
+	        style="@drawable/add_button"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentBottom="true"
+	        android:layout_alignRight="@+id/likersList"
+	        android:onClick="onClickPoiLike"
+	        android:text="Like" />
+
+	    <Button
+	        android:id="@+id/dislike"
+	        style="@drawable/add_button"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBaseline="@+id/like"
+	        android:layout_alignBottom="@+id/like"
+	        android:layout_alignRight="@+id/like"
+	        android:onClick="onClickPoiDelete"
+	        android:text="Delete" />
+	    
+	  	<Button
+	        android:id="@+id/delete"
+	        style="@drawable/add_button"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBaseline="@+id/like"
+	        android:layout_alignBottom="@+id/like"
+	        android:layout_alignRight="@+id/like"
+	        android:onClick="onClickPoiDislike"
+	        android:text="Dislike" />
 
 </RelativeLayout>
