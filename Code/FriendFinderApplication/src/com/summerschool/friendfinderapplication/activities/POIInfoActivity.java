@@ -101,8 +101,6 @@ public class POIInfoActivity extends Activity {
 			bdislike.setVisibility(View.GONE);
 			bdelete.setVisibility(View.GONE);	        
 		}  
-		
-		Log.i(LOGTAG,"FANTEST: "+ isFan() + " " + poiFans.size());
 	}
 	
 	private boolean isCreator() {
