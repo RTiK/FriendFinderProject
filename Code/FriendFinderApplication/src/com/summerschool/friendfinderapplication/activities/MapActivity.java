@@ -58,6 +58,43 @@ public class MapActivity extends Activity {
 	private GroupEventHandler mGroupEventHandler;
 	private String mGroupName;
 	private static Marker mNewMarker;
+
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_map);
+		
+		initToggles();
+
+		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+		
+		mNewMarker = mMap.addMarker(new MarkerOptions()
+			.position(new LatLng(0.0, 0.0))
+			.title("Tap to create a new marker")
+			.draggable(true)
+			.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+			.visible(false));
+
+		initMap();
+		
+		Intent i = getIntent();
+		
+		placeMarkersOnMap(i);
+		
+		setToggleButtons(i);
+		
+		setMapCamera(i);
+
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		mNewMarker.setVisible(false);
+		// reload markers on activity resume
+		placeMarkersOnMap(getIntent());
+	}
 	
 	private void initToggles() {
 		mToggleEvents = (ToggleButton) findViewById(R.id.mapToggleEvents);
@@ -94,22 +131,8 @@ public class MapActivity extends Activity {
 			}
 		});
 	}
-
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_map);
-		
-		initToggles();
-
-		Log.i(LOGTAG, "map loaded");
-		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
-		mNewMarker = mMap.addMarker(new MarkerOptions()
-			.position(new LatLng(0.0, 0.0))
-			.title("Tap to create a new marker")
-			.draggable(true)
-			.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-			.visible(false));
+	
+	private void initMap() {
 		mMap.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
 			
 			@Override
@@ -143,6 +166,7 @@ public class MapActivity extends Activity {
 					});
 					AlertDialog dialog = builder.create();
 					dialog.show();
+					
 				} else {
 					if (mGroupPOIHandler.getMarkers().containsKey(marker)) {
 						Log.i(LOGTAG, "POI tapped, display info");
@@ -179,14 +203,17 @@ public class MapActivity extends Activity {
 				mNewMarker.setVisible(false);
 			}
 		});
-		
-		Intent i = getIntent();
-		mGroupName = i.getStringExtra(EXTRA_GROUPNAME);
+	}
+	
+	private void placeMarkersOnMap(Intent intent) {
+		mGroupName = intent.getStringExtra(EXTRA_GROUPNAME);
 		mGroupUserHandler = new GroupUserHandler(mMap, mGroupName);
 		mGroupPOIHandler = new GroupPOIHandler(mMap, mGroupName);
 		mGroupEventHandler = new GroupEventHandler(mMap, mGroupName);
-		
-		if (i.getBooleanExtra(EXTRA_USERS, true)) {
+	}
+	
+	private void setToggleButtons(Intent intent) {
+		if (intent.getBooleanExtra(EXTRA_USERS, true)) {
 			Log.i(LOGTAG, "Users enbled");
 			mToggleUsers.setChecked(true);
 		} else {
@@ -194,7 +221,7 @@ public class MapActivity extends Activity {
 			mToggleUsers.setChecked(false);
 		}
 		
-		if (i.getBooleanExtra(EXTRA_EVENTS, true)) {
+		if (intent.getBooleanExtra(EXTRA_EVENTS, true)) {
 			Log.i(LOGTAG, "Events enbled");
 			mToggleEvents.setChecked(true);
 		} else {
@@ -202,21 +229,22 @@ public class MapActivity extends Activity {
 			mToggleEvents.setChecked(false);
 		}
 		
-		if (i.getBooleanExtra(EXTRA_POIS, true)) {
+		if (intent.getBooleanExtra(EXTRA_POIS, true)) {
 			Log.i(LOGTAG, "POIs enbled");
 			mTogglePOIs.setChecked(true);
 		} else {
 			Log.i(LOGTAG, "POIs disabled");
 			mTogglePOIs.setChecked(false);
 		}
-		
-		// Determine zoom location
+	}
+	
+	private void setMapCamera(Intent intent) {
 		LatLng focus = null;
-		if (i.hasExtra(EXTRA_FOCUS_LATITUDE) && i.hasExtra(EXTRA_FOCUS_LONGITUDE)) {
+		if (intent.hasExtra(EXTRA_FOCUS_LATITUDE) && intent.hasExtra(EXTRA_FOCUS_LONGITUDE)) {
 			Log.i(LOGTAG, "Zoom position provided by intent");
 			focus = new LatLng(
-					i.getDoubleExtra(EXTRA_FOCUS_LATITUDE, 0),
-					i.getDoubleExtra(EXTRA_FOCUS_LONGITUDE, 0));
+					intent.getDoubleExtra(EXTRA_FOCUS_LATITUDE, 0),
+					intent.getDoubleExtra(EXTRA_FOCUS_LONGITUDE, 0));
 		} else {
 			Log.i(LOGTAG, "Zoom position not provided");
 			ParseUser user = ParseUser.getCurrentUser();
@@ -231,11 +259,8 @@ public class MapActivity extends Activity {
 			}
 		}
 		
-		float zoom = i.getFloatExtra(EXTRA_FOCUS_ZOOM, 12);
+		float zoom = intent.getFloatExtra(EXTRA_FOCUS_ZOOM, 12);
 		Log.i(LOGTAG,"zoom position is: " + focus.latitude + ", " + focus.longitude);
 		mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(focus, zoom));
-
 	}
-	
-	
 }

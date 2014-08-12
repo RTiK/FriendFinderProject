@@ -5,7 +5,6 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,7 +16,6 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.ParseQuery.CachePolicy;
 import com.summerschool.friendfinderapplication.R;
 import com.summerschool.friendfinderapplication.models.POI;
 import com.summerschool.friendfinderapplication.models.UserLikesPOI;
@@ -57,7 +55,7 @@ public class POIInfoActivity extends Activity {
 		Button bdislike = (Button) findViewById(R.id.poiDislike);
 		Button bdelete = (Button) findViewById(R.id.poiDelete);
 		
-		if(isCreator()){
+		if (isCreator()) {
 			blike.setEnabled(false);
 			bdislike.setEnabled(false);
 			bdelete.setEnabled(true);
@@ -66,7 +64,7 @@ public class POIInfoActivity extends Activity {
 			bdislike.setVisibility(View.GONE);
 			bdelete.setVisibility(View.VISIBLE);
 			
-		}else if(isFan()){
+		} else if(isFan()) {
 			blike.setEnabled(false);
 			bdislike.setEnabled(true);
 			bdelete.setEnabled(false);
@@ -74,7 +72,7 @@ public class POIInfoActivity extends Activity {
 			blike.setVisibility(View.GONE);
 			bdislike.setVisibility(View.VISIBLE);
 			bdelete.setVisibility(View.GONE);			
-		}else{
+		} else {
 			blike.setEnabled(true);
 			bdislike.setEnabled(false);
 			bdelete.setEnabled(false);

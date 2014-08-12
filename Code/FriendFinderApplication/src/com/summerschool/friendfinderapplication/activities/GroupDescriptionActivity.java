@@ -286,53 +286,51 @@ public class GroupDescriptionActivity extends Activity {
 			}
 		});		
 	}
+	
+	/**
+	 * Update the event list in group description
+	 * @param groupName
+	 */
+	private void updateEventList(final String groupName) {
 		/**
-		 * Update the event list in group description
-		 * @param groupName
+		 *  UPDATE OF THE Events
 		 */
-		private void updateEventList(final String groupName) {
-			/**
-			 *  UPDATE OF THE Events
-			 */
-			Log.i("Update Event","OK");
-			
-			ParseQuery<Group> query2 = ParseQuery.getQuery(Group.class);
-			query2.whereEqualTo("name", groupName);
-			//Log.i("groupName",groupName);
-			query2.findInBackground(new FindCallback<Group>() {
-				@Override
-				public void done(List<Group> groups, ParseException error) {
-					if(groups != null && groups.size() == 1) {
-						//group found 
-						Group g = groups.get(0);
-						Log.i("group size = ",""+groups.size());
-						//Log.i("Info","!!!!Get Memberlist of group " + g.getName());
-						ParseQuery<Event> query1 = ParseQuery.getQuery(Event.class);
-						query1.whereEqualTo("group", g);
-						Log.i("G : group name = ",""+g.getName());
-						query1.include(Event.GROUP);
-						query1.findInBackground(new FindCallback<Event>() {
-							@Override
-							public void done(List<Event> eventlist, ParseException error) {
-								if(eventlist != null && eventlist.size() > 0) {
-									Log.i("Info","Size of the event list is = " + eventlist.size());
-									Log.i("eventlist(0)",eventlist.get(0).getTitle());
-									eventAdapter.clear();
-									eventAdapter.addAll(eventlist);	
-									Log.i("Event ADDED","OK");
-								} else {
-									Log.i("Error","GroupMember returned null");
-								}
+		Log.i("Update Event","OK");
+		
+		ParseQuery<Group> query2 = ParseQuery.getQuery(Group.class);
+		query2.whereEqualTo("name", groupName);
+		//Log.i("groupName",groupName);
+		query2.findInBackground(new FindCallback<Group>() {
+			@Override
+			public void done(List<Group> groups, ParseException error) {
+				if(groups != null && groups.size() == 1) {
+					//group found 
+					Group g = groups.get(0);
+					Log.i("group size = ",""+groups.size());
+					//Log.i("Info","!!!!Get Memberlist of group " + g.getName());
+					ParseQuery<Event> query1 = ParseQuery.getQuery(Event.class);
+					query1.whereEqualTo("group", g);
+					Log.i("G : group name = ",""+g.getName());
+					query1.include(Event.GROUP);
+					query1.findInBackground(new FindCallback<Event>() {
+						@Override
+						public void done(List<Event> eventlist, ParseException error) {
+							if(eventlist != null && eventlist.size() > 0) {
+								Log.i("Info","Size of the event list is = " + eventlist.size());
+								Log.i("eventlist(0)",eventlist.get(0).getTitle());
+								eventAdapter.clear();
+								eventAdapter.addAll(eventlist);	
+								Log.i("Event ADDED","OK");
+							} else {
+								Log.i("Error","GroupMember returned null");
 							}
-						});
-					} else {
-						Log.i("Error", "No group found or mutliple groups found");
-					}	
-				}
-			});		
-		
-		
-		
+						}
+					});
+				} else {
+					Log.i("Error", "No group found or mutliple groups found");
+				}	
+			}
+		});		
 	}
 
 	private void populateListView() {
@@ -341,11 +339,7 @@ public class GroupDescriptionActivity extends Activity {
 		ListView eventlist = (ListView) findViewById(R.id.eventslistview);
 		memberlist.setAdapter(adapter);
 		poilist.setAdapter(POIadapter);
-<<<<<<< .mine
-		eventlist.setAdapter(Eventadapter);
-=======
 		eventlist.setAdapter(eventAdapter);
->>>>>>> .r271
 	}	
 
 	public void onClickMapButton(final View v) {
