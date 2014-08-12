@@ -337,10 +337,14 @@ public class GroupDescriptionActivity extends Activity {
 	private void populateListView() {
 		ListView memberlist = (ListView) findViewById(R.id.memberListView);
 		ListView poilist = (ListView) findViewById(R.id.poiListView);
-		ListView eventlist = (ListView) findViewById(R.id.eventListView);
+		ListView eventlist = (ListView) findViewById(R.id.eventslistview);
 		memberlist.setAdapter(adapter);
 		poilist.setAdapter(POIadapter);
+<<<<<<< .mine
+		eventlist.setAdapter(Eventadapter);
+=======
 		eventlist.setAdapter(eventAdapter);
+>>>>>>> .r271
 	}	
 
 	public void onClickMapButton(final View v) {
