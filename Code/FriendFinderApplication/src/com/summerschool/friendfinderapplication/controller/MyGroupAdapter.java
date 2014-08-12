@@ -65,13 +65,11 @@ public class MyGroupAdapter extends ArrayAdapter<Group> {
 					}
 				});
 			}else{
-				textView.setEnabled(false);
-				textView.setBackgroundColor(Color.GRAY);
+				textView.setOnClickListener(null);
 			}
-			
+			ImageButton infButton = (ImageButton) itemView.findViewById(R.id.item_group_info);
 			if(currentGroup.isGPSActive()){
 				//Set onclicklistener for ImageButton
-				ImageButton infButton = (ImageButton) itemView.findViewById(R.id.item_group_info);
 				infButton.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
@@ -81,6 +79,10 @@ public class MyGroupAdapter extends ArrayAdapter<Group> {
 						//Toast.makeText(mContext, "This is " + currentGroup.getName(), Toast.LENGTH_SHORT).show();
 					}
 				});
+			}else{
+				infButton.setOnClickListener(null);
+				//infButton.setEnabled(false);
+				//textView.setBackgroundColor(Color.GRAY);
 			}
 			
 			//Set onclicklistener for GPS Switch
