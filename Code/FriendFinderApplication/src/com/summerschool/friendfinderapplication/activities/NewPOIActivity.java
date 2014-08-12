@@ -34,11 +34,10 @@ public class NewPOIActivity extends Activity {
 	private String mGroupName;
 	private LatLng mLocation;
 	private Group mCurrentGroup;
-	private Group selectedGroup;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_my_poi);
+		setContentView(R.layout.activity_new_poi);
 		
 		Intent i = getIntent();
 		

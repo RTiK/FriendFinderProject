@@ -8,7 +8,6 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -64,10 +63,7 @@ public class MapActivity extends Activity {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				Log.i(LOGTAG, "Events button pressed");
-				if (isChecked)
-					mGroupPOIHandler.showPOIs();
-				else
-					mGroupPOIHandler.removePOIs();
+				// TODO implement events
 			}
 		});
 		mToggleUsers = (ToggleButton) findViewById(R.id.mapToggleUsers);
@@ -86,8 +82,10 @@ public class MapActivity extends Activity {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				Log.i(LOGTAG, "POI button pressed");
-				// TODO Auto-generated method stub
-				
+				if (isChecked)
+					mGroupPOIHandler.showPOIs();
+				else
+					mGroupPOIHandler.removePOIs();
 			}
 		});
 	}
@@ -212,18 +210,5 @@ public class MapActivity extends Activity {
 		
 		mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(focus, zoom));
 
-	}
-	
-	// TODO we may not need these functions
-	public void onClick_mapToggleUsers(View v) {
-		Log.i(LOGTAG, "Users toggle pressed");
-	}
-	
-	public void onClick_mapToggleEvents(View v) {
-		Log.i(LOGTAG, "Events toggle pressed");
-	}
-	
-	public void onClick_mapTogglePOIs(View v) {
-		Log.i(LOGTAG, "POIs toggle pressed");
 	}
 }
