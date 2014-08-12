@@ -36,94 +36,130 @@ public class EventInfoActivity extends Activity {
 	
 	private Event currEvent;
 	private EventParticipantAdapter adapter; 
-	private List<Event> events;
+	
+	private List<ParseUser> eventMembers;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_event_info);
-		Log.i(LOGTAG, "started");
-		//ListView listview = (ListView) findViewById(R.id.listView1);
 		
 		adapter = new EventParticipantAdapter(EventInfoActivity.this, new ArrayList<ParseUser>());
-        
-		Intent i = getIntent();
-		final String eventObjID = i.getStringExtra(EventInfoActivity.EXTRAS_MARKER_ID);
+		eventMembers = new ArrayList<ParseUser>();
+		
+		updateEventInfoData(getIntent().getStringExtra(EventInfoActivity.EXTRAS_MARKER_ID));
+		updateLayoutInformation();
+		populateEventMemberList();
+		
+	}
+	
+	public void updateEventInfoData(String eventObjID) {
 		Log.i("objID",eventObjID);
-		//request for the event info
-		ParseQuery<Event> q1 = ParseQuery.getQuery(Event.class);		
-		q1.whereEqualTo("objectId", eventObjID);
-				
+		
+		//Current Event Object
+		ParseQuery<Event> query = ParseQuery.getQuery(Event.class);		
+		query.whereEqualTo("objectId", eventObjID);
 		try {
-			events = q1.find();
-			if(events.size() > 1) {
-				Toast.makeText(EventInfoActivity.this, "multiple Events with that name found??", Toast.LENGTH_SHORT).show();
+			List<Event> events = new ArrayList<Event>();
+			events = query.find();
+			if(events != null && events.size() > 1) {
+				Log.w(LOGTAG,"multiple Events with that name found??");
 			}
-			if(events.size() > 0) { //only one event found
-				currEvent = events.get(0); //stored in currEvent
-				Log.i("currEvent Name",currEvent.getTitle());
-				getActionBar().setTitle(currEvent.getTitle());
-				
-				TextView title = (TextView) findViewById(R.id.event_title);
-				TextView desc = (TextView) findViewById(R.id.event_description);
-				TextView date = (TextView) findViewById(R.id.event_date);
-				
-				title.setText(currEvent.getTitle());
-				desc.setText(currEvent.getDescription());
-				//date.setText(currEvent.getDate().toString());
-				
-				//set the adapter
-				getEventMembers(currEvent);
-				Log.i("qdqpter",adapter.getItem(0).getClassName());
-				ListView list = (ListView) findViewById(R.id.eventMemberListView);
-				list.setAdapter(adapter);
-			}
+			if(events != null) currEvent = events.get(0);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
 		
-		
-	
-	private void getEventMembers(Event e) {	
-		//parseUser Members
-		List<ParseUser> members = new ArrayList<ParseUser>();
-		
-		if(e!=null) {
-			//request for members that participate to the event
-			ParseQuery<EventMember> query = ParseQuery.getQuery(EventMember.class);
-			query.whereEqualTo(EventMember.EVENT, e);
-			query.include(EventMember.MEMBER);
+		//EventMembers Objects
+		Log.i(LOGTAG,"get eventmembers");
+		if(currEvent != null) {
+			ParseQuery<EventMember> query2 = ParseQuery.getQuery(EventMember.class);
+			query2.whereEqualTo(EventMember.EVENT, currEvent);
+			query2.include(EventMember.MEMBER);
 			try {
-				List<EventMember> eventMembers = query.find();
-				System.out.println("eventMembers" + eventMembers);
-				for(EventMember em : eventMembers) {
-					members.add(em.getMember());
+				List<EventMember> members = query2.find();
+				for(EventMember em : members) {
+					ParseUser t = em.getMember();
+					if(t!=null) eventMembers.add(t);
 				}
+				Log.i(LOGTAG,"found " + eventMembers.size() + " EventMembers");
 				adapter.clear();
-				adapter.addAll(members);
+				adapter.addAll(eventMembers);
 				
 			} catch (ParseException e1) {
 				e1.printStackTrace();
 			}
 		}
-		
+	}
+
+	public void updateLayoutInformation() {
+		if(currEvent != null) {
+			Log.i("currEvent Name",currEvent.getTitle());
+			getActionBar().setTitle(currEvent.getTitle());
+			
+			TextView title = (TextView) findViewById(R.id.event_title);
+			TextView desc = (TextView) findViewById(R.id.event_description);
+			TextView date = (TextView) findViewById(R.id.event_date);
+			
+			if(currEvent.getTitle() != null) title.setText(currEvent.getTitle());
+			if(currEvent.getDescription() != null) desc.setText(currEvent.getDescription());
+			if(currEvent.getDate() != null) date.setText(currEvent.getDate().toString());
+			
+			//Buttons enabling/disabling in fonction of the user
+			Button blike = (Button) findViewById(R.id.eventJoin);
+			Button bdislike = (Button) findViewById(R.id.eventLeave);
+			Button bdelete = (Button) findViewById(R.id.eventDelete);
+			
+			if(isOwner()){
+				Log.i(LOGTAG,"current user is the owner");
+				blike.setEnabled(false);
+				bdislike.setEnabled(false);
+				bdelete.setEnabled(true);
+				
+				blike.setVisibility(View.GONE);
+				bdislike.setVisibility(View.GONE);
+				bdelete.setVisibility(View.VISIBLE);
+				
+			} else if(isFan()) {
+				Log.i(LOGTAG,"current user already joined");
+				blike.setEnabled(false);
+				bdislike.setEnabled(true);
+				bdelete.setEnabled(false);
+				
+				blike.setVisibility(View.GONE);
+				bdislike.setVisibility(View.VISIBLE);
+				bdelete.setVisibility(View.GONE);			
+			} else {
+				Log.i(LOGTAG,"current user is not a fan and not the owner");
+				blike.setEnabled(true);
+				bdislike.setEnabled(false);
+				bdelete.setEnabled(false);
+				
+				blike.setVisibility(View.VISIBLE);
+				bdislike.setVisibility(View.GONE);
+				bdelete.setVisibility(View.GONE);	        
+			}  
+		}
 	}
 	
-	public void addUserToEvent(final View v) {
+	public void populateEventMemberList() {
+		ListView list = (ListView) findViewById(R.id.eventMemberListView);
+		list.setAdapter(adapter);
+	}
+	
+	public void joinCurrEvent(final View v) {
 		EventMember newEm =  new EventMember();
 		newEm.addMember(ParseUser.getCurrentUser());
 		newEm.addEvent(currEvent);
 		try {
 			newEm.save();
-			Toast.makeText(EventInfoActivity.this, "saved", Toast.LENGTH_SHORT).show();
+			finish();
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void removeUserFromEvent(final View v) {
+	public void leaveCurrEvent(final View v) {
 		ParseQuery<EventMember> query = ParseQuery.getQuery(EventMember.class);
 		query.whereEqualTo(EventMember.EVENT, currEvent);
 		query.whereEqualTo(EventMember.MEMBER, ParseUser.getCurrentUser());
@@ -131,85 +167,41 @@ public class EventInfoActivity extends Activity {
 			@SuppressWarnings({ "unchecked", "rawtypes" })
 			List<ParseObject> emList2 = (List) query.find();
 			ParseObject.deleteAll(emList2);
-			
+			finish();
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}	
 	}
-	
-	public void onEventSubscriptionClicked(View view){
-		
-		//Button add = (Button) findViewById(R.id.add);
-		//Button remove = (Button) findViewById(R.id.unsubscribe);
-		
-		ParseQuery<EventMember> query = ParseQuery.getQuery(EventMember.class);
-		query.whereEqualTo(EventMember.EVENT, currEvent);
-		query.whereEqualTo(EventMember.MEMBER, ParseUser.getCurrentUser());
-		
-		// participant
-		try {
-			if(query.count() >= 1){
-			//	add.setVisibility(View.INVISIBLE);
-			//	remove.setVisibility(View.VISIBLE);
-			}
-			// declined the event
-			else{
-				//add.setVisibility(View.VISIBLE);
-				//remove.setVisibility(View.INVISIBLE);
-			}
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-			
+
+	private boolean isOwner() {
+		if(currEvent != null)
+			return currEvent.getOwner().getObjectId().equals(ParseUser.getCurrentUser().getObjectId());
+		return false;
 	}
 	
-	public void deleteEvent(final View v)
+	private boolean isFan() {
+		if(eventMembers != null) {
+			for(ParseUser u : eventMembers) {
+				if(u.getObjectId().equals(ParseUser.getCurrentUser().getObjectId())) return true;
+			}
+		}
+		return false;
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public void deleteCurrEvent(final View v)
 	{
-		if(ParseUser.getCurrentUser().getObjectId().toString().trim().equals(currEvent.getOwner().getObjectId().toString().trim()))
-		{	
-			ParseQuery<Event> eventQuery = ParseQuery.getQuery(Event.class);
-			eventQuery.whereEqualTo(Event.TITLE, currEvent.getTitle());
-			eventQuery.whereEqualTo(Event.OWNER, ParseUser.getCurrentUser());
-			eventQuery.findInBackground(new FindCallback<Event>() {
-				public void done(List<Event> e, ParseException err)
-				{
-					if(e != null)
-					{
-						if(e.size() == 1)
-						{
-							e.get(0).deleteInBackground(new DeleteCallback() {
-								
-								@Override
-								public void done(ParseException arg0) {
-									// TODO Auto-generated method stub
-									if(arg0 != null)
-									{
-										Toast.makeText(getApplicationContext(), "We can't delete the association", Toast.LENGTH_LONG).show();
-									}
-									
-								}
-							});
-						}
-					}
-				}
-			});
-			
+		if(currEvent != null) {
 			ParseQuery<EventMember> query = ParseQuery.getQuery(EventMember.class);
 			query.whereEqualTo(EventMember.EVENT, currEvent);
 			try {
-				@SuppressWarnings({ "unchecked", "rawtypes" })
-				List<ParseObject> emList2 = (List) query.find();
-				ParseObject.deleteAll(emList2);
-				
+				ParseObject.deleteAll((List) query.find());
+				currEvent.delete();
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
 		}
-		else
-		{
-			Toast.makeText(getApplicationContext(), "You can't delete a group that you don't own", Toast.LENGTH_SHORT).show();
-		}
+		finish();
 	}
 	
 	

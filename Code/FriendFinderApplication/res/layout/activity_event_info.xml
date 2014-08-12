@@ -161,15 +161,33 @@
 	 </LinearLayout>
 
 	    <Button
-	        android:id="@+id/eventLike"
+	        android:id="@+id/eventJoin"
 	        style="@drawable/add_button"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentBottom="true"
 	        android:layout_alignRight="@+id/eventMemberList"
-	        android:onClick="likeCurrPOI"
-	        android:text="Like" />
+	        android:onClick="joinCurrEvent"
+	        android:text="join" />
 
-	 
+		<Button
+	        android:id="@+id/eventLeave"
+	        style="@drawable/add_button"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentBottom="true"
+	        android:layout_alignRight="@+id/eventMemberList"
+	        android:onClick="leaveCurrEvent"
+	        android:text="leave" />
+	 	   
+		<Button
+	        android:id="@+id/eventDelete"
+	        style="@drawable/add_button"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentBottom="true"
+	        android:layout_alignRight="@+id/eventMemberList"
+	        android:onClick="deleteCurrEvent"
+	        android:text="delete" />
 
 </RelativeLayout>

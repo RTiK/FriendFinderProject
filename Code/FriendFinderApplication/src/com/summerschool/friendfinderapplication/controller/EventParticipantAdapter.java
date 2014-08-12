@@ -37,19 +37,14 @@ public class EventParticipantAdapter extends ArrayAdapter<ParseUser> {
 		
 		if(itemView == null) {
 			LayoutInflater mLayoutInflater = LayoutInflater.from(mContext);
-			itemView = mLayoutInflater.inflate(R.layout.activity_event_info, parent, false);
+			itemView = mLayoutInflater.inflate(R.layout.member_item_view, parent, false);
 		}
 		
 		final ParseUser currentParticipant = mParticipants.get(position);
-		
-		/*TextView tv = (TextView) itemView.findViewById(R.id.listView1);
-		tv.setText(currentParticipant.getUsername());
-		Log.i("TEST", "test_event5");
-		System.out.println("TV: " + tv);
-		
-		tv.setText(currentParticipant.getUsername());
-		Log.i("TEST", "test_event6");*/
-		
+		if(currentParticipant != null) {
+			TextView tv = (TextView) itemView.findViewById(R.id.item_member_name);
+			tv.setText(currentParticipant.getUsername());
+		}
 		return itemView;
 	}
 	

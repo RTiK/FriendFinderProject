@@ -46,18 +46,7 @@ public class FanListAdapter extends ArrayAdapter<ParseUser>{
 		//Set the text of the TextField to the right name and its onclicklistener
 		TextView textView = (TextView) itemView.findViewById(R.id.item_member_name);
 		textView.setText(currentFan.getUsername());
-		textView.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				/*ParseGeoPoint p = currentFan.getLocation();
-				Intent goToMap = new Intent(mContext.getApplicationContext(), MapActivity.class);
-				goToMap.putExtra(MapActivity.EXTRA_FOCUS_LATITUDE, p.getLatitude());
-				goToMap.putExtra(MapActivity.EXTRA_FOCUS_LONGITUDE, p.getLongitude());
-				goToMap.putExtra(MapActivity.EXTRA_GROUPNAME, currentFan.getGroup().getName());
-				mContext.startActivity(goToMap);*/
-			}
-		});					
-					
+
 		return itemView;
 	}
 

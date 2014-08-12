@@ -55,7 +55,7 @@ public class MyEventListAdapter extends ArrayAdapter<Event>{
 		});
 		
 		TextView date = (TextView) itemView.findViewById(R.id.date);
-		date.setText(currentEvent.getDate().toString());
+		//date.setText(currentEvent.getDate().toString());
 		
 		return itemView;
 	}
