@@ -83,7 +83,7 @@ public class POIInfoActivity extends Activity {
 			bdislike.setVisibility(View.GONE);
 			bdelete.setVisibility(View.VISIBLE);
 			
-		}else if(isFan()){
+		} else if(isFan()) {
 			blike.setEnabled(false);
 			bdislike.setEnabled(true);
 			bdelete.setEnabled(false);
@@ -91,7 +91,7 @@ public class POIInfoActivity extends Activity {
 			blike.setVisibility(View.GONE);
 			bdislike.setVisibility(View.VISIBLE);
 			bdelete.setVisibility(View.GONE);			
-		}else{
+		} else {
 			blike.setEnabled(true);
 			bdislike.setEnabled(false);
 			bdelete.setEnabled(false);
