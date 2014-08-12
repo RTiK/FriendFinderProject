@@ -64,39 +64,27 @@ public class NewEventActivity extends Activity {
 		ParseUser currentUser = ParseUser.getCurrentUser();
 		
 		//user has to be connected to create a new marker
-		if(currentUser == null)
-		{
+		if(currentUser == null) {
 			Intent intent = new Intent(this, ConnectionActivity.class);
 			startActivity(intent);
-		}
-		else
-		{
+		} else {
 			//marker must have a name
-			if(markerName == null || markerName.length() < 1)
-			{
+			if(markerName == null || markerName.length() < 1) {
 				Toast.makeText(getApplicationContext(), "Marker name can't be empty", Toast.LENGTH_LONG).show();
-			}
-			else
-			{
+			} else {
 				//Look for the group
 				ParseQuery<Group> findGroupName = ParseQuery.getQuery(Group.class);
 				findGroupName.whereEqualTo("name", mGroupName);
-				try
-				{
+				try {
 					List<Group> g = findGroupName.find();
 
-					if(g == null)
-					{
+					if(g == null) {
 						Toast.makeText(getApplicationContext(), "We can't find this group", Toast.LENGTH_LONG).show();
-					}
-					else
-					{
+					} else {
 						//We find a group with this name
 						selectedGroup = g.get(0);	
 					}
-				}
-				catch(ParseException e)
-				{
+				} catch(ParseException e) {
 					Toast.makeText(getApplicationContext(), "Was unable to execue : " + e, Toast.LENGTH_LONG).show();
 				}
 				
@@ -129,8 +117,7 @@ public class NewEventActivity extends Activity {
 					}
 				});
 				
-				if(selectedGroup != null)
-				{
+				if(selectedGroup != null) {
 					ParseQuery<com.summerschool.friendfinderapplication.models.Event> eventQuery = ParseQuery.getQuery(com.summerschool.friendfinderapplication.models.Event.class);
 					eventQuery.whereEqualTo(com.summerschool.friendfinderapplication.models.Event.TITLE, mName);
 					eventQuery.countInBackground(new CountCallback() {
@@ -148,13 +135,10 @@ public class NewEventActivity extends Activity {
 								e.setGroup(selectedGroup);
 								
 								//Try to save data in database
-								try
-								{
+								try {
 									e.save();
 									Toast.makeText(getApplicationContext(), "Every thing looks like fine to create an event !", Toast.LENGTH_LONG).show();		
-								}
-								catch(ParseException ex)
-								{
+								} catch(ParseException ex) {
 									Toast.makeText(getApplicationContext(), "Was unable to save", Toast.LENGTH_LONG).show();
 								}
 							} else {

@@ -7,7 +7,6 @@ import java.util.Map;
 import android.util.Log;
 
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -15,6 +14,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.summerschool.friendfinderapplication.models.Event;
 import com.summerschool.friendfinderapplication.models.Group;
 import com.summerschool.friendfinderapplication.models.POI;
 
@@ -29,26 +29,26 @@ public class GroupEventHandler {
 	public GroupEventHandler(GoogleMap map, String groupName) {
 		mMap = map;
 		mGroupName = groupName;
-		getPOIsOfGroup();
+		getEventsOfGroup();
 	}
 	
 	public HashMap<Marker, String> getMarkers() {
 		return mMarkers;
 	}
 	
-	public void showPOIs() {
-		Log.i(GroupEventHandler.class.getName(), "Displaying " + mMarkers.size() + " POIs");
+	public void showEvents() {
+		Log.i(GroupEventHandler.class.getName(), "Displaying " + mMarkers.size() + " Events");
 		for (Map.Entry<Marker, String> marker : mMarkers.entrySet())
 			marker.getKey().setVisible(true);
 	}
 	
-	public void removePOIs() {
-		Log.i(GroupEventHandler.class.getName(), "Removing " + mMarkers.size() + " POIs");
+	public void removeEvents() {
+		Log.i(GroupEventHandler.class.getName(), "Removing " + mMarkers.size() + " Events");
 		for (Map.Entry<Marker, String> marker : mMarkers.entrySet())
 			marker.getKey().setVisible(false);
 	}
 	
-	private void getPOIsOfGroup() {
+	private void getEventsOfGroup() {
 		if (mGroupName != null && !mGroupName.equals("")) {
 			Log.i(LOGTAG, mGroupName);
 			
@@ -61,21 +61,21 @@ public class GroupEventHandler {
 					if (groups != null && groups.size() == 1) {
 						Group thisGroup = groups.get(0);
 						Log.i(LOGTAG, "Found group " + thisGroup.getName());
-						ParseQuery<POI> query = ParseQuery.getQuery(POI.class);
+						ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
 						query.whereEqualTo("group", thisGroup);
-						query.findInBackground(new FindCallback<POI>() {
+						query.findInBackground(new FindCallback<Event>() {
 							
 							@Override
-							public void done(List<POI> pois, ParseException error) {
-								Log.i(LOGTAG, "Found " + pois.size() + " POIs");
-								for (POI p : pois) {
-									LatLng location = new LatLng(p.getLocation().getLatitude(), p.getLocation().getLongitude());
+							public void done(List<Event> events, ParseException error) {
+								Log.i(LOGTAG, "Found " + events.size() + " Events");
+								for (Event e : events) {
+									LatLng location = new LatLng(e.getLocation().getLatitude(), e.getLocation().getLongitude());
 									if (location != null) {
 										MarkerOptions mo = new MarkerOptions().
 												position(location).
-												title(p.getName()).
-												icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-										mMarkers.put(mMap.addMarker(mo), p.getObjectId());
+												title(e.getTitle()).
+												icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+										mMarkers.put(mMap.addMarker(mo), e.getObjectId());
 									}
 
 								}

@@ -26,6 +26,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.ParseUser;
 import com.summerschool.friendfinderapplication.R;
+import com.summerschool.friendfinderapplication.handlers.GroupEventHandler;
 import com.summerschool.friendfinderapplication.handlers.GroupPOIHandler;
 import com.summerschool.friendfinderapplication.handlers.GroupUserHandler;
 
@@ -54,6 +55,7 @@ public class MapActivity extends Activity {
 	private ToggleButton mTogglePOIs;
 	private GroupUserHandler mGroupUserHandler;
 	private GroupPOIHandler mGroupPOIHandler;
+	private GroupEventHandler mGroupEventHandler;
 	private String mGroupName;
 	private static Marker mNewMarker;
 	
@@ -63,7 +65,10 @@ public class MapActivity extends Activity {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				Log.i(LOGTAG, "Events button pressed");
-				// TODO implement events
+				if (isChecked)
+					mGroupEventHandler.showEvents();
+				else
+					mGroupEventHandler.removeEvents();
 			}
 		});
 		mToggleUsers = (ToggleButton) findViewById(R.id.mapToggleUsers);
@@ -101,7 +106,7 @@ public class MapActivity extends Activity {
 		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 		mNewMarker = mMap.addMarker(new MarkerOptions()
 			.position(new LatLng(0.0, 0.0))
-			.title("Tap to create a new POI")
+			.title("Tap to create a new marker")
 			.draggable(true)
 			.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
 			.visible(false));
@@ -129,8 +134,11 @@ public class MapActivity extends Activity {
 						
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							// TODO
-							Toast.makeText(getApplicationContext(), "Event", Toast.LENGTH_SHORT).show();
+							Intent createNewMarker = new Intent(getApplicationContext(), NewEventActivity.class);
+							createNewMarker.putExtra(NewPOIActivity.EXTRA_GROUPNAME, mGroupName);
+							createNewMarker.putExtra(NewPOIActivity.EXTRA_MARKER_LATITUDE, marker.getPosition().latitude);
+							createNewMarker.putExtra(NewPOIActivity.EXTRA_MARKER_LONGITUDE, marker.getPosition().longitude);
+							startActivity(createNewMarker);
 						}
 					});
 					AlertDialog dialog = builder.create();
@@ -158,6 +166,7 @@ public class MapActivity extends Activity {
 		mGroupName = i.getStringExtra(EXTRA_GROUPNAME);
 		mGroupUserHandler = new GroupUserHandler(mMap, mGroupName);
 		mGroupPOIHandler = new GroupPOIHandler(mMap, mGroupName);
+		mGroupEventHandler = new GroupEventHandler(mMap, mGroupName);
 		
 		if (i.getBooleanExtra(EXTRA_USERS, true)) {
 			Log.i(LOGTAG, "Users enbled");
@@ -170,8 +179,6 @@ public class MapActivity extends Activity {
 		if (i.getBooleanExtra(EXTRA_EVENTS, true)) {
 			Log.i(LOGTAG, "Events enbled");
 			mToggleEvents.setChecked(true);
-			Toast.makeText(getApplicationContext(), "Function not yet implemented", Toast.LENGTH_LONG).show();
-			// TODO
 		} else {
 			Log.i(LOGTAG, "Events disabled");
 			mToggleEvents.setChecked(false);
@@ -211,4 +218,6 @@ public class MapActivity extends Activity {
 		mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(focus, zoom));
 
 	}
+	
+	
 }
