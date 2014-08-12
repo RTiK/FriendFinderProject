@@ -52,22 +52,37 @@ public class MyPOIListActivity extends Activity {
 	private void updateEventList() {
 		Log.i(LOGTAG,"updating my poi list");
 		
-		//ParseQuery<UserLikesPOI> innerQuery = ParseQuery.getQuery(UserLikesPOI.class);
-		//innerQuery.whereEqualTo(UserLikesPOI.USER, ParseUser.getCurrentUser());
-		
-		ParseQuery<POI> query = ParseQuery.getQuery(POI.class);
-		//query.whereMatchesQuery(POI.USER_LIKES_POI, innerQuery);
-		query.whereEqualTo(POI.CREATOR, ParseUser.getCurrentUser());
-		query.include(POI.GROUP);
-		List<POI> pois;
+		ParseQuery<UserLikesPOI> q = ParseQuery.getQuery(UserLikesPOI.class);
+		q.whereEqualTo(UserLikesPOI.USER, ParseUser.getCurrentUser());
+		q.include(UserLikesPOI.POI);
+		q.include(POI.GROUP);
+		List<POI> poiList= new ArrayList<POI>();
 		try {
-			pois = query.find();
-			Log.i(LOGTAG,"found " + pois.size() + " pois I liked or created");
+			for(UserLikesPOI poi : q.find()) {
+				poiList.add(poi.getPOI());
+			}
+			Log.i(LOGTAG,"found " + poiList.size() + " pois I liked or created");
 			adapter.clear();
-			adapter.addAll(pois);
+			adapter.addAll(poiList);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		
+		
+		
+//		ParseQuery<POI> query = ParseQuery.getQuery(POI.class);
+//		query.whereMatchesQuery(POI.USER_LIKES_POI, innerQuery);
+//		
+//		query.include(POI.GROUP);
+//		List<POI> pois;
+//		try {
+//			pois = query.find();
+//			Log.i(LOGTAG,"found " + pois.size() + " pois I liked or created");
+//			adapter.clear();
+//			adapter.addAll(pois);
+//		} catch (ParseException e) {
+//			e.printStackTrace();
+//		}
 	}
 	
 	private void populateEventList() {
