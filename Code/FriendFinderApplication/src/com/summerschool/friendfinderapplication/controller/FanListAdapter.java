@@ -10,6 +10,7 @@ import com.summerschool.friendfinderapplication.models.POI;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,19 +44,19 @@ public class FanListAdapter extends ArrayAdapter<ParseUser>{
 		final ParseUser currentFan = mFan.get(position);
 		
 		//Set the text of the TextField to the right name and its onclicklistener
-				TextView textView = (TextView) itemView.findViewById(R.id.poiFansListTitle);
-				textView.setText(currentFan.getUsername());
-				textView.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						/*ParseGeoPoint p = currentFan.getLocation();
-						Intent goToMap = new Intent(mContext.getApplicationContext(), MapActivity.class);
-						goToMap.putExtra(MapActivity.EXTRA_FOCUS_LATITUDE, p.getLatitude());
-						goToMap.putExtra(MapActivity.EXTRA_FOCUS_LONGITUDE, p.getLongitude());
-						goToMap.putExtra(MapActivity.EXTRA_GROUPNAME, currentFan.getGroup().getName());
-						mContext.startActivity(goToMap);*/
-					}
-				});					
+		TextView textView = (TextView) itemView.findViewById(R.id.item_member_name);
+		textView.setText(currentFan.getUsername());
+		textView.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				/*ParseGeoPoint p = currentFan.getLocation();
+				Intent goToMap = new Intent(mContext.getApplicationContext(), MapActivity.class);
+				goToMap.putExtra(MapActivity.EXTRA_FOCUS_LATITUDE, p.getLatitude());
+				goToMap.putExtra(MapActivity.EXTRA_FOCUS_LONGITUDE, p.getLongitude());
+				goToMap.putExtra(MapActivity.EXTRA_GROUPNAME, currentFan.getGroup().getName());
+				mContext.startActivity(goToMap);*/
+			}
+		});					
 					
 		return itemView;
 	}

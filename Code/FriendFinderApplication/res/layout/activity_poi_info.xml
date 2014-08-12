@@ -78,8 +78,8 @@
 	  	    android:layout_alignBaseline="@+id/poiLike"
 	  	    android:layout_alignBottom="@+id/poiLike"
 	  	    android:layout_alignRight="@+id/poiFansList"
-	  	    android:onClick="dislikeCurrPOI"
-	  	    android:text="Dislike" />
+	  	    android:onClick="deleteCurrPOI"
+	  	    android:text="Delete" />
 
 	  	<Button
 	  	    android:id="@+id/poiDislike"
@@ -89,7 +89,7 @@
 	  	    android:layout_alignBaseline="@+id/poiLike"
 	  	    android:layout_alignBottom="@+id/poiLike"
 	  	    android:layout_alignLeft="@+id/poiDelete"
-	  	    android:onClick="deleteCurrPOI"
-	  	    android:text="Delete" />
+	  	    android:onClick="dislikeCurrPOI"
+	  	    android:text="dislike" />
 
 </RelativeLayout>

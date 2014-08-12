@@ -25,8 +25,8 @@ public class POI extends ParseObject {
 	public String getDescription() {
 		return getString(DESCRIPTION);
 	}
-	public String getCreator() {
-		return getString(CREATOR);
+	public ParseUser getCreator() {
+		return (ParseUser) get(CREATOR);
 	}
 	public Group getGroup() {
 		return (Group) get(GROUP);

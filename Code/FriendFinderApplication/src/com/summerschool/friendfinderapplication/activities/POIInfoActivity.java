@@ -64,8 +64,8 @@ public class POIInfoActivity extends Activity {
 			
 			title.setText(currPOI.getName());
 			desc.setText(currPOI.getDescription());
-		}
-		else{
+		} else {
+			Toast.makeText(POIInfoActivity.this, "currPOI is null", Toast.LENGTH_SHORT).show();
 			Log.i(LOGTAG,"currPOI is null");
 		}
 		
@@ -75,6 +75,7 @@ public class POIInfoActivity extends Activity {
 		Button bdelete = (Button) findViewById(R.id.poiDelete);
 		
 		if(isCreator()){
+			Log.i(LOGTAG,"current user is the creator");
 			blike.setEnabled(false);
 			bdislike.setEnabled(false);
 			bdelete.setEnabled(true);
@@ -84,6 +85,7 @@ public class POIInfoActivity extends Activity {
 			bdelete.setVisibility(View.VISIBLE);
 			
 		} else if(isFan()) {
+			Log.i(LOGTAG,"current user is a fan");
 			blike.setEnabled(false);
 			bdislike.setEnabled(true);
 			bdelete.setEnabled(false);
@@ -92,6 +94,7 @@ public class POIInfoActivity extends Activity {
 			bdislike.setVisibility(View.VISIBLE);
 			bdelete.setVisibility(View.GONE);			
 		} else {
+			Log.i(LOGTAG,"current user is not a fan and not the creator");
 			blike.setEnabled(true);
 			bdislike.setEnabled(false);
 			bdelete.setEnabled(false);
@@ -100,14 +103,24 @@ public class POIInfoActivity extends Activity {
 			bdislike.setVisibility(View.GONE);
 			bdelete.setVisibility(View.GONE);	        
 		}  
+		
+		Log.i(LOGTAG,"FANTEST: "+ isFan() + " " + poiFans.size());
 	}
 	
 	private boolean isCreator() {
-		return currPOI.getCreator().equals(ParseUser.getCurrentUser().getUsername());
+		if(currPOI != null)
+			return currPOI.getCreator().getObjectId().equals(ParseUser.getCurrentUser().getObjectId());
+		return false;
 	}
 	
 	private boolean isFan() {
-		return poiFans.contains(ParseUser.getCurrentUser());
+		if(poiFans != null) {
+			Log.i(LOGTAG, "found current user in list");
+			for(ParseUser u : poiFans) {
+				if(u.getObjectId().equals(ParseUser.getCurrentUser().getObjectId())) return true;
+			}
+		}
+		return false;
 	}
 	
 	private void getCurrentFans() {
@@ -117,9 +130,8 @@ public class POIInfoActivity extends Activity {
 		try {
 			poiFans.clear();
 			for(UserLikesPOI ulp : q.find()) {
-				poiFans.add(ulp.getUser());
+				poiFans.add(ulp.getUser());				
 			}
-			
 			adapter.clear();
 			adapter.addAll(poiFans);
 		} catch (ParseException e) {
@@ -131,43 +143,27 @@ public class POIInfoActivity extends Activity {
 	private void getCurrentPOI(final String poiObjID) {
 		ParseQuery<POI> q1 = ParseQuery.getQuery(POI.class);
 		q1.whereEqualTo("objectId", poiObjID);
-		q1.findInBackground(new FindCallback<POI>() {
-			@Override
-			public void done(List<POI> pois, ParseException error) {
-				Log.i(LOGTAG, "found " + pois.size() + " POI's with the id " + poiObjID);
-				if(pois.size() > 1) {
-					Toast.makeText(POIInfoActivity.this, "multiple POI's with that name found??", Toast.LENGTH_SHORT).show();
-				}
-				if(pois.size() > 0) {
-					currPOI = pois.get(0);
-				}
-			}
-		});
-	}
-	
-	private List<ParseUser> getUsersWithPOIlikes(POI e) {
-		List<ParseUser> users = new ArrayList<ParseUser>();
-		if(e!=null) {
-			ParseQuery<UserLikesPOI> query = ParseQuery.getQuery(UserLikesPOI.class);
-			query.whereEqualTo(UserLikesPOI.POI, e);
-			try {
-				List<UserLikesPOI> poiMembers = query.find();
-				for(UserLikesPOI em : poiMembers) {
-					users.add(em.getUser());
-				}
-			} catch (ParseException e1) {
-				e1.printStackTrace();
-			}
+		q1.include(POI.CREATOR);
+		List<POI> pois;
+		try {
+			pois = q1.find();
+			Log.i(LOGTAG, "found " + pois.size() + " POI's with the id " + poiObjID);
+			if(pois.size() > 1) 
+				Toast.makeText(POIInfoActivity.this, "multiple POI's with that name found??", Toast.LENGTH_SHORT).show();
+			if(pois.size() > 0) 
+				currPOI = pois.get(0);
+		} catch (ParseException e) {
+			e.printStackTrace();
 		}
-		return users;
 	}
-	
+		
 	public void likeCurrPOI(final View v) {
 		UserLikesPOI elp = new UserLikesPOI();
 		elp.put(UserLikesPOI.USER, ParseUser.getCurrentUser());
 		elp.put(UserLikesPOI.POI, currPOI);
 		try {
 			elp.save();
+			finish();
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -179,7 +175,8 @@ public class POIInfoActivity extends Activity {
 		query.whereEqualTo(UserLikesPOI.POI, currPOI);
 		query.whereEqualTo(UserLikesPOI.USER, ParseUser.getCurrentUser());
 		try {
-			UserLikesPOI.deleteAll((List) query.find()); 
+			UserLikesPOI.deleteAll((List) query.find());
+			finish();
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -187,13 +184,14 @@ public class POIInfoActivity extends Activity {
 	
 	public void deleteCurrPOI(final View v) {
 		try {
+			Log.i(LOGTAG, "deleting poi " + currPOI.getName());
 			currPOI.delete();
 			//Intent i = new Intent(POIInfoActivity.this, MapActivity.class);
-			//startActivity(i);			
+			//startActivity(i);		
+			finish();
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}		
-		finish();
 	}
 	
 }

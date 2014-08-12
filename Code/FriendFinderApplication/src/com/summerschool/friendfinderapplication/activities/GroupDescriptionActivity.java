@@ -41,7 +41,6 @@ import com.summerschool.friendfinderapplication.models.POI;
 
 public class GroupDescriptionActivity extends Activity {
 
-
 	protected Button mHomeButton;
 	protected Button mMyEventButton;
 	protected Button mMyPOIButton;
@@ -53,7 +52,6 @@ public class GroupDescriptionActivity extends Activity {
 	private MemberListAdapter adapter;
 	private POIListAdapter POIadapter;
 	private GroupEventAdapter eventAdapter;
-	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
