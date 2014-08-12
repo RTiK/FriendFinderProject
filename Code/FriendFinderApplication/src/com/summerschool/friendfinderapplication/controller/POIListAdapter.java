@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.ParseGeoPoint;
 import com.parse.ParseUser;
 import com.summerschool.friendfinderapplication.R;
 import com.summerschool.friendfinderapplication.activities.MapActivity;
@@ -46,7 +47,12 @@ public class POIListAdapter extends ArrayAdapter<POI> {
 				textView.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						Toast.makeText(mContext, "This is " + currentPOI.getName(), Toast.LENGTH_SHORT).show();
+						ParseGeoPoint p = currentPOI.getLocation();
+						Intent goToMap = new Intent(mContext.getApplicationContext(), MapActivity.class);
+						goToMap.putExtra(MapActivity.EXTRA_FOCUS_LATITUDE, p.getLatitude());
+						goToMap.putExtra(MapActivity.EXTRA_FOCUS_LONGITUDE, p.getLongitude());
+						goToMap.putExtra(MapActivity.EXTRA_GROUPNAME, currentPOI.getGroup().getName());
+						mContext.startActivity(goToMap);
 					}
 				});					
 					

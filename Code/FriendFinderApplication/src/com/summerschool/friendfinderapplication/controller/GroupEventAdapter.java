@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.ParseGeoPoint;
 import com.parse.ParseUser;
 import com.summerschool.friendfinderapplication.R;
 import com.summerschool.friendfinderapplication.activities.MapActivity;
@@ -47,7 +48,12 @@ public class GroupEventAdapter extends ArrayAdapter<Event>{
 				textView.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						Toast.makeText(mContext, "This is " + currentEvent.getTitle(), Toast.LENGTH_SHORT).show();
+						ParseGeoPoint p = currentEvent.getLocation();
+						Intent goToMap = new Intent(mContext.getApplicationContext(), MapActivity.class);
+						goToMap.putExtra(MapActivity.EXTRA_FOCUS_LATITUDE, p.getLatitude());
+						goToMap.putExtra(MapActivity.EXTRA_FOCUS_LONGITUDE, p.getLongitude());
+						goToMap.putExtra(MapActivity.EXTRA_GROUPNAME, currentEvent.getGroup().getName());
+						mContext.startActivity(goToMap);
 					}
 				});					
 					

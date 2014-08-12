@@ -52,7 +52,7 @@ public class GroupDescriptionActivity extends Activity {
 	private Group currentGroup;
 	private MemberListAdapter adapter;
 	private POIListAdapter POIadapter;
-	private GroupEventAdapter Eventadapter;
+	private GroupEventAdapter eventAdapter;
 	
 	
 	@Override
@@ -79,7 +79,7 @@ public class GroupDescriptionActivity extends Activity {
 		
 		adapter = new MemberListAdapter(GroupDescriptionActivity.this,new ArrayList<ParseUser>());
 		POIadapter = new POIListAdapter(GroupDescriptionActivity.this,new ArrayList<POI>());
-		Eventadapter = new GroupEventAdapter(GroupDescriptionActivity.this,new ArrayList<Event>());
+		eventAdapter = new GroupEventAdapter(GroupDescriptionActivity.this,new ArrayList<Event>());
 		
 		//Log.i("adapter correctly instantiated","OK");
 		//looking for the group 
@@ -170,42 +170,29 @@ public class GroupDescriptionActivity extends Activity {
 		//in a specific group
 		//Log.i("groupname =",""+ currentGroup);
 		userInfo.whereEqualTo("Group",currentGroup);
-		userInfo.setCachePolicy(CachePolicy.CACHE_THEN_NETWORK);
 		//find the group member list that matches the request
-		userInfo.findInBackground(new FindCallback<GroupMember>() {
-			public void done(List<GroupMember> users, ParseException error) {
-				if(users != null) { //you are at least in the chosen group
-					if(users.size() > 1) { //Your are registered twice in the group
-						Log.i("Error","too much members : " + users.size());
-					} 
-					else if (users.size() ==1){ //There is only one line that matches
-						////Log.i("Only  one line matches","OK");
-						//Log.i("users.size()= ",""+users.size());
-						users.get(0).deleteInBackground(new DeleteCallback() {
-                            @Override
-                            public void done(ParseException e) {
-                                // TODO Auto-generated method stub
-                            	
-                                if(e==null)
-                                {
-                                    //Toast.makeText(getBaseContext(),"Deleted Successfully!", Toast.LENGTH_LONG).show();
-                                }
-                                else
-                                {
-                                    //Toast.makeText(getBaseContext(),"Cant Delete Tickle!"+e.toString(), Toast.LENGTH_LONG).show();
-                                }
-                            }
-						}); 
-					}
-					else{
-						Log.i("ERROR","No group found");
-					}
-				} else {
-					//you are not in the group
-					Toast.makeText(getApplicationContext(), "You are not in the group !", Toast.LENGTH_SHORT);
+		try {
+			List<GroupMember> users = userInfo.find();
+			if(users != null) { //you are at least in the chosen group
+				if(users.size() > 1) { //Your are registered twice in the group
+					Log.i("Error","too much members : " + users.size());
+				} 
+				else if (users.size() ==1){ //There is only one line that matches
+					////Log.i("Only  one line matches","OK");
+					//Log.i("users.size()= ",""+users.size());
+					users.get(0).delete();
 				}
+				else{
+					Log.i("ERROR","No group found");
+				}
+			} else {
+				//you are not in the group
+				Toast.makeText(getApplicationContext(), "You are not in this group !", Toast.LENGTH_SHORT).show();
 			}
-		});
+			
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
 		
         Intent i = new Intent(GroupDescriptionActivity.this, GroupListActivity.class);
         startActivity(i);
@@ -326,11 +313,11 @@ public class GroupDescriptionActivity extends Activity {
 						query1.findInBackground(new FindCallback<Event>() {
 							@Override
 							public void done(List<Event> eventlist, ParseException error) {
-								if(eventlist != null) {
+								if(eventlist != null && eventlist.size() > 0) {
 									Log.i("Info","Size of the event list is = " + eventlist.size());
 									Log.i("eventlist(0)",eventlist.get(0).getTitle());
-									Eventadapter.clear();
-									Eventadapter.addAll(eventlist);	
+									eventAdapter.clear();
+									eventAdapter.addAll(eventlist);	
 									Log.i("Event ADDED","OK");
 								} else {
 									Log.i("Error","GroupMember returned null");
@@ -353,7 +340,7 @@ public class GroupDescriptionActivity extends Activity {
 		ListView eventlist = (ListView) findViewById(R.id.eventListView);
 		memberlist.setAdapter(adapter);
 		poilist.setAdapter(POIadapter);
-		//eventlist.setAdapter(Eventadapter);
+		eventlist.setAdapter(eventAdapter);
 	}	
 
 	public void onClickMapButton(final View v) {
