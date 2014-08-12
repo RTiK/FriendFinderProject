@@ -33,18 +33,52 @@ public class EventInfoActivity extends Activity {
 	public final static String EXTRAS_MARKER_ID = "MARKER_ID";
 	
 	private Event currEvent;
+	private EventParticipantAdapter adapter; 
+	List<Event> events;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_event_info);
 		Log.i(LOGTAG, "started");
+		ListView listview = (ListView) findViewById(R.id.listView1);
 		
 		Intent i = getIntent();
 		final String eventObjID = i.getStringExtra(POIInfoActivity.EXTRAS_MARKER_ID);
 		
 		ParseQuery<Event> q1 = ParseQuery.getQuery(Event.class);		
 		q1.whereEqualTo("objectId", eventObjID);
+				
+		try {
+			events = q1.find();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(events.size() > 1) {
+			Toast.makeText(EventInfoActivity.this, "multiple Events with that name found??", Toast.LENGTH_SHORT).show();
+		}
+		if(events.size() > 0) {
+			currEvent = events.get(0);		
+			getActionBar().setTitle(currEvent.getTitle());
+			
+			TextView title = (TextView) findViewById(R.id.event_title);
+			TextView desc = (TextView) findViewById(R.id.event_description);
+			TextView date = (TextView) findViewById(R.id.event_date);
+			
+			title.setText(currEvent.getTitle());
+			desc.setText(currEvent.getDescription());
+			//date.setText(currEvent.getDate().toString());
+		}
+		System.out.println("CurrEventMember " + events.size());
+		System.out.println("CurrEventMembers " + getEventMembers(currEvent));
+
+		adapter = new EventParticipantAdapter (EventInfoActivity.this, getEventMembers(currEvent));
+		listview.setAdapter(adapter);
+		
+		
+		/*
 		q1.findInBackground(new FindCallback<Event>() {
 			@Override
 			public void done(List<Event> events, ParseException error) {
@@ -54,6 +88,7 @@ public class EventInfoActivity extends Activity {
 				}
 				if(events.size() > 0) {
 					currEvent = events.get(0);
+					System.out.println("Test2 " + currEvent);
 					getActionBar().setTitle(currEvent.getTitle());
 					
 					TextView title = (TextView) findViewById(R.id.event_title);
@@ -64,29 +99,25 @@ public class EventInfoActivity extends Activity {
 					desc.setText(currEvent.getDescription());
 					//date.setText(currEvent.getDate().toString());
 					
-					//TODO Memberliste anzeigen					
 				}								
 			}
 		});
-		
 		final ListView listview = (ListView) findViewById(R.id.listView1);
 		EventParticipantAdapter adapter = new EventParticipantAdapter (this, getEventMembers(currEvent));
 		listview.setAdapter(adapter);
-		
-		if(ParseUser.getCurrentUser().getObjectId().toString().trim().equals(currEvent.getOwner().getObjectId().toString().trim()))
-		{
-			Toast.makeText(getApplicationContext(), "test", Toast.LENGTH_LONG).show();
-		}
-
+		*/	
 	}
 	
-	private List<ParseUser> getEventMembers(Event e) {
+	private List<ParseUser> getEventMembers(Event e) {		
 		List<ParseUser> members = new ArrayList<ParseUser>();
 		if(e!=null) {
 			ParseQuery<EventMember> query = ParseQuery.getQuery(EventMember.class);
 			query.whereEqualTo(EventMember.EVENT, e);
+			System.out.println("Query Line117: " + query);
+			query.include("Member");
 			try {
 				List<EventMember> eventMembers = query.find();
+				System.out.println("eventMembers" + eventMembers);
 				for(EventMember em : eventMembers) {
 					members.add(em.getMember());
 				}
