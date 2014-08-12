@@ -48,7 +48,7 @@ public class MyGroupAdapter extends ArrayAdapter<Group> {
 			final Group currentGroup = mGroups.get(position);
 			
 			//Set the text of the TextField to the right name and its onclicklistener
-			TextView textView = (TextView) itemView.findViewById(R.id.item_poi_name);
+			final TextView textView = (TextView) itemView.findViewById(R.id.item_poi_name);
 			textView.setText(currentGroup.getName());
 			
 			textView.setOnClickListener(new OnClickListener() {
@@ -60,11 +60,14 @@ public class MyGroupAdapter extends ArrayAdapter<Group> {
 						goToMap.putExtra("GROUPNAME", currentGroup.getString("name"));
 						mContext.startActivity(goToMap);
 						Log.i("TEST", "activity started");
+					}else{
+						//TODO make text color changement 
+						textView.setTextColor(Color.LTGRAY);
 					}
 				}
 			});
 						
-			ImageButton infButton = (ImageButton) itemView.findViewById(R.id.item_group_info);
+			final ImageButton infButton = (ImageButton) itemView.findViewById(R.id.item_group_info);
 			//Set onclicklistener for ImageButton
 			infButton.setOnClickListener(new OnClickListener() {
 				@Override
@@ -74,6 +77,8 @@ public class MyGroupAdapter extends ArrayAdapter<Group> {
 						intent.putExtra("GroupName", currentGroup.getName());
 						mContext.startActivity(intent);					
 						//Toast.makeText(mContext, "This is " + currentGroup.getName(), Toast.LENGTH_SHORT).show();
+					}else{
+						infButton.setBackgroundColor(Color.LTGRAY);
 					}
 				}
 			});
@@ -96,8 +101,7 @@ public class MyGroupAdapter extends ArrayAdapter<Group> {
 						e.printStackTrace();
 					}
 				}
-			});
-						
+			});				
 			return itemView;
 		}
 		
