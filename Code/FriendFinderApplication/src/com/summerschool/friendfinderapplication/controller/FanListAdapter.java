@@ -2,34 +2,33 @@ package com.summerschool.friendfinderapplication.controller;
 
 import java.util.List;
 
+import com.parse.ParseGeoPoint;
+import com.parse.ParseUser;
+import com.summerschool.friendfinderapplication.R;
+import com.summerschool.friendfinderapplication.activities.MapActivity;
+import com.summerschool.friendfinderapplication.models.POI;
+
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.parse.ParseGeoPoint;
-import com.parse.ParseQuery;
-import com.summerschool.friendfinderapplication.R;
-import com.summerschool.friendfinderapplication.activities.MapActivity;
-import com.summerschool.friendfinderapplication.models.Event;
-import com.summerschool.friendfinderapplication.models.Group;
-import com.summerschool.friendfinderapplication.models.GroupMember;
 
-public class GroupEventAdapter extends ArrayAdapter<Event>{
+
+public class FanListAdapter extends ArrayAdapter<ParseUser>{
 
 	private Context mContext;
-	private List<Event> mEvent;
+	private List<ParseUser> mFan;
 	
-	public GroupEventAdapter(Context context, List<Event> event) {
-		super(context, R.id.eventListView, event);
+	public FanListAdapter(Context context, List<ParseUser> fan) {
+		super(context, R.id.poiFansListView, fan);
 		this.mContext = context;
-		this.mEvent = event;
-		Log.i("creation of GroupEventAdapter","OK");
+		this.mFan = fan;
+		//Log.i("creation of POIListAdapter","OK");
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
@@ -39,23 +38,22 @@ public class GroupEventAdapter extends ArrayAdapter<Event>{
 			LayoutInflater mLayoutInflater = LayoutInflater.from(mContext);
 			itemView = mLayoutInflater.inflate(R.layout.member_item_view, parent, false);
 		}
-		Log.i("get(position)",mEvent.size()+"/"+position);
-		final Event currentEvent = mEvent.get(position);
-		
-		
+		//Log.i("test poisito,","on");
+		//Log.i("get(position)",mPOI.size()+"/"+position+"/"+mPOI.get(position));
+		final ParseUser currentFan = mFan.get(position);
 		
 		//Set the text of the TextField to the right name and its onclicklistener
-				TextView textView = (TextView) itemView.findViewById(R.id.item_member_name);
-				textView.setText(currentEvent.getTitle());
+				TextView textView = (TextView) itemView.findViewById(R.id.poiFansListTitle);
+				textView.setText(currentFan.getUsername());
 				textView.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						ParseGeoPoint p = currentEvent.getLocation();
+						/*ParseGeoPoint p = currentFan.getLocation();
 						Intent goToMap = new Intent(mContext.getApplicationContext(), MapActivity.class);
 						goToMap.putExtra(MapActivity.EXTRA_FOCUS_LATITUDE, p.getLatitude());
 						goToMap.putExtra(MapActivity.EXTRA_FOCUS_LONGITUDE, p.getLongitude());
-						goToMap.putExtra(MapActivity.EXTRA_GROUPNAME, currentEvent.getGroup().getName());
-						mContext.startActivity(goToMap);
+						goToMap.putExtra(MapActivity.EXTRA_GROUPNAME, currentFan.getGroup().getName());
+						mContext.startActivity(goToMap);*/
 					}
 				});					
 					
@@ -69,4 +67,6 @@ public class GroupEventAdapter extends ArrayAdapter<Event>{
 		Intent intent = new Intent(mContext, MapActivity.class);
 		//startActivity(intent);
 	}
+	
+	
 }

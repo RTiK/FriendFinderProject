@@ -266,7 +266,8 @@ public class GroupDescriptionActivity extends Activity {
 					Log.i("group size = ",""+groups.size());
 					//Log.i("Info","!!!!Get Memberlist of group " + g.getName());
 					ParseQuery<POI> query1 = ParseQuery.getQuery(POI.class);
-					query1.whereEqualTo("group", g);
+					query1.whereEqualTo(POI.GROUP, g);
+					query1.include(POI.GROUP);
 					Log.i("G : group name = ",""+g.getName());
 					//query1.include("creator");
 					query1.findInBackground(new FindCallback<POI>() {
@@ -313,7 +314,7 @@ public class GroupDescriptionActivity extends Activity {
 						ParseQuery<Event> query1 = ParseQuery.getQuery(Event.class);
 						query1.whereEqualTo("group", g);
 						Log.i("G : group name = ",""+g.getName());
-						//query1.include("creator");
+						query1.include(Event.GROUP);
 						query1.findInBackground(new FindCallback<Event>() {
 							@Override
 							public void done(List<Event> eventlist, ParseException error) {
@@ -344,6 +345,7 @@ public class GroupDescriptionActivity extends Activity {
 		ListView eventlist = (ListView) findViewById(R.id.eventslistview);
 		memberlist.setAdapter(adapter);
 		poilist.setAdapter(POIadapter);
+
 		eventlist.setAdapter(eventAdapter);
 
 	}	

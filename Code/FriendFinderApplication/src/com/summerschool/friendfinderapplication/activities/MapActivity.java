@@ -17,6 +17,7 @@ import android.widget.ToggleButton;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -171,6 +172,14 @@ public class MapActivity extends Activity {
 			}
 		});
 		
+		mMap.setOnMapClickListener(new OnMapClickListener() {
+			
+			@Override
+			public void onMapClick(LatLng point) {
+				mNewMarker.setVisible(false);
+			}
+		});
+		
 		Intent i = getIntent();
 		mGroupName = i.getStringExtra(EXTRA_GROUPNAME);
 		mGroupUserHandler = new GroupUserHandler(mMap, mGroupName);
@@ -222,7 +231,7 @@ public class MapActivity extends Activity {
 			}
 		}
 		
-		float zoom = i.getFloatExtra(EXTRA_FOCUS_ZOOM, 10);
+		float zoom = i.getFloatExtra(EXTRA_FOCUS_ZOOM, 12);
 		Log.i(LOGTAG,"zoom position is: " + focus.latitude + ", " + focus.longitude);
 		mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(focus, zoom));
 

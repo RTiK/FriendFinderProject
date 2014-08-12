@@ -15,8 +15,9 @@ import com.summerschool.friendfinderapplication.models.Group;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
+import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TimePickerDialog;
+import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,7 +26,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -40,25 +40,16 @@ public class NewEventActivity extends Activity {
 	private LatLng mLocation;
 	private String mGroupName;
 	private Group mCurrentGroup;
-	
-	private EditText OutputDate;
-	private EditText OutputTime;
-	 
-	private int year;
-    private int month;
-    private int day;
+	private EditText mOutputDate;
+	private EditText mOutputTime;
+	private Calendar mCalendar;
     
-    private int hour;
-    private int minute;
-    private boolean morning;
- 
-    static final int DATE_PICKER_ID = 1111; 
-    static final int TIME_PICKER_ID = 2222; 
+	private final String[] MONTHS = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_new_event);	// TODO change to activity_new_event as soon as the file is created
+		setContentView(R.layout.activity_new_event);
 		
 		Intent i = getIntent();
 		
@@ -71,37 +62,46 @@ public class NewEventActivity extends Activity {
 			finish();
 		}
 		
-		OutputDate = (EditText) findViewById(R.id.eventDate);
-		OutputTime = (EditText) findViewById(R.id.eventTime);
+		mOutputDate = (EditText) findViewById(R.id.eventDate);
+		mOutputTime = (EditText) findViewById(R.id.eventTime);		
 	 
         // Get current date by calender
-        final Calendar c = Calendar.getInstance();
-        year  = c.get(Calendar.YEAR);
-        month = c.get(Calendar.MONTH);
-        day   = c.get(Calendar.DAY_OF_MONTH);
-        hour  = c.get(Calendar.HOUR_OF_DAY);
-        minute= c.get(Calendar.MINUTE);
- 
-        // Show current date
-         
-        OutputDate.setText(new StringBuilder()
-                // Month is 0 based, just add 1
-                .append(month + 1).append("-").append(day).append("-")
-                .append(year).append(" "));
-        
-        OutputTime.setText(new StringBuilder()
-            .append(hour).append(":").append(minute));
+        mCalendar = Calendar.getInstance();
+        mOutputDate.setText(mCalendar.get(Calendar.DAY_OF_MONTH) + " " + MONTHS[mCalendar.get(Calendar.MONTH)] + " " + mCalendar.get(Calendar.YEAR));
+        mOutputTime.setText(mCalendar.get(Calendar.HOUR_OF_DAY) + ":" + mCalendar.get(Calendar.MINUTE));
 				
 	}
 	
-	public void onClickDate(final View v)
-	{
-		showDialog(DATE_PICKER_ID);
+	public void onClickDate(final View v) {
+		OnDateSetListener dateParser = new OnDateSetListener() {
+			
+			@Override
+			public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+				mCalendar.set(Calendar.YEAR, year);
+				mCalendar.set(Calendar.MONTH, monthOfYear);
+				mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+				mOutputDate.setText(dayOfMonth + " " + MONTHS[monthOfYear] + " " + year);
+			}
+		};
+		DatePickerDialog datePicker = new DatePickerDialog(NewEventActivity.this, dateParser, 
+				mCalendar.get(Calendar.YEAR), mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH));
+		datePicker.show();
 	}
 	
 	public void onClickTime(final View v)
 	{
-		showDialog(TIME_PICKER_ID);
+		OnTimeSetListener timeParser = new OnTimeSetListener() {
+			
+			@Override
+			public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+				mCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+				mCalendar.set(Calendar.MINUTE, minute);
+				mOutputTime.setText(hourOfDay + ":" + minute);
+			}
+		};
+		TimePickerDialog timePicker = new TimePickerDialog(NewEventActivity.this, timeParser,
+				mCalendar.get(Calendar.HOUR_OF_DAY), mCalendar.get(Calendar.MINUTE), true);
+		timePicker.show();
 	}
 	
 	@Override
@@ -117,18 +117,23 @@ public class NewEventActivity extends Activity {
 		EditText markerName = (EditText) findViewById(R.id.markerName);
 		EditText markerDescription = (EditText) findViewById(R.id.markerDescription);
 		
-		final String mName = markerName.getText().toString().trim();
-		final String mDescription = markerDescription.getText().toString().trim();
+		final String eventName = markerName.getText().toString().trim();
+		final String eventDescription = markerDescription.getText().toString().trim();		
 
 		//Check whether all necessary information has been added
-		if(mName.length() < 1) {
+		if(eventName.length() < 1) {
 			Log.e(LOGTAG, "Event name is empty");
 			Toast.makeText(getApplicationContext(), "Please enter event name", Toast.LENGTH_LONG).show();
-		} else if (mDescription.length() < 1) {
+		} else if (eventDescription.length() < 1) {
 			Log.e(LOGTAG, "Event description is empty");
 			Toast.makeText(getApplicationContext(), "Please enter event decription", Toast.LENGTH_LONG).show();
+		} else if (mCalendar.before(Calendar.getInstance())) {
+			Log.e(LOGTAG, "Event date is invalid");
+			Toast.makeText(getApplicationContext(), "Please enter a date in the future", Toast.LENGTH_LONG).show();
 		} else {
-			
+		
+			Log.i(LOGTAG, "" + mCalendar.getTime());
+				
 			//Look for the group
 			ParseQuery<Group> findGroupName = ParseQuery.getQuery(Group.class);
 			findGroupName.whereEqualTo("name", mGroupName);
@@ -139,40 +144,9 @@ public class NewEventActivity extends Activity {
 				Log.e(LOGTAG, "Group not found");
 			}
 			
-//				if (mCurrentGroup != null) {
-//				
-//				ParseQuery<POI> poiQuery = ParseQuery.getQuery(POI.class);
-//				poiQuery.whereEqualTo(POI.NAME, mName);
-//				poiQuery.whereEqualTo(POI.GROUP, mCurrentGroup.getObjectId());
-//				poiQuery.countInBackground(new CountCallback() {
-//					
-//					@Override
-//					public void done(int c, ParseException err) {
-//						// If the marker doesn't already exist
-//						if(c == 0) {
-//							//Create the element
-//							POI p = new POI();
-//							p.setName(mName);
-//							p.setDescription(mDescription);
-//							p.setCreator(ParseUser.getCurrentUser());
-//							p.setGPSLocation(new ParseGeoPoint(mLocation.latitude, mLocation.longitude));
-//							p.setGroup(mCurrentGroup);
-//							
-//							//Try to save data in database
-//							try {
-//								p.save();
-//								Toast.makeText(getApplicationContext(), "Event created", Toast.LENGTH_LONG).show();		
-//							} catch(ParseException e) {
-//								Toast.makeText(getApplicationContext(), "Event could not be created", Toast.LENGTH_LONG).show();
-//							}
-//							finish();
-//						}
-//					}
-//				});
-			
-			if(mCurrentGroup != null) {
-				ParseQuery<com.summerschool.friendfinderapplication.models.Event> eventQuery = ParseQuery.getQuery(com.summerschool.friendfinderapplication.models.Event.class);
-				eventQuery.whereEqualTo(Event.TITLE, mName);
+			if (mCurrentGroup != null) {
+				ParseQuery<Event> eventQuery = ParseQuery.getQuery(Event.class);
+				eventQuery.whereEqualTo(Event.TITLE, eventName);
 				eventQuery.countInBackground(new CountCallback() {
 					
 					@Override
@@ -181,9 +155,10 @@ public class NewEventActivity extends Activity {
 						if(c == 0) {
 							//Create the element
 							com.summerschool.friendfinderapplication.models.Event e = new com.summerschool.friendfinderapplication.models.Event();
-							e.setTitle(mName);
-							e.setDescription(mDescription);
+							e.setTitle(eventName);
+							e.setDescription(eventDescription);
 							e.setOwner(ParseUser.getCurrentUser());
+							e.setDate(mCalendar.getTime());
 							e.setLocation(new ParseGeoPoint(mLocation.latitude, mLocation.longitude));
 							e.setGroup(mCurrentGroup);
 							
@@ -199,8 +174,8 @@ public class NewEventActivity extends Activity {
 						}
 					}
 				});
-			}
-		}	
+			}	
+		}
 	}
 	
 	@Override
@@ -215,50 +190,4 @@ public class NewEventActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	@Override
-    protected Dialog onCreateDialog(int id) {
-        switch (id) {
-        case DATE_PICKER_ID:
-             
-            // open datepicker dialog. 
-            // set date picker for current date 
-            // add pickerListener listner to date picker
-            return new DatePickerDialog(this, pickerListener, year, month,day);
-        case TIME_PICKER_ID:
-        	return new TimePickerDialog(this, timePickerListener, hour, minute, morning);
-        }
-        return null;
-    }
-	
-	private DatePickerDialog.OnDateSetListener pickerListener = new DatePickerDialog.OnDateSetListener() {
-		 
-		// when dialog box is closed, below method will be called.
-        @Override
-        public void onDateSet(DatePicker view, int selectedYear,
-                int selectedMonth, int selectedDay) {
-             
-            year  = selectedYear;
-            month = selectedMonth;
-            day   = selectedDay;
- 
-            // Show selected date 
-        OutputDate.setText(new StringBuilder().append(month + 1)
-                .append("-").append(day).append("-").append(year)
-                .append(" "));
- 
-       }
-    };
-    
-    private TimePickerDialog.OnTimeSetListener timePickerListener = new TimePickerDialog.OnTimeSetListener() {
-		
-		@Override
-		public void onTimeSet(TimePicker view, int hourOfDay, int selectedMinute) {
-			// TODO Auto-generated method stub
-			hour = hourOfDay;
-			minute = selectedMinute;
-			
-			OutputTime.setText(hour + ":" + minute);
-			
-		}
-    };
 }
