@@ -3,6 +3,7 @@ package com.summerschool.friendfinderapplication.controller;
 import java.util.List;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,28 +25,30 @@ public class EventParticipantAdapter extends ArrayAdapter<ParseUser> {
 	private static List<ParseUser> mParticipants;
 	
 	public EventParticipantAdapter(Context context, List<ParseUser> participants) {
-		super(context, R.layout.activity_event_info);
+		super(context, R.layout.activity_event_info, participants);
 		this.mContext = context;
 		this.mParticipants = participants;
 	}
 	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+	
 		View itemView = convertView;
 		
 		if(itemView == null) {
 			LayoutInflater mLayoutInflater = LayoutInflater.from(mContext);
-			itemView = mLayoutInflater.inflate(R.layout.group_item_view, parent, false);
+			itemView = mLayoutInflater.inflate(R.layout.activity_event_info, parent, false);
 		}
 		
 		final ParseUser currentParticipant = mParticipants.get(position);
 		
-		TextView tv = (TextView) itemView.findViewById(R.layout.activity_event_info);
+		TextView tv = (TextView) itemView.findViewById(R.id.eventpart);
+		Log.i("TEST", "test_event5");
+		
 		tv.setText(currentParticipant.getUsername());
+		Log.i("TEST", "test_event6");
 		
 		return itemView;
 	}
-	
-	
 	
 }
