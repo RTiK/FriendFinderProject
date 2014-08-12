@@ -64,6 +64,8 @@ public class MapActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_map);
+		
+		Log.i(LOGTAG, "Create");
 
 		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 		
@@ -93,9 +95,12 @@ public class MapActivity extends Activity {
 		super.onResume();
 		mNewMarker.setVisible(false);
 		// reload markers on activity resume
+		// TODO
 		mGroupEventHandler.reload();
 		mGroupPOIHandler.reload();
 		mGroupUserHandler.reload();
+		Log.i(LOGTAG, "Markers reloaded");
+		
 	}
 	
 	private void initToggles() {

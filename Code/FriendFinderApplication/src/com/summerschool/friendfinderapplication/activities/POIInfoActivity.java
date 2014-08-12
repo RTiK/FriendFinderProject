@@ -184,10 +184,12 @@ public class POIInfoActivity extends Activity {
 			currPOI.delete();
 			//Intent i = new Intent(POIInfoActivity.this, MapActivity.class);
 			//startActivity(i);		
-			finish();
+//			finish();
+			Toast.makeText(getApplicationContext(), currPOI.getName() + " deleted", Toast.LENGTH_LONG).show();
 		} catch (ParseException e) {
 			e.printStackTrace();
-		}		
+		}	
+		finish();
 	}
 	
 }

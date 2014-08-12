@@ -19,7 +19,7 @@ import com.summerschool.friendfinderapplication.models.Group;
 
 public class GroupEventHandler {
 	
-	private final static String LOGTAG = "GROUP_POI_HANDLER";
+	private final static String LOGTAG = "GROUP_EVENT_HANDLER";
 	
 	private GoogleMap mMap;
 	private String mGroupName;
