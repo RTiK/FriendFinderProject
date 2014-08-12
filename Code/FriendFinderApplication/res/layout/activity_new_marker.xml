@@ -15,15 +15,6 @@
         android:text="@string/hello_world" />
 
     <EditText
-        android:id="@+id/markerName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/markerDescription"
-        android:layout_below="@+id/markerDescription"
-        android:layout_marginTop="24dp"
-        android:ems="10" />
-
-    <EditText
         android:id="@+id/markerDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,13 +26,43 @@
         <requestFocus />
     </EditText>
 
+    <RadioGroup
+        android:id="@+id/markerType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/groupName"
+        android:layout_marginTop="14dp" >
+
+        <RadioButton
+            android:id="@+id/poi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="poi" />
+
+        <RadioButton
+            android:id="@+id/event"
+            android:layout_width="84dp"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="event" />
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/markerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/markerType"
+        android:layout_below="@+id/markerDescription"
+        android:ems="10" />
+
     <EditText
         android:id="@+id/groupName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/markerName"
+        android:layout_alignLeft="@+id/markerType"
         android:layout_below="@+id/markerName"
-        android:layout_marginTop="31dp"
+        android:layout_marginTop="14dp"
         android:ems="10"
         android:hint="Group Name"
         android:inputType="textPersonName" />
@@ -50,32 +71,10 @@
         android:id="@+id/createMarker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/groupName"
-        android:layout_below="@+id/groupName"
-        android:layout_marginTop="41dp"
+        android:layout_alignBottom="@+id/markerType"
+        android:layout_alignRight="@+id/groupName"
         android:onClick="onClickCreate"
-        android:text="@string/createButton" />
-
-    <RadioGroup
-        android:id="@+id/markerType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/createMarker"
-        android:layout_marginLeft="36dp"
-        android:layout_toRightOf="@+id/createMarker" >
-
-        <RadioButton
-            android:id="@+id/poi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="poi" />
-
-        <RadioButton
-            android:id="@+id/event"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="event" />
-    </RadioGroup>
+        android:text="@string/createButton"
+        android:visibility="invisible" />
 
 </RelativeLayout>
