@@ -130,7 +130,11 @@ public class MapActivity extends Activity {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							// TODO
-							Toast.makeText(getApplicationContext(), "Event", Toast.LENGTH_SHORT).show();
+							Intent createNewMarker = new Intent(getApplicationContext(), NewEventActivity.class);
+							createNewMarker.putExtra(NewEventActivity.EXTRA_GROUPNAME, mGroupName);
+							createNewMarker.putExtra(NewEventActivity.EXTRA_MARKER_LATITUDE, marker.getPosition().latitude);
+							createNewMarker.putExtra(NewEventActivity.EXTRA_MARKER_LONGITUDE, marker.getPosition().longitude);
+							startActivity(createNewMarker);
 						}
 					});
 					AlertDialog dialog = builder.create();
