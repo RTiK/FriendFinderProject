@@ -55,7 +55,7 @@ public class POIInfoActivity extends Activity {
 			fanlist.setAdapter(adapter);
 			
 			
-			getActionBar().setTitle(currPOI.getName());
+			getActionBar().setTitle("POI: " + currPOI.getName());
 			
 			TextView title = (TextView) findViewById(R.id.poi_title);
 			TextView desc = (TextView) findViewById(R.id.poi_description);

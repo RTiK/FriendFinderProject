@@ -95,7 +95,7 @@ public class EventInfoActivity extends Activity {
 	public void updateLayoutInformation() {
 		if(currEvent != null) {
 			Log.i("currEvent Name",currEvent.getTitle());
-			getActionBar().setTitle(currEvent.getTitle());
+			getActionBar().setTitle("Event: " +currEvent.getTitle());
 			
 			TextView title = (TextView) findViewById(R.id.event_title);
 			TextView desc = (TextView) findViewById(R.id.event_description);
