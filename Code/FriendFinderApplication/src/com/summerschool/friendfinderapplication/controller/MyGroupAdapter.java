@@ -65,8 +65,21 @@ public class MyGroupAdapter extends ArrayAdapter<Group> {
 			
 			//Set the text of the TextField to the right name and its onclicklistener
 			final TextView textView = (TextView) itemView.findViewById(R.id.item_poi_name);
+			final ImageButton infButton = (ImageButton) itemView.findViewById(R.id.item_group_info);
 			textView.setText(currentGroup.getName());
 			
+			//Check state of group
+			if(currGM.isGPSActive()){
+				textView.setTextColor(Color.BLACK);
+				textView.setEnabled(true);
+				infButton.setEnabled(true);
+				infButton.setBackgroundResource(drawable.ic_information38);	
+			} else {
+				textView.setTextColor(Color.LTGRAY);
+				textView.setEnabled(false);
+				infButton.setEnabled(false);
+				infButton.setBackgroundResource(drawable.ic_action_location_found);
+			}
 			
 			textView.setOnClickListener(new OnClickListener() {
 				@Override
@@ -84,7 +97,7 @@ public class MyGroupAdapter extends ArrayAdapter<Group> {
 				}
 			});
 						
-			final ImageButton infButton = (ImageButton) itemView.findViewById(R.id.item_group_info);
+			
 			//Set onclicklistener for ImageButton
 			infButton.setOnClickListener(new OnClickListener() {
 				@Override
