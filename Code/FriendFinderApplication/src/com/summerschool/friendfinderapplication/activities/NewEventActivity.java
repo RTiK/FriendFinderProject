@@ -68,7 +68,13 @@ public class NewEventActivity extends Activity {
         // Get current date by calender
         mCalendar = Calendar.getInstance();
         mOutputDate.setText(mCalendar.get(Calendar.DAY_OF_MONTH) + " " + MONTHS[mCalendar.get(Calendar.MONTH)] + " " + mCalendar.get(Calendar.YEAR));
-        mOutputTime.setText(mCalendar.get(Calendar.HOUR_OF_DAY) + ":" + mCalendar.get(Calendar.MINUTE));
+        String minutes = "" + mCalendar.get(Calendar.MINUTE);
+        String hours = "" + mCalendar.get(Calendar.HOUR_OF_DAY);
+        if (mCalendar.get(Calendar.MINUTE) < 10)
+        	minutes = "0" + mCalendar.get(Calendar.MINUTE);
+        if (mCalendar.get(Calendar.HOUR_OF_DAY) < 10)
+        	hours = "0" + mCalendar.get(Calendar.HOUR_OF_DAY);
+        mOutputTime.setText(hours + ":" + minutes);
 				
 	}
 	
@@ -96,7 +102,13 @@ public class NewEventActivity extends Activity {
 			public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 				mCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
 				mCalendar.set(Calendar.MINUTE, minute);
-				mOutputTime.setText(hourOfDay + ":" + minute);
+				String formattedMinutes = "" + mCalendar.get(Calendar.MINUTE);
+		        String formattedHours = "" + mCalendar.get(Calendar.HOUR_OF_DAY);
+		        if (mCalendar.get(Calendar.MINUTE) < 10)
+		        	formattedMinutes = "0" + mCalendar.get(Calendar.MINUTE);
+		        if (mCalendar.get(Calendar.HOUR_OF_DAY) < 10)
+		        	formattedHours = "0" + mCalendar.get(Calendar.HOUR_OF_DAY);
+				mOutputTime.setText(formattedHours + ":" + formattedMinutes);
 			}
 		};
 		TimePickerDialog timePicker = new TimePickerDialog(NewEventActivity.this, timeParser,

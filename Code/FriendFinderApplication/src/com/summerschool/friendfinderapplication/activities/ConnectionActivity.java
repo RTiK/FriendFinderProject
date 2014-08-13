@@ -41,7 +41,6 @@ public class ConnectionActivity extends Activity {
 	private final String PREF_NAME = "MySettings";
 	private static final String ACTIVE_USER_ACCOUNT = "activeUserAccount";
 	private static final String FIRST_RUN = "firstRun";
-	private ParseUser mUser;
 		
 	protected ImageButton mConnButton;
 	protected EditText mConnInput;	

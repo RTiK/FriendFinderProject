@@ -1,11 +1,6 @@
 package com.summerschool.friendfinderapplication.activities;
 
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Map;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -162,6 +157,8 @@ public class MapActivity extends Activity {
 	}
 	
 	private void initMap() {
+		mMap.setMyLocationEnabled(true);
+		
 		mMap.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
 			
 			@Override
