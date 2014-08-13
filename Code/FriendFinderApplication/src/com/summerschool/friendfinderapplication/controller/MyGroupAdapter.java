@@ -14,6 +14,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -118,9 +119,12 @@ public class MyGroupAdapter extends ArrayAdapter<Group> {
 			} else {
 				gpsSwitch.setChecked(false);	
 			}
-			gpsSwitch.setOnClickListener(new OnClickListener() {
+			
+			gpsSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+				
 				@Override
-				public void onClick(View v) {
+				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+					// TODO Auto-generated method stub
 					currGM.setGPSActive(!currGM.isGPSActive());
 					if(currGM.isGPSActive()){
 						textView.setTextColor(Color.BLACK);
@@ -140,7 +144,8 @@ public class MyGroupAdapter extends ArrayAdapter<Group> {
 						e.printStackTrace();
 					}
 				}
-			});				
+			});
+			
 			return itemView;
 		}
 		
