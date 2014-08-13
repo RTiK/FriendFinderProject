@@ -19,9 +19,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+
+
 import com.google.android.maps.MapActivity;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.ParseQuery.CachePolicy;
@@ -357,6 +360,34 @@ public class GroupDescriptionActivity extends Activity {
 
 	}	
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public void deleteGroupInformation() {
+		//delete Events
+		ParseQuery<Event> deleteEvents = ParseQuery.getQuery(Event.class);
+		deleteEvents.whereEqualTo(Event.GROUP, currentGroup);
+		try {
+			List<Event> events = deleteEvents.find();
+			ParseObject.deleteAll((List) events);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		//delete POIs
+		ParseQuery<POI> deletePOIs = ParseQuery.getQuery(POI.class);
+		deletePOIs.whereEqualTo(POI.GROUP, currentGroup);
+		try {
+			List<POI> pois = deletePOIs.find();
+			ParseObject.deleteAll((List) pois);
+			
+			String groupName = currentGroup.getName();
+			//Delete Group
+			currentGroup.delete();
+			Log.i("GroupDescription","Groupinformation for " + groupName + " deleted!");
+			
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+	}
 	public void onClickMapButton(final View v) {
 		//TODO
 		Intent intent = new Intent(GroupDescriptionActivity.this, MapActivity.class);
