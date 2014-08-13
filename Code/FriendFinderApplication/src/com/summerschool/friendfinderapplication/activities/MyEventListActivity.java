@@ -10,6 +10,7 @@ import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ListView;	
+import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -72,6 +73,9 @@ public class MyEventListActivity extends Activity {
 				{
 					ParseQuery<Event> q = ParseQuery.getQuery(Event.class);
 					q.whereEqualTo("objectId", eventM.getEvent().getObjectId());
+
+					q.include(Event.GROUP);
+
 					q.findInBackground(new FindCallback<Event>() {
 						public void done(List<Event> event, ParseException err)
 						{
