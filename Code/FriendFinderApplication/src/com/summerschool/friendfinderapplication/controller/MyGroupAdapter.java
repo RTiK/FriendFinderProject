@@ -74,12 +74,14 @@ public class MyGroupAdapter extends ArrayAdapter<Group> {
 				textView.setTextColor(Color.BLACK);
 				textView.setEnabled(true);
 				infButton.setEnabled(true);
-				infButton.setBackgroundResource(drawable.ic_information38);	
+				infButton.setBackgroundResource(drawable.ic_information38);
+				infButton.refreshDrawableState();
 			} else {
 				textView.setTextColor(Color.LTGRAY);
 				textView.setEnabled(false);
 				infButton.setEnabled(false);
-				infButton.setBackgroundResource(drawable.ic_action_location_found);
+				infButton.setBackgroundResource(drawable.add133);
+				infButton.refreshDrawableState();
 			}
 			
 			textView.setOnClickListener(new OnClickListener() {
@@ -131,11 +133,13 @@ public class MyGroupAdapter extends ArrayAdapter<Group> {
 						textView.setEnabled(true);
 						infButton.setEnabled(true);
 						infButton.setBackgroundResource(drawable.ic_information38);	
+						infButton.refreshDrawableState();
 					} else {
 						textView.setTextColor(Color.LTGRAY);
 						textView.setEnabled(false);
 						infButton.setEnabled(false);
-						infButton.setBackgroundResource(drawable.ic_action_location_found);
+						infButton.setBackgroundResource(drawable.add133);
+						infButton.refreshDrawableState();
 					}
 					try {
 						currGM.save();
