@@ -42,6 +42,7 @@
     <string name="createButton">Create</string>
     <string name="joinButton">Join</string>
     <string name="title_activity_new_poi">Friend finder > New POI</string>
+    <string name="title_activity_new_event">Friend finder > New Event</string>
     <string name="title_activity_event_info">Friend finder > Event Infos</string>
     <string name="title_activity_poiinfo">Friend finder > POI infos</string>
     <string name="title_activity_new_marker">Friend finder > New Marker</string>

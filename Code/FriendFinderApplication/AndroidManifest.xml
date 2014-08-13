@@ -78,7 +78,7 @@
         </activity>
         <activity
             android:name=".activities.NewEventActivity"
-            android:label="@string/title_activity_new_poi" >
+            android:label="@string/title_activity_new_event" >
         </activity>
         <activity
             android:name=".activities.MyEventListActivity"

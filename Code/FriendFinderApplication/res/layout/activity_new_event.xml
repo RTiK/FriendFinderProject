@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.summerschool.friendfinderapplication.NewPOIActivity" >
+    tools:context="com.summerschool.friendfinderapplication.NewEventActivity" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,14 +17,14 @@
             android:id="@+id/markerName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="POI Name"
+            android:hint="Event Name"
             android:inputType="text" />
 	
 	    <EditText
 	        android:id="@+id/markerDescription"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	       	android:hint="POI Description"
+	       	android:hint="Event Description"
 	        android:inputType="textMultiLine" />
 
 	    <EditText
