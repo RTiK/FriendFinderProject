@@ -89,6 +89,8 @@ public class MapActivity extends Activity {
 		mGroupPOIHandler = new GroupPOIHandler(mMap, mGroupName);
 		mGroupEventHandler = new GroupEventHandler(mMap, mGroupName);
 		
+		if(mGroupName != null) getActionBar().setTitle("Group: " + mGroupName);
+		
 		initToggles();
 		setToggleButtons(i);
 		setToggleListeners();

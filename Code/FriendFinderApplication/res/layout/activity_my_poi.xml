@@ -10,12 +10,23 @@
         style="@style/content"
         android:orientation="vertical"
         android:layout_alignStart="@+id/BottomMenu"
+<<<<<<< HEAD
         android:layout_below="@+id/actionBar">
 	    
 	    <ListView
 	        android:id="@+id/poiListView"
 	        android:layout_width="match_parent"
 	        android:layout_height="fill_parent">
+=======
+        android:layout_below="@+id/actionBar"
+        android:paddingBottom="50dp" >
+	    
+	    <ListView
+	        android:id="@+id/poiListView"
+	        android:layout_width="316dp"
+	        android:layout_height="398dp"
+	        android:layout_marginTop="30dp" >
+>>>>>>> FETCH_HEAD
 	    </ListView>
 	
 

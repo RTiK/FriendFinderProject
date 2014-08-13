@@ -2,33 +2,23 @@
 <resources>
 
     <string name="app_name">FriendFinder</string>
-    <string name="title_activity_map">Friend finder</string>
+    <string name="title_activity_map">FriendFinder</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_connection">Friend finder</string>
-    <string name="title_activity_group_list">Friend finder > My groups</string>
-    <string name="title_activity_group_description">Friend finder > Group description</string>
+    <string name="title_activity_connection">FriendFinder</string>
+    <string name="title_activity_group_list">Your Groups</string>
+    <string name="title_activity_group_description">Group Description</string>
 
     <!-- Connection layout -->
-    <string name="hint_connection_input">Choose your name</string>
+    <string name="hint_connection_input">Choose your displayed name</string>
     <string name="contentDescription_connButton">Connection Button</string>
-    <string name="connection_title">Connection</string>
+    <string name="connection_title">Choose your name:</string>
 
     <!-- Text for button at the bottom -->
-    <string name="button_one">Button 1</string>
-    <string name="button_two">Button 2</string>
-    <string name="button_three">Button 3</string>
-    <string name="add">+</string>
-    <string name="search">Search</string>
-    <string name="title_activity_new_group">Friend finder > Groups</string>
-    <string name="title_activity_my_poi">Friend finder > My POI</string>
-    <string name="title_activity_my_event">Friend finder > My Events</string>
-    <string name="title_activity_event">EventActivity</string>
+    <string name="title_activity_new_group">Your Groups</string>
+    <string name="title_activity_my_poi">Favorite Places Of Interest</string>
 
-    <!-- Text for button at the top -->
-    <string name="myGroups">My groups</string>
-    <string name="myEvents">My Events</string>
-    <string name="myPoI">My PoI</string>
+    <!-- Text for button at the top -->  
     <string name="home">Home</string>
     
     <!-- Text for radio switches in map -->
@@ -38,14 +28,16 @@
 
     <!-- New Group Layout -->
     <string name="newGroup_title">Create a new group</string>
-    <string name="newGroup_editText">Enter its name</string>
+    <string name="newGroup_editText">Enter a groupname</string>
     <string name="createButton">Create</string>
     <string name="joinButton">Join</string>
-    <string name="title_activity_new_poi">Friend finder > New POI</string>
-    <string name="title_activity_new_event">Friend finder > New Event</string>
-    <string name="title_activity_event_info">Friend finder > Event Infos</string>
-    <string name="title_activity_poiinfo">Friend finder > POI infos</string>
-    <string name="title_activity_new_marker">Friend finder > New Marker</string>
-    <string name="title_activity_my_event_list">Friend finder > My events</string>
+    <string name="title_activity_new_poi">New Point Of Interest</string>
+    <string name="title_activity_new_event">New Event</string>
+    <string name="title_activity_event_info">Event Details</string>
+    <string name="title_activity_poiinfo">POI Details</string>
+    <string name="title_activity_my_event_list">Joined Events</string>
 
+    <!-- Background Layout -->
+    <color name="white">#FFFFFF</color>
+    
 </resources>
