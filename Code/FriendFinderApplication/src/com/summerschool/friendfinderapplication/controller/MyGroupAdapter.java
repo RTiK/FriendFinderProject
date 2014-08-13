@@ -80,7 +80,7 @@ public class MyGroupAdapter extends ArrayAdapter<Group> {
 				textView.setTextColor(Color.LTGRAY);
 				textView.setEnabled(false);
 				infButton.setEnabled(false);
-				infButton.setBackgroundResource(drawable.add133);
+				infButton.setBackgroundResource(drawable.ic_informationgrey);
 				infButton.refreshDrawableState();
 			}
 			
@@ -138,7 +138,7 @@ public class MyGroupAdapter extends ArrayAdapter<Group> {
 						textView.setTextColor(Color.LTGRAY);
 						textView.setEnabled(false);
 						infButton.setEnabled(false);
-						infButton.setBackgroundResource(drawable.add133);
+						infButton.setBackgroundResource(drawable.ic_informationgrey);
 						infButton.refreshDrawableState();
 					}
 					try {
