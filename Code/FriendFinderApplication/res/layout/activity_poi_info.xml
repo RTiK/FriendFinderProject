@@ -75,9 +75,8 @@
 	  	    style="@drawable/add_button"
 	  	    android:layout_width="wrap_content"
 	  	    android:layout_height="wrap_content"
-	  	    android:layout_alignBaseline="@+id/poiLike"
-	  	    android:layout_alignBottom="@+id/poiLike"
-	  	    android:layout_alignRight="@+id/poiFansList"
+	        android:layout_alignParentBottom="true"
+	        android:layout_alignRight="@+id/poiFansList"
 	  	    android:onClick="deleteCurrPOI"
 	  	    android:text="Delete" />
 
@@ -86,9 +85,8 @@
 	  	    style="@drawable/add_button"
 	  	    android:layout_width="wrap_content"
 	  	    android:layout_height="wrap_content"
-	  	    android:layout_alignBaseline="@+id/poiLike"
-	  	    android:layout_alignBottom="@+id/poiLike"
-	  	    android:layout_alignLeft="@+id/poiDelete"
+	        android:layout_alignParentBottom="true"
+	        android:layout_alignRight="@+id/poiFansList"
 	  	    android:onClick="dislikeCurrPOI"
 	  	    android:text="dislike" />
 
