@@ -37,4 +37,7 @@
     <string name="title_activity_poiinfo">POI Details</string>
     <string name="title_activity_my_event_list">Joined Events</string>
 
+    <!-- Background Layout -->
+    <color name="white">#FFFFFF</color>
+    
 </resources>

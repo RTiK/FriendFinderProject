@@ -47,11 +47,11 @@ public class MyEventListActivity extends Activity {
 		
 		//final List<Event> myEvents = new ArrayList<Event>();
 		
-		ParseQuery<EventMember> innerQuery = ParseQuery.getQuery(EventMember.class);
-		innerQuery.whereEqualTo(EventMember.MEMBER, ParseUser.getCurrentUser());
+		//ParseQuery<EventMember> innerQuery = ParseQuery.getQuery(EventMember.class);
+		//innerQuery.whereEqualTo(EventMember.MEMBER, ParseUser.getCurrentUser());
 		
 		ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
-		query.whereMatchesQuery(Event.EVENTMEMBER, innerQuery);
+		//query.whereMatchesQuery(Event.EVENTMEMBER, innerQuery);
 		query.whereEqualTo(Event.OWNER, ParseUser.getCurrentUser());
 		query.include(Event.GROUP);
 		query.findInBackground(new FindCallback<Event>() {
@@ -62,6 +62,26 @@ public class MyEventListActivity extends Activity {
 				adapter.addAll(events);
 			}
 		});
+		
+		ParseQuery<EventMember> innerQuery = ParseQuery.getQuery(EventMember.class);
+		innerQuery.whereEqualTo(EventMember.MEMBER, ParseUser.getCurrentUser());
+		innerQuery.findInBackground(new FindCallback<EventMember>() {
+			public void done(List<EventMember> e, ParseException err)
+			{
+				for(EventMember eventM : e)
+				{
+					ParseQuery<Event> q = ParseQuery.getQuery(Event.class);
+					q.whereEqualTo("objectId", eventM.getEvent().getObjectId());
+					q.findInBackground(new FindCallback<Event>() {
+						public void done(List<Event> event, ParseException err)
+						{
+							adapter.addAll(event);
+						}
+					});
+				}
+			}
+		});
+		
 	}
 	
 	private void populateEventList() {
