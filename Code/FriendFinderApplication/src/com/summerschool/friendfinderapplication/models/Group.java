@@ -18,9 +18,6 @@ public class Group extends ParseObject {
 	public String getDescription() {
 		return getString("description");
 	}
-	public boolean isGPSActive(){
-		return getBoolean("GPSActive");
-	}
 	
 	//Setters	
 	public void setName(String name) {
@@ -28,9 +25,6 @@ public class Group extends ParseObject {
 	}
 	public void setDescription(String description) {
 		put("description",description);
-	}
-	public void setGPSActive(boolean gpsActive){
-		put("GPSActive",gpsActive);
 	}
 	public void setOwner(ParseUser currentUser) {
 		put("user", currentUser);

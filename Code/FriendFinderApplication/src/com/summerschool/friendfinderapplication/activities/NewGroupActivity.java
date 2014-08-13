@@ -96,43 +96,41 @@ public class NewGroupActivity extends Activity {
 			}
 			ParseQuery<Group> validGroupQuery = ParseQuery.getQuery(Group.class);
 			validGroupQuery.whereEqualTo("name", newGroupName);
-			validGroupQuery.countInBackground(new CountCallback() {
-				@Override
-				public void done(int c, ParseException err) {
-					if(c == 0) { //no other group has the same name
-						//instantiation of a new group
-						Group g = new Group();
-						g.setOwner(ParseUser.getCurrentUser());
-						g.setName(newGroupName);
-						g.setDescription(newGroupDesc);
-						g.setGPSActive(true);
-						try {
-							g.save();
-							//intent back to group list view
-//							Intent i = new Intent(NewGroupActivity.this,GroupListActivity.class);
-//							startActivity(i);
-							finish();
-						} catch (ParseException e) {
-							Toast.makeText(NewGroupActivity.this, "Was not able to save", Toast.LENGTH_SHORT).show();
-						}
-						//Instantiation of a new user
-						GroupMember gm = new GroupMember();					
-						gm.addGroup(g);
-						gm.addMember(ParseUser.getCurrentUser());
-						
-						try {
-							gm.save();
-						} catch (ParseException err2) {
-							err2.printStackTrace();
-						}
-					} else {
-						
-						Toast.makeText(NewGroupActivity.this, "This group already exists!", Toast.LENGTH_SHORT).show();
+			int c;
+			try {
+				c = validGroupQuery.count();
+				if(c == 0) { //no other group has the same name
+					//instantiation of a new group
+					Group g = new Group();
+					g.setOwner(ParseUser.getCurrentUser());
+					g.setName(newGroupName);
+					g.setDescription(newGroupDesc);
+					try {
+						g.save();
+						//intent back to group list view
+	//							Intent i = new Intent(NewGroupActivity.this,GroupListActivity.class);
+	//							startActivity(i);
+						finish();
+					} catch (ParseException e) {
+						Toast.makeText(NewGroupActivity.this, "Was not able to save", Toast.LENGTH_SHORT).show();
 					}
+					//Instantiation of a new user
+					GroupMember gm = new GroupMember();					
+					gm.addGroup(g);
+					gm.addMember(ParseUser.getCurrentUser());
+					gm.setGPSActive(true);
+					try {
+						gm.save();
+					} catch (ParseException err2) {
+						err2.printStackTrace();
+					}
+				} else {
+					Toast.makeText(NewGroupActivity.this, "This group already exists!", Toast.LENGTH_SHORT).show();
 				}
-			});
-			
-			
+			} catch (ParseException e1) {
+				Toast.makeText(NewGroupActivity.this, "Timeout.", Toast.LENGTH_SHORT).show();
+				e1.printStackTrace();
+			}
 		}
 	}
 	
@@ -179,8 +177,8 @@ public class NewGroupActivity extends Activity {
 									Log.i("CreateJoinGroup","... group joined");
 									
 									//jump back
-									Intent i = new Intent(NewGroupActivity.this,GroupListActivity.class);
-									startActivity(i);
+//									Intent i = new Intent(NewGroupActivity.this,GroupListActivity.class);
+//									startActivity(i);
 									finish();
 									
 								} else if(c==1) {
@@ -258,10 +256,6 @@ public class NewGroupActivity extends Activity {
 	            bjoin.setEnabled(false);
 	            bjoin.setBackgroundColor(Color.GRAY);
 	        }
-
-
-	        
-	        
 	        
 	        if(s1.equals("") && s2.equals(""))
 	        {

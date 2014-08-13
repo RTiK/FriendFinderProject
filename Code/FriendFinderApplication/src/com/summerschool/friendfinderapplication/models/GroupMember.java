@@ -14,6 +14,9 @@ public class GroupMember extends ParseObject {
 	public Group getGroup() {
 		return (Group) get("Group");
 	}
+	public boolean isGPSActive(){
+		return getBoolean("GPSActive");
+	}
 	
 	//Setter
 	public void addMember(ParseUser member) {
@@ -21,5 +24,8 @@ public class GroupMember extends ParseObject {
 	}
 	public void addGroup(Group group) {
 		put("Group",group);
+	}
+	public void setGPSActive(boolean gpsActive){
+		put("GPSActive",gpsActive);
 	}
 }

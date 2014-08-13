@@ -43,6 +43,7 @@ public class MyPOIListAdapter extends ArrayAdapter<POI> {
 		
 		if(mPOIs.size() > 0) {
 			final POI currentPOI = mPOIs.get(position);
+			
 			TextView tv = (TextView) itemView.findViewById(R.id.item_poi_name);
 			tv.setText(currentPOI.getName());
 			tv.setOnClickListener(new OnClickListener() {
@@ -56,6 +57,9 @@ public class MyPOIListAdapter extends ArrayAdapter<POI> {
 					mContext.startActivity(goToMap);
 				}
 			});
+			
+			TextView tv2 = (TextView) itemView.findViewById(R.id.item_poi_groupname);
+			tv2.setText(currentPOI.getGroup().getName());
 		}
 		
 		return itemView;

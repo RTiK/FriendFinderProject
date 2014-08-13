@@ -51,6 +51,12 @@ public class GroupListActivity extends Activity {
 		
 	}
 	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		updateGroupList();
+	}
+
 	private void updateGroupList() {
 		Log.i("userinfo:",""+ParseUser.getCurrentUser() + " ___ " + ParseUser.getCurrentUser().getObjectId());
 		
@@ -127,13 +133,10 @@ public class GroupListActivity extends Activity {
 //			}
 //		});
 		
-		Collections.sort(myJoinedGroups,new Comparator<Group>() {
+		Collections.sort(myJoinedGroups, new Comparator<Group>() {
 			@Override
 			public int compare(Group lhs, Group rhs) {
-				if(lhs.getName().equals(rhs.getName()))
-					return 0;
-				else 
-					return 1;
+				return lhs.getName().compareTo(rhs.getName());
 			}
 		});
 		
