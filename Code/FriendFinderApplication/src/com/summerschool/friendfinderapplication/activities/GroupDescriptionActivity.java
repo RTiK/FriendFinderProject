@@ -52,6 +52,9 @@ public class GroupDescriptionActivity extends Activity {
 	private POIListAdapter POIadapter;
 	private GroupEventAdapter eventAdapter;
 	
+	/**
+	 * ON CREATE
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -123,6 +126,7 @@ public class GroupDescriptionActivity extends Activity {
 		
 	}
 	
+	
    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -155,14 +159,7 @@ public class GroupDescriptionActivity extends Activity {
      * */	
     private void ActionLeaveGroup(String groupName) {
     	
-    	 //TODO Leave group when here !
-    	//Log.i("Enter into button","OK");
-    	final boolean alone = false;
-		//The group is known
-    	//Log.i("groupName",currentGroup.getName());
-		//the userName too
-    	//Log.i("username", ParseUser.getCurrentUser().toString());
-    	
+    	 //TODO Leave group when here !    	
     	
 		//Find the user entity in the Parse database
 		ParseQuery<GroupMember> userInfo = ParseQuery.getQuery(GroupMember.class);
@@ -179,24 +176,10 @@ public class GroupDescriptionActivity extends Activity {
 					Log.i("Error","too much members : " + users.size());
 				} 
 				else if (users.size() ==1){ //There is only one line that matches
-					////Log.i("Only  one line matches","OK");
-					//Log.i("users.size()= ",""+users.size());
 					
-					
-					/*ParseQuery<Group> groupInfo = ParseQuery.getQuery(Group.class);
-			    	groupInfo.whereEqualTo("Group",currentGroup);
-			    	userInfo.whereEqualTo("User",ParseUser.getCurrentUser());
-			    	try {
-						List<Group> groups = groupInfo.find();
-						if(groups != null) { //you are at least in the chosen group
-							Log.i("grooup", groups.get(0).toString());	
-							//groups.get(0).delete();
-						} 
-			    	}catch (ParseException e1) {
-						e1.printStackTrace();
-					}*/
 			    	users.get(0).delete();
-			    	deleteGroupInformation();
+			    	
+			    	deleteGroupInformation(isAlone());
 			    	//currentGroup.delete();
 				}
 				else{
@@ -216,10 +199,11 @@ public class GroupDescriptionActivity extends Activity {
        
  	}
    
+    /**
+	 * UPDATE OF THE MEMBERLIST
+	 */
 	private void updateMemberList(final String groupName) {
-		/**
-		 * UPDATE OF THE MEMBERLIST
-		 */
+		
 		//Log.i("Info","Find group " + groupName);
 		
 		ParseQuery<Group> query0 = ParseQuery.getQuery(Group.class);
@@ -261,10 +245,11 @@ public class GroupDescriptionActivity extends Activity {
 			
 		});	
 	}
+	/**
+	 *  UPDATE OF THE POIs
+	 */
 	private void updatePOIList(final String groupName) {
-		/**
-		 *  UPDATE OF THE POIs
-		 */
+		
 		Log.i("Update POI","OK");
 		
 		ParseQuery<Group> query1 = ParseQuery.getQuery(Group.class);
@@ -361,31 +346,51 @@ public class GroupDescriptionActivity extends Activity {
 
 	}	
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public void deleteGroupInformation() {
-		//delete Events
-		ParseQuery<Event> deleteEvents = ParseQuery.getQuery(Event.class);
-		deleteEvents.whereEqualTo(Event.GROUP, currentGroup);
+	private boolean isAlone(){
+		ParseQuery<GroupMember> groupMemb = ParseQuery.getQuery(GroupMember.class);
+		groupMemb.whereEqualTo("Group", currentGroup);
 		try {
-			List<Event> events = deleteEvents.find();
-			ParseObject.deleteAll((List) events);
+			List<GroupMember> memberList = groupMemb.find();
+			Log.i("Member List size",""+memberList.size());
+			if (memberList.size() == 0){
+				Log.i("size = 0", "OK");
+				return true;
+			}
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		//delete POIs
-		ParseQuery<POI> deletePOIs = ParseQuery.getQuery(POI.class);
-		deletePOIs.whereEqualTo(POI.GROUP, currentGroup);
-		try {
-			List<POI> pois = deletePOIs.find();
-			ParseObject.deleteAll((List) pois);
-			
-			String groupName = currentGroup.getName();
-			//Delete Group
-			currentGroup.delete();
-			Log.i("GroupDescription","Groupinformation for " + groupName + " deleted!");
-			
-		} catch (ParseException e) {
-			e.printStackTrace();
+		return false;
+	}
+	/**
+	 * DELETE GROUP INFORMATION if you are alone when you leave it
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public void deleteGroupInformation(boolean isAlone) {
+		if (isAlone){
+			//delete Events
+			ParseQuery<Event> deleteEvents = ParseQuery.getQuery(Event.class);
+			deleteEvents.whereEqualTo(Event.GROUP, currentGroup);
+			try {
+				List<Event> events = deleteEvents.find();
+				ParseObject.deleteAll((List) events);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			//delete POIs
+			ParseQuery<POI> deletePOIs = ParseQuery.getQuery(POI.class);
+			deletePOIs.whereEqualTo(POI.GROUP, currentGroup);
+			try {
+				List<POI> pois = deletePOIs.find();
+				ParseObject.deleteAll((List) pois);
+				
+				String groupName = currentGroup.getName();
+				//Delete Group
+				currentGroup.delete();
+				Log.i("GroupDescription","Groupinformation for " + groupName + " deleted!");
+				
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
 		}
 		
 	}
