@@ -10,6 +10,8 @@ import android.util.Log;
 
 public class UserLocationListener implements LocationListener {
 	
+	private final static String LOGTAG = "USER_LOCATION";
+	
 	private ParseUser mUser;
 	
 	public UserLocationListener(ParseUser user) {
@@ -27,23 +29,23 @@ public class UserLocationListener implements LocationListener {
 					location.getLongitude()
 					));
 			mUser.saveInBackground();
-			Log.i("UPDATE", "location updated: " + location.getLatitude() + ", " + location.getLongitude());
+			Log.i(LOGTAG, "User location updated: " + location.getLatitude() + ", " + location.getLongitude());
 		}
 	}
 
 	@Override
 	public void onStatusChanged(String provider, int status, Bundle extras) {
-		Log.i("TEST", "status changed");
+		Log.i(LOGTAG, "Status changed");
 	}
 
 	@Override
 	public void onProviderEnabled(String provider) {
-		Log.i("TEST", "provider enabled");
+		Log.i(LOGTAG, "Provider enabled");
 	}
 
 	@Override
 	public void onProviderDisabled(String provider) {
-		Log.i("TEST", "provider diasabled");
+		Log.i(LOGTAG, "Provider diasabled");
 	}
 
 }

@@ -32,6 +32,8 @@ import com.summerschool.friendfinderapplication.models.POI;
 import com.summerschool.friendfinderapplication.models.UserLikesPOI;
 
 public class ConnectionActivity extends Activity {
+	
+	private static final String LOGTAG = "CONNECTION_ACTIVITY";
 
 	// Parse application keys
 	private static final String PARSE_APPLICATION_ID = "rU3OkVyuuIgA17MsCPBgspurzhM00QOSxIaXvzsI";
@@ -60,6 +62,7 @@ public class ConnectionActivity extends Activity {
 					public void done(ParseUser user, ParseException e) {
 						if(user != null) {
 							saveUser(mUsername);
+							updateLocation(ParseUser.getCurrentUser());
 							Intent intent = new Intent(ConnectionActivity.this, GroupListActivity.class);
 							startActivity(intent);
 							finish();
@@ -68,14 +71,14 @@ public class ConnectionActivity extends Activity {
 							switch(e.getCode()) {
 							case ParseException.USERNAME_TAKEN:
 								//mErrorField.setText("Sorry, this username has already been taken.");
-								Toast.makeText(ConnectionActivity.this, "username taken", Toast.LENGTH_SHORT).show();
+								Toast.makeText(ConnectionActivity.this, "This username already taken", Toast.LENGTH_SHORT).show();
 								break;
 							default:
 								if(mUsername.length() == 0) {
-									Toast.makeText(ConnectionActivity.this, "username needed", Toast.LENGTH_SHORT).show();
+									Toast.makeText(ConnectionActivity.this, "Please enter valid username", Toast.LENGTH_SHORT).show();
 									break;
 								}
-								Log.i("Login Failed", e.getLocalizedMessage().toString());								
+								Log.i(LOGTAG, e.getLocalizedMessage().toString());								
 								//create new user
 								String password = "12345";
 								if(simno != null && simno != "") password = simno;
@@ -94,8 +97,8 @@ public class ConnectionActivity extends Activity {
 											finish();
 										} else {
 											//sign-up didn't succeed ?!
-											Log.i("Create Failed", e.getLocalizedMessage().toString());
-											Toast.makeText(ConnectionActivity.this, "Epic fail: ", Toast.LENGTH_SHORT).show();
+											Log.i(LOGTAG, e.getLocalizedMessage().toString());
+											Toast.makeText(ConnectionActivity.this, "Connection timed out", Toast.LENGTH_SHORT).show();
 										}
 									}
 								});
@@ -156,10 +159,10 @@ public class ConnectionActivity extends Activity {
 		
 		long timeRefresh = 5000; // refresh every 20 seconds
 		
-		Log.i("TEST", "location");
-		
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, timeRefresh, 0, locationListener);
 		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, timeRefresh, 0, locationListener);
+		
+		Log.i(LOGTAG, "Localisation started");
 
 	}
 

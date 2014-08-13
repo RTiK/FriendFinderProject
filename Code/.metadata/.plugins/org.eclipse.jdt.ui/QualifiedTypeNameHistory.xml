@@ -8,7 +8,6 @@
 <fullyQualifiedTypeName name="android.widget.CompoundButton.OnCheckedChangeListener"/>
 <fullyQualifiedTypeName name="com.google.android.gms.maps.GoogleMap"/>
 <fullyQualifiedTypeName name="com.summerschool.friendfinderapplication.handlers.GroupUserHandler"/>
-<fullyQualifiedTypeName name="java.util.LinkedList"/>
 <fullyQualifiedTypeName name="com.parse.Parse"/>
 <fullyQualifiedTypeName name="com.parse.ParseObject"/>
 <fullyQualifiedTypeName name="com.summerschool.friendfinderapplication.models.GroupMember"/>
@@ -38,7 +37,6 @@
 <fullyQualifiedTypeName name="com.parse.ParseGeoPoint"/>
 <fullyQualifiedTypeName name="android.app.AlertDialog"/>
 <fullyQualifiedTypeName name="com.summerschool.friendfinderapplication.handlers.GroupEventHandler"/>
-<fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="android.content.Intent"/>
 <fullyQualifiedTypeName name="com.summerschool.friendfinderapplication.models.Event"/>
 <fullyQualifiedTypeName name="android.support.v4.app.FragmentActivity"/>
@@ -60,4 +58,6 @@
 <fullyQualifiedTypeName name="com.summerschool.friendfinderapplication.R.id"/>
 <fullyQualifiedTypeName name="com.summerschool.friendfinderapplication.activities.POIInfoActivity"/>
 <fullyQualifiedTypeName name="com.summerschool.friendfinderapplication.activities.MapActivity"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="java.util.LinkedList"/>
 </qualifiedTypeNameHistroy>

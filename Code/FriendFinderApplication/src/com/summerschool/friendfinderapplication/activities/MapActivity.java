@@ -86,7 +86,6 @@ public class MapActivity extends Activity {
 			.visible(false));
 
 		initMap();
-		initToggles();
 		
 		//Disassemble intent
 		Intent i = getIntent();
@@ -94,7 +93,10 @@ public class MapActivity extends Activity {
 		mGroupUserHandler = new GroupUserHandler(mMap, mGroupName);
 		mGroupPOIHandler = new GroupPOIHandler(mMap, mGroupName);
 		mGroupEventHandler = new GroupEventHandler(mMap, mGroupName);
+		
+		initToggles();
 		setToggleButtons(i);
+		setToggleListeners();
 		setMapCamera(i);
 
 	}
@@ -103,41 +105,27 @@ public class MapActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		mNewMarker.setVisible(false);
+		
 		// reload markers on activity resume
-		HashMap<Marker, String> tempEventMarkers = mGroupEventHandler.getMarkers();
-		Log.i(LOGTAG, "Event markers " + tempEventMarkers.size());
-		HashMap<Marker, String> tempPOIMarkers = mGroupPOIHandler.getMarkers();
-		Log.i(LOGTAG, "POI markers " + tempPOIMarkers.size());
-		LinkedList<Marker> tempUserMarkers = mGroupUserHandler.getMarkers();
-		Log.i(LOGTAG, "User markers " + tempUserMarkers.size());
+		mGroupEventHandler.removeEvents();
+		mGroupPOIHandler.removePOIs();
+		mGroupUserHandler.removeActiveUsers();
 		
-		mGroupEventHandler.reload();
-		mGroupPOIHandler.reload();
-		mGroupUserHandler.reload();
-
-		if (mPrevEventState)
-			mGroupEventHandler.showEvents();		
-		if (mPrevPOIState)
-			mGroupPOIHandler.showPOIs();
-		if (mPrevUsersState)
-			mGroupUserHandler.showActiveUsers();
-		
-		for (Map.Entry<Marker, String> marker : tempEventMarkers.entrySet())
-			marker.getKey().setVisible(false);
-		for (Map.Entry<Marker, String> marker : tempPOIMarkers.entrySet())
-			marker.getKey().setVisible(false);
-		for (Marker marker : tempUserMarkers)
-			marker.setVisible(false);
+		mGroupEventHandler.getEventsOfGroup(mPrevEventState);
+		mGroupPOIHandler.getPOIsOfGroup(mPrevPOIState);
+		mGroupUserHandler.getUsersOfGroup(mPrevUsersState);
 		
 		Log.i(LOGTAG, "Markers reloaded");
-		Log.i(LOGTAG, "Event markers " + tempEventMarkers.size());
-		Log.i(LOGTAG, "POI markers " + tempPOIMarkers.size());
-		Log.i(LOGTAG, "User markers " + tempUserMarkers.size());
 
 	}
 	
 	private void initToggles() {
 		mToggleEvents = (ToggleButton) findViewById(R.id.mapToggleEvents);
+		mToggleUsers = (ToggleButton) findViewById(R.id.mapToggleUsers);
+		mTogglePOIs = (ToggleButton) findViewById(R.id.mapTogglePOIs);
+	}
+	
+	private void setToggleListeners() {
 		mToggleEvents.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -149,7 +137,6 @@ public class MapActivity extends Activity {
 					mGroupEventHandler.removeEvents();
 			}
 		});
-		mToggleUsers = (ToggleButton) findViewById(R.id.mapToggleUsers);
 		mToggleUsers.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -161,7 +148,6 @@ public class MapActivity extends Activity {
 					mGroupUserHandler.removeActiveUsers();
 			}
 		});
-		mTogglePOIs = (ToggleButton) findViewById(R.id.mapTogglePOIs);
 		mTogglePOIs.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -252,25 +238,31 @@ public class MapActivity extends Activity {
 		if (intent.getBooleanExtra(EXTRA_USERS, true)) {
 			Log.i(LOGTAG, "Users enbled");
 			mToggleUsers.setChecked(true);
+			mPrevUsersState = true;
 		} else {
 			Log.i(LOGTAG, "Users disabled");
 			mToggleUsers.setChecked(false);
+			mPrevUsersState = false;
 		}
 		
 		if (intent.getBooleanExtra(EXTRA_EVENTS, true)) {
 			Log.i(LOGTAG, "Events enbled");
 			mToggleEvents.setChecked(true);
+			mPrevEventState = true;
 		} else {
 			Log.i(LOGTAG, "Events disabled");
 			mToggleEvents.setChecked(false);
+			mPrevEventState = false;
 		}
 		
 		if (intent.getBooleanExtra(EXTRA_POIS, true)) {
 			Log.i(LOGTAG, "POIs enbled");
 			mTogglePOIs.setChecked(true);
+			mPrevPOIState = true;
 		} else {
 			Log.i(LOGTAG, "POIs disabled");
 			mTogglePOIs.setChecked(false);
+			mPrevPOIState = false;
 		}
 	}
 	

@@ -28,7 +28,7 @@ public class GroupEventHandler {
 	public GroupEventHandler(GoogleMap map, String groupName) {
 		mMap = map;
 		mGroupName = groupName;
-		getEventsOfGroup();
+		getEventsOfGroup(false);
 	}
 	
 	public HashMap<Marker, String> getMarkers() {
@@ -47,11 +47,7 @@ public class GroupEventHandler {
 			marker.getKey().setVisible(false);
 	}
 	
-	public void reload() {
-		getEventsOfGroup();
-	}
-	
-	private void getEventsOfGroup() {
+	public void getEventsOfGroup(final boolean eventsVisible) {
 		mMarkers.clear();
 		if (mGroupName != null && !mGroupName.equals("")) {
 			Log.i(LOGTAG, mGroupName);
@@ -68,17 +64,17 @@ public class GroupEventHandler {
 						ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
 						query.whereEqualTo("group", thisGroup);
 						query.findInBackground(new FindCallback<Event>() {
-							
 							@Override
 							public void done(List<Event> events, ParseException error) {
 								Log.i(LOGTAG, "Found " + events.size() + " Events");
 								for (Event e : events) {
 									LatLng location = new LatLng(e.getLocation().getLatitude(), e.getLocation().getLongitude());
 									if (location != null) {
-										MarkerOptions mo = new MarkerOptions().
-												position(location).
-												title(e.getTitle()).
-												icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+										MarkerOptions mo = new MarkerOptions()
+												.position(location)
+												.title(e.getTitle())
+												.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+												.visible(eventsVisible);
 										mMarkers.put(mMap.addMarker(mo), e.getObjectId());
 									}
 
@@ -88,6 +84,8 @@ public class GroupEventHandler {
 					} else {
 						Log.i(LOGTAG, "Group didn't exist or is double");
 					}
+					
+					Log.i(LOGTAG, "Done adding users");
 				}
 			});
 		}

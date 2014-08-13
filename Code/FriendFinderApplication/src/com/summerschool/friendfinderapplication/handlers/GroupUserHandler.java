@@ -27,7 +27,7 @@ public class GroupUserHandler {
 	public GroupUserHandler(GoogleMap map, String groupName) {
 		mMap = map;
 		mGroupName = groupName;
-		getUsersOfGroup();
+		getUsersOfGroup(false);
 	}
 	
 	public LinkedList<Marker> getMarkers() {
@@ -46,11 +46,7 @@ public class GroupUserHandler {
 			marker.setVisible(false);
 	}
 	
-	public void reload() {
-		getUsersOfGroup();
-	}
-	
-	private void getUsersOfGroup() {
+	public void getUsersOfGroup(final boolean usersVisible) {
 		mMarkers.clear();
 		if (mGroupName != null && !mGroupName.equals("")) {
 			Log.i("LOCATION", mGroupName);
@@ -80,7 +76,8 @@ public class GroupUserHandler {
 										ParseGeoPoint pos = user.getParseGeoPoint("location");
 										MarkerOptions mo = new MarkerOptions()
 											.position(new LatLng(pos.getLatitude(), pos.getLongitude()))
-											.title(user.getUsername()).visible(true);
+											.title(user.getUsername())
+											.visible(usersVisible);
 										mMarkers.add(mMap.addMarker(mo));
 									}
 

@@ -28,7 +28,7 @@ public class GroupPOIHandler {
 	public GroupPOIHandler(GoogleMap map, String groupName) {
 		mMap = map;
 		mGroupName = groupName;
-		getPOIsOfGroup();
+		getPOIsOfGroup(false);
 	}
 	
 	public HashMap<Marker, String> getMarkers() {
@@ -47,11 +47,7 @@ public class GroupPOIHandler {
 			marker.getKey().setVisible(false);
 	}
 	
-	public void reload() {
-		getPOIsOfGroup();
-	}
-	
-	private void getPOIsOfGroup() {
+	public void getPOIsOfGroup(final boolean POIVisible) {
 		mMarkers.clear();
 		if (mGroupName != null && !mGroupName.equals("")) {
 			Log.i(LOGTAG, mGroupName);
@@ -68,17 +64,17 @@ public class GroupPOIHandler {
 						ParseQuery<POI> query = ParseQuery.getQuery(POI.class);
 						query.whereEqualTo("group", thisGroup);
 						query.findInBackground(new FindCallback<POI>() {
-							
 							@Override
 							public void done(List<POI> pois, ParseException error) {
 								Log.i(LOGTAG, "Found " + pois.size() + " POIs");
 								for (POI p : pois) {
 									LatLng location = new LatLng(p.getLocation().getLatitude(), p.getLocation().getLongitude());
 									if (location != null) {
-										MarkerOptions mo = new MarkerOptions().
-												position(location).
-												title(p.getName()).
-												icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+										MarkerOptions mo = new MarkerOptions()
+												.position(location)
+												.title(p.getName())
+												.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+												.visible(POIVisible);
 										mMarkers.put(mMap.addMarker(mo), p.getObjectId());
 									}
 
