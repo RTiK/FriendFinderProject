@@ -1,5 +1,6 @@
 package com.summerschool.friendfinderapplication.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -20,11 +21,13 @@ import android.widget.Toast;
 
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 import com.summerschool.friendfinderapplication.R;
 import com.summerschool.friendfinderapplication.R.drawable;
 import com.summerschool.friendfinderapplication.activities.GroupDescriptionActivity;
 import com.summerschool.friendfinderapplication.activities.MapActivity;
 import com.summerschool.friendfinderapplication.models.Group;
+import com.summerschool.friendfinderapplication.models.GroupMember;
 
 public class MyGroupAdapter extends ArrayAdapter<Group> {
 
@@ -49,9 +52,21 @@ public class MyGroupAdapter extends ArrayAdapter<Group> {
 			//find the group to work with
 			final Group currentGroup = mGroups.get(position);
 			
+			ParseQuery<GroupMember> gm = ParseQuery.getQuery(GroupMember.class);
+			gm.whereEqualTo("Member", ParseUser.getCurrentUser());
+			gm.whereEqualTo("Group", currentGroup);
+			List<GroupMember> gmList = new ArrayList<GroupMember>();
+			try {
+				gmList = gm.find();
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}
+			final GroupMember currGM = gmList.get(0);
+			
 			//Set the text of the TextField to the right name and its onclicklistener
 			final TextView textView = (TextView) itemView.findViewById(R.id.item_poi_name);
 			textView.setText(currentGroup.getName());
+			
 			
 			textView.setOnClickListener(new OnClickListener() {
 				@Override
@@ -85,7 +100,7 @@ public class MyGroupAdapter extends ArrayAdapter<Group> {
 			
 			//Set onclicklistener for GPS Switch
 			final Switch gpsSwitch = (Switch) itemView.findViewById(R.id.item_group_switch);
-			if(currentGroup.isGPSActive()) {
+			if(currGM.isGPSActive()) {
 				gpsSwitch.setChecked(true);	
 			} else {
 				gpsSwitch.setChecked(false);	
@@ -93,20 +108,21 @@ public class MyGroupAdapter extends ArrayAdapter<Group> {
 			gpsSwitch.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					currentGroup.setGPSActive(!currentGroup.isGPSActive());
-					if(currentGroup.isGPSActive()){
+					currGM.setGPSActive(!currGM.isGPSActive());
+					if(currGM.isGPSActive()){
 						textView.setTextColor(Color.BLACK);
 						textView.setEnabled(true);
 						infButton.setEnabled(true);
 						infButton.setBackgroundResource(drawable.ic_information38);	
-					}else{
+					} else {
 						textView.setTextColor(Color.LTGRAY);
 						textView.setEnabled(false);
+						infButton.setEnabled(false);
 						infButton.setBackgroundResource(drawable.ic_action_location_found);
 					}
-					currentGroup.saveEventually();
 					try {
-						currentGroup.fetch();
+						currGM.save();
+						currGM.fetch();
 					} catch (ParseException e) {
 						e.printStackTrace();
 					}
