@@ -159,8 +159,8 @@ public class GroupDescriptionActivity extends Activity {
     	//Log.i("groupName",currentGroup.getName());
 		//the userName too
     	//Log.i("username", ParseUser.getCurrentUser().toString());
-		
-		
+    	
+    	
 		//Find the user entity in the Parse database
 		ParseQuery<GroupMember> userInfo = ParseQuery.getQuery(GroupMember.class);
 		//find specific user
@@ -178,7 +178,22 @@ public class GroupDescriptionActivity extends Activity {
 				else if (users.size() ==1){ //There is only one line that matches
 					////Log.i("Only  one line matches","OK");
 					//Log.i("users.size()= ",""+users.size());
-					users.get(0).delete();
+					
+					
+					/*ParseQuery<Group> groupInfo = ParseQuery.getQuery(Group.class);
+			    	groupInfo.whereEqualTo("Group",currentGroup);
+			    	userInfo.whereEqualTo("User",ParseUser.getCurrentUser());
+			    	try {
+						List<Group> groups = groupInfo.find();
+						if(groups != null) { //you are at least in the chosen group
+							Log.i("grooup", groups.get(0).toString());	
+							//groups.get(0).delete();
+						} 
+			    	}catch (ParseException e1) {
+						e1.printStackTrace();
+					}*/
+			    	users.get(0).delete();
+			    	currentGroup.delete();
 				}
 				else{
 					Log.i("ERROR","No group found");
@@ -336,8 +351,10 @@ public class GroupDescriptionActivity extends Activity {
 		ListView poilist = (ListView) findViewById(R.id.poiListView);
 		ListView eventlist = (ListView) findViewById(R.id.eventslistview);
 		memberlist.setAdapter(adapter);
+
 		poilist.setAdapter(POIadapter);
 		eventlist.setAdapter(eventAdapter);
+
 	}	
 
 	public void onClickMapButton(final View v) {
