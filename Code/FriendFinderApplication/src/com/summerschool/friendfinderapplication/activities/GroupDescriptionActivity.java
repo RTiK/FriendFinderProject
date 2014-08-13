@@ -196,7 +196,8 @@ public class GroupDescriptionActivity extends Activity {
 						e1.printStackTrace();
 					}*/
 			    	users.get(0).delete();
-			    	currentGroup.delete();
+			    	deleteGroupInformation();
+			    	//currentGroup.delete();
 				}
 				else{
 					Log.i("ERROR","No group found");
