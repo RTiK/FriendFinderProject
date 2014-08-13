@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="10dp" >
+    android:paddingLeft="5dp" >
 
     <TextView
         android:id="@+id/item_poi_name"
@@ -11,8 +11,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:ems="8"
-        android:paddingTop="10dp"
-        android:text="POI" >
+        android:paddingTop="5dp"
+        android:text="POI" 
+        android:minHeight="15dp">
 
         <requestFocus />
     </TextView>
@@ -24,7 +25,9 @@
         android:layout_alignBottom="@+id/item_poi_name"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="33dp"
+        android:paddingTop="5dp"
+        android:minHeight="15dp"
+        android:paddingLeft="5dp"
         android:layout_toRightOf="@+id/item_poi_name"
         android:text="Group" />
 

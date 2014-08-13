@@ -2,37 +2,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.summerschool.friendfinderapplication.activities.MyPOIActivity" >
-
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.summerschool.friendfinderapplication.activities.MyPOIActivity" 
+	android:background="@color/white" >
+	
    <LinearLayout
-    
-        android:id="@+id/Content"
-        style="@style/content"
-        android:orientation="vertical"
-        android:layout_alignStart="@+id/BottomMenu"
-        android:layout_below="@+id/actionBar"
-        android:paddingBottom="50dp" >
+       android:id="@+id/Content"
+       style="@style/content"
+       android:layout_alignStart="@+id/BottomMenu"
+       android:layout_below="@+id/actionBar"
+       android:layout_marginLeft="5dp"
+       android:background="@color/white"
+       android:orientation="horizontal"
+       android:paddingBottom="5dp" >
 
        <TextView
-       android:id="@+id/helloView"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_alignParentLeft="true"
-       android:layout_alignParentRight="true"
-       android:layout_alignParentTop="true"
-       android:text="@string/myPoI"
-       android:textAppearance="?android:attr/textAppearanceLarge" />
+           android:id="@+id/helloView"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginLeft="5dp"
+           android:text="POI"
+           android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+       <TextView
+           android:id="@+id/MyPOIGroup"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginLeft="100dp"
+           android:text="Group"
+           android:textAppearance="?android:attr/textAppearanceLarge" />
+      </LinearLayout> 
+
+      <LinearLayout
+          android:id="@+id/ContentList"
+          style="@style/content"
+          android:layout_below="@+id/Content"
+          android:layout_marginLeft="5dp"
+          android:background="@color/white"
+          android:orientation="vertical" >
 	    
 	    <ListView
 	        android:id="@+id/poiListView"
-	        android:layout_width="316dp"
+	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_marginTop="30dp" >
+	        android:minHeight="15dp"
+	        android:background="@color/white"
+	        android:divider="@null"
+	        android:dividerHeight="0dp" >
+
 	    </ListView>
-	
-
-
-	</LinearLayout>
-    
-   
+	</LinearLayout>  
 </RelativeLayout>
