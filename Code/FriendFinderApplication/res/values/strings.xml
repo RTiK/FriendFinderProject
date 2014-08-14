@@ -10,7 +10,7 @@
     <string name="title_activity_group_description">Group Description</string>
 
     <!-- Connection layout -->
-    <string name="hint_connection_input">Choose your displayed name</string>
+    <string name="hint_connection_input">name</string>
     <string name="contentDescription_connButton">Connection Button</string>
     <string name="connection_title">Choose your name:</string>
 
